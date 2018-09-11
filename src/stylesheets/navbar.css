@@ -1,0 +1,50 @@
+
+
+.foreground{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.navigation-ui{
+    position: sticky;
+    z-index:1;
+    left: 5%;
+    top:50%;
+    /*height:50px;
+    width:50px;*/
+    
+    
+    opacity: 1;
+    animation: opacity 0.9s cubic-bezier(0.215, 0.61, 0.355, 1) 1.5s forwards;
+    
+}
+
+nav{ 
+    flex-shrink: 0;
+
+    color:white;
+    background-color: rgb(66, 216, 29);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 10vh;;
+    opacity: 1;
+    transition: opacity var(--responsive-desapearing-time) var(--responsive-desapearing-ease), transform var(--responsive-desapearing-time) var(--responsive-desapearing-ease), color var(--responsive-desapearing-time) var(--responsive-desapearing-ease);
+}
+a{
+    font-size: small;
+    
+}
+
+a:hover{
+    font-size: large;
+    color:white;
+}
+
+a:visited{
+    color:white;
+}
