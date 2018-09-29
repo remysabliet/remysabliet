@@ -4,6 +4,7 @@ import { flatten } from './i18n/i18n-utils';
 import {IntlProvider} from 'react-intl'
 import {withRouter} from 'react-router-dom'
 import Routes from './routes'
+import {whichDevice} from './utils/whichDevice'
 
 function getMessages(language) {
     const locale = allMessages[language] ? language : 'en';
@@ -17,10 +18,12 @@ const App = (props) => {
     const { language } = match.params;
     const { messages, locale } = getMessages(language);
 
-    //console.log('App',props)
+    const deviceName=whichDevice();
+
+    console.log(deviceName)
     return (
-      <IntlProvider locale={locale} messages={messages}>
-        <Routes {...props}/>
+      <IntlProvider locale={locale} messages={messages} >
+        <Routes {...props} deviceName={deviceName} />
       </IntlProvider>
     )
   

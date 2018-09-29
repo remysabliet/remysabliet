@@ -8,12 +8,11 @@ import NoMatch from '../pages/NoMatch'
 import HomePage from '../pages/HomePage'
 
 const Routes = (props) => {
-  console.log('Routes',props)
 
 return(<Switch>
-          <Route  exact path="/" render={ (props) => <HomePage {...props}/>} />
+         <Route  exact path="/" render={ (prop) => <HomePage {...props}  /> }/> 
           <Route path="*" component={NoMatch} />
        </Switch>)
 }
-
 export default Routes;
+
