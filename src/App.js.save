@@ -1,0 +1,47 @@
+
+
+
+
+import React, { Component } from 'react';
+
+import allMessages from './i18n';
+import { flatten } from './i18n/i18n-utils';
+import {IntlProvider} from 'react-intl'
+import {withRouter} from 'react-router-dom'
+import Routes from './routes'
+import {whichDevice} from './utils/whichDevice'
+
+import {getDeviceInfo} from './actions/deviceInfo'
+
+
+function getMessages(language) {
+    const locale = allMessages[language] ? language : 'en';
+    const nestedMessages = allMessages[locale];
+    const messages = flatten(nestedMessages);
+    return { messages, locale };
+  }
+
+function initStore(store) {
+  const deviceType=whichDevice();
+  store.dispatch(getDeviceInfo(deviceType))
+}
+
+//First we mount the App
+const App = (props) => {
+    const { children, match, auth } = props;
+    const { language } = match.params;
+    const { messages, locale } = getMessages(language);
+   
+    return (
+      <IntlProvider locale={locale} messages={messages} >
+         <Routes {...props} />
+      </IntlProvider>
+    )
+
+//Secondly we init store to propagate data to mounted component
+    initStore(props.store)
+}
+
+export default App
+
+//<Routes {...props} deviceType={deviceType} />

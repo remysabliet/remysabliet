@@ -2,8 +2,8 @@ import React from 'react'
 
 export const MagicSlider = (WrappedComponent)  =>  {
 
-  //information like slides or deviceName are retrieved from the props
-  //Depending on the deviceName different coeff are applied to the slider effect.
+  //information like slides or deviceType are retrieved from the props
+  //Depending on the deviceType different coeff are applied to the slider effect.
    class HOC extends React.Component { 
     constructor(props) {
         super(props);
@@ -28,15 +28,12 @@ export const MagicSlider = (WrappedComponent)  =>  {
         //I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
         //In order to pass updated props to the wrapped component
         this.state = {
-            deviceName:props.deviceName,
+          deviceType:props.deviceType,
             slides:props.slides,
             viewportHeight:0,
             currentSlide:slides[0], //We naturally start at the first slide of the array
             stop:0
-        };
-
-
-        
+        }; 
       }
     
        /* We apply a lower fps in order to reduce freezing effect
@@ -99,8 +96,7 @@ export const MagicSlider = (WrappedComponent)  =>  {
           this.setState({
             currentSlide:curSlide
           })
-        }
-      
+        }   
           var sinceStart = this.now - this.startTime;
           var currentFps = Math.round(1000 / (sinceStart / ++this.frameCount) * 100) / 100;
           //console.log("Elapsed time= " + Math.round(sinceStart / 1000 * 100) / 100 + " secs @ " + currentFps + " fps.");
@@ -109,12 +105,17 @@ export const MagicSlider = (WrappedComponent)  =>  {
       } 
 
       handleOnWheel(event){
-          if(this.state.deviceName==="firefox"){ 
+        const {deviceInfo} = this.props;
+        if(deviceInfo !== null){
+          if(deviceInfo==="firefox"){ 
             this.speed += event.deltaY*0.006  //0.0003 Chrome, Opera   //0.006 Firefox
           }else{
             this.speed += event.deltaY*0.0003
           }
+        }else{
+          this.speed += event.deltaY*0.0003
         }
+      }
       
     render (){
         return <WrappedComponent {...this.props}  currentSlide={this.state.currentSlide} />;}

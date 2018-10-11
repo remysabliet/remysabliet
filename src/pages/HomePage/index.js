@@ -1,11 +1,7 @@
 import React from "react";
 import Slider from "../../components/home/Slider";
-import '../../stylesheets/navbar.css'
+import { connect } from 'react-redux'
 
-/* In case of future implementation, we could connect to redux here 
-and hence would become  a container 
-    <NavBar {...this.newProps} />
-*/
 const HomePage = props => {
     const slides=['Home','aboutMe','experience','contact'];
   return (
@@ -13,4 +9,9 @@ const HomePage = props => {
   );
 }
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  deviceInfo: state.deviceInfo
+ }
+)
+
+export default connect(mapStateToProps)(HomePage);

@@ -11,7 +11,7 @@ const Routes = (props) => {
 
 return(<Switch>
          <Route  exact path="/" render={ (prop) => <HomePage {...props}  /> }/> 
-          <Route path="*" component={NoMatch} />
+         <Route path="*" component={NoMatch} />
        </Switch>)
 }
 export default Routes;

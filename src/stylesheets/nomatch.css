@@ -1,5 +1,5 @@
 
- .main{
+ :host .main{
      /*textAlign: 'center', 
      position:'relative',*/
      display: flex;

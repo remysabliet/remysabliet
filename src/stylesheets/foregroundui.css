@@ -1,4 +1,12 @@
-nav{ 
+:host{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+:host nav{ 
     display: inline-block;
     position: -webkit-sticky; /*Bug with Webkit which is not able to calculate correctly the bottom of the whole page using (bottom:0) 
     it stop at 100vh. */
@@ -45,7 +53,7 @@ nav{
     100% { transform: translateX(0%)}
   }*/
 
-nav a{
+:host nav a{
     line-height: 2; /*Create space between lines*/
     font-size: small;
     display: block;
@@ -53,12 +61,12 @@ nav a{
     text-align:center;
 }
 
-nav a:hover{
+:host nav a:hover{
     font-size: large;
     color:white;
 }
 
-nav a:visited{
+:host nav a:visited{
     color:white;
 }
 

@@ -2,15 +2,17 @@ import React from 'react'
 import Slide from '../../layout/Slide'
 import MainCanvas from '../../canvas/MainCanvas'
 import { findDOMNode } from 'react-dom'
-import NavBar from './NavBar'
+import ForegroundUI from './ForegroundUI'
 import {timer} from 'd3-timer'
 import {MagicSlider} from '../../HOC/MagicSlider'
+import ShadowDOM from 'react-shadow'
+import sliderCSS from '../../stylesheets/slider.css'
 
-import '../../stylesheets/slider.css'
 
 /* Component representing the slider and its different states
    it is enhanced by MagicSlider(Slider,slides);
   */
+
 class Slider extends React.Component {
   constructor(props){
    super(props);
@@ -49,31 +51,36 @@ render(props){
   console.log('render Slider')
   
   return(   
-      <div className="slider-container" ref='test'>    
-        <div className="foreground">                     
-           <NavBar {...this.newProps} />           
-        </div>            
-        <Slide {...props} className="slide-home" id="home"  ref="slideHome" >
+     <ShadowDOM>      
+     
+       <div className="ReactShadowRoot" >
+        <style dangerouslySetInnerHTML={{__html: sliderCSS}}/>
+        <div className="slider-container">    
+          <ForegroundUI/>                 
+          <Slide {...props} className="slide-home" id="home"  ref="slideHome" >
             <MainCanvas width={300} height={400}/>
-           <a href='https://www.freepik.com/free-vector/beautiful-green-landscape-background_922670.htm'>Designed by Kjpargeter</a>
-        </Slide>  
-        <Slide {...props} className="slide-aboutMe" id="aboutMe"  ref="slideAboutMe" >
+            <a href='https://www.freepik.com/free-vector/beautiful-green-landscape-background_922670.htm'>Designed by Kjpargeter</a>
+          </Slide>  
+          <Slide {...props} className="slide-aboutMe" id="aboutMe"  ref="slideAboutMe" >
             <p> This is a short story about me</p>
             <p> This is a long story or a short story about me</p>
-            <p> 
+            <p> ABCD
             From the Middle Ages until about the middle of the 20th century, Latin was a central part of a man’s schooling in the West. Along with logic and rhetoric, grammar (as Latin was then known) was included as part of the Trivium – the foundation of a medieval liberal arts education. From Latin, all scholarship flowed and it was truly the gateway to the life of the mind, as the bulk of scientific, religious, legal, and philosophical literature was written in the language until about the 16th century. To immerse oneself in classical and humanistic studies, Latin was a must.
             </p>
             <MainCanvas width={300} height={400}/>
-         </Slide>
+          </Slide>
           <Slide {...props} className="slide-aboutMe" id="aboutMe"  ref="slideAboutMe" >    
             <MainCanvas width={300} height={400}/>
-         </Slide>
-         <Slide {...props} className="slide-aboutMe" id="aboutMe"  ref="slideAboutMe" >  
+          </Slide>
+          <Slide {...props} className="slide-aboutMe" id="aboutMe"  ref="slideAboutMe" >  
             <MainCanvas width={300} height={400}/>
-         </Slide>
+          </Slide>
+          </div>
       </div>
+    </ShadowDOM>
     )
  }
 }
 
 export default MagicSlider(Slider);
+

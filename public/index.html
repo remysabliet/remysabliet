@@ -20,8 +20,17 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+
+    <!-- load webcomponents bundle, which includes all the necessary polyfills -->
+   
+ 
+    <link rel='stylesheet' href='./index.css' />
   </head>
   <body>
+      <script>src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js">
+          console.log('script finished');
+      </script>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>

@@ -1,13 +1,32 @@
 import React from "react";
 import { render } from "react-dom";
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
+import {whichDevice} from './utils/whichDevice'
+import {getDeviceInfo} from './actions/deviceInfo'
+import { createStore } from 'redux'
 
+import App from './App';
+
+import rootReducer from './reducers'
+//import 'babel-polyfill'
+//import 'webcomponents.js';
+
+
+const store = createStore(rootReducer)
+
+//First we mount the App
 render(
-   <Router> 
-         <App/>
-   </Router>   
+                  <Router> 
+                        <App store={store}/>
+                  </Router>
+    
     ,document.getElementById('root'));
-registerServiceWorker();
+
+function initStore(store) {
+      const deviceType=whichDevice();
+      store.dispatch(getDeviceInfo(deviceType))
+}
+//Secondly we init store to propagate data amoung mounted component
+initStore(store);
+//
+

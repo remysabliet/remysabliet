@@ -11,6 +11,6 @@ export function whichDevice(){
  })
  
  if (typeof result === 'undefined')
-      return 'undefined'
+      return null
  return result
 }

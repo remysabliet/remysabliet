@@ -5,7 +5,7 @@ import { max } from 'd3-array'
 import { select } from 'd3-selection'
 import {timer} from 'd3-timer'
 import {squareConf} from '../configuration/animationConf'
-import '../stylesheets/canvas.css'
+//import '../stylesheets/canvas.css'
 
 
 //We leverage the lifecycle of a React.Component
