@@ -1,4 +1,4 @@
-:host .slider-container{
+ .slider-container{
     position: relative;
     margin:0;
     width:100vw; /* Take full viewport width size*/
@@ -15,7 +15,7 @@
     /*Take the whole place inside its container*/
 }
 
-:host .slider-container::after{
+ .slider-container::after{
     will-change: transform;  /* Prepare Browser to slide using transform CCS feature*/
     will-change: position;
     will-change: opacity;

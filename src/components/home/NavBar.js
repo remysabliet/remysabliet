@@ -1,8 +1,6 @@
 import React from 'react'
 import { HashLink as Link } from 'react-router-hash-link';
 
-import ShadowDOM from 'react-shadow'
-
 const NavBar= (props) => {
 
     return(  

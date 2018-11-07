@@ -5,7 +5,6 @@ import { findDOMNode } from 'react-dom'
 import ForegroundUI from './ForegroundUI'
 import {timer} from 'd3-timer'
 import {MagicSlider} from '../../HOC/MagicSlider'
-import ShadowDOM from 'react-shadow'
 import sliderCSS from '../../stylesheets/slider.css'
 
 
@@ -51,10 +50,6 @@ render(props){
   console.log('render Slider')
   
   return(   
-     <ShadowDOM>      
-     
-       <div className="ReactShadowRoot" >
-        <style dangerouslySetInnerHTML={{__html: sliderCSS}}/>
         <div className="slider-container">    
           <ForegroundUI/>                 
           <Slide {...props} className="slide-home" id="home"  ref="slideHome" >
@@ -76,8 +71,6 @@ render(props){
             <MainCanvas width={300} height={400}/>
           </Slide>
           </div>
-      </div>
-    </ShadowDOM>
     )
  }
 }
