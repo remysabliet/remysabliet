@@ -1,0 +1,22 @@
+ .slider-container{
+    position: relative;
+    margin:0;
+    width:100vw; /* Take full viewport width size*/
+    background-color: red;
+    display: flex;
+    flex-direction: column; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*box-sizing: border-box;  Usefull only to make things having border or padding, fitting into container even if they overlap*/
+    /*align-items: center;
+    justify-content: center;*/
+    /*Take the whole place inside its container*/
+}
+
+ .slider-container::after{
+    will-change: transform;  /* Prepare Browser to slide using transform CCS feature*/
+    will-change: position;
+    will-change: opacity;
+}

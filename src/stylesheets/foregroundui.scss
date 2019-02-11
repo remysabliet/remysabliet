@@ -1,0 +1,72 @@
+.foregroundUI{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+ nav{ 
+    display: inline-block;
+    position: -webkit-sticky; /*Bug with Webkit which is not able to calculate correctly the bottom of the whole page using (bottom:0) 
+    it stop at 100vh. */
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position:sticky;
+
+    width:5%;
+    top:50%;
+    left:0%;
+    z-index:4;
+    color:white;
+    background-color: rgb(66, 216, 29);
+    transition: all 10s ease-in-out;
+    animation: NavBarAnim infinite 3s linear;
+   /* -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transform: scale(1);*/
+}
+
+@keyframes NavBarAnim { /*Transformation are performed based on the current position of the element
+    CSS translation by percentage takes the % of the element that is being translated to 
+    figure the distance to move. It does not act like your typical css declaration like top,
+    margin-top, or padding-top, which are all based on parent container.*/
+    0% {transform: translateX(0%)}
+    25% {transform: translateX(-100%)}   /* if width = 150px then =300% * 150px = 450px */
+    50% {transform: translateX(-100%)}
+    75% {transform: translateX(0%)}
+    100% {transform: translateX(0%)}
+}
+   /* 30% { transform: translateX(-90%)}
+    40% { transform: translateX(-90%)}
+    50% { transform: translateX(-100%)}
+    60% { transform: translateX(-100%)}
+    80% { transform: translateX(0%)}
+    100% { transform: translateX(0%)}
+}
+  /*  40% { transform: translateX(-100%)}
+    50% { transform: translateX(-150%)}
+    60% { transform: translateX(-150%)}
+    70% { transform: translateX(-50%)}
+    80% { transform: translateX(-50%)}
+    90% { transform: translateX(-50%)}
+    100% { transform: translateX(0%)}
+  }*/
+
+ nav a{
+    line-height: 2; /*Create space between lines*/
+    font-size: small;
+    display: block;
+    margin:0;
+    text-align:center;
+}
+
+ nav a:hover{
+    font-size: large;
+    color:white;
+}
+
+ nav a:visited{
+    color:white;
+}
+
