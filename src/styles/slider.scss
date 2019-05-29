@@ -1,7 +1,7 @@
- .slider-container{
+.slider-container{
     position: relative;
     margin:0;
-    width:100vw; /* Take full viewport width size*/
+    /*width:100vw;  Take full viewport width size*/
     background-color: red;
     display: flex;
     flex-direction: column; 
@@ -13,10 +13,9 @@
     /*align-items: center;
     justify-content: center;*/
     /*Take the whole place inside its container*/
-}
-
- .slider-container::after{
+  &::after{
     will-change: transform;  /* Prepare Browser to slide using transform CCS feature*/
     will-change: position;
     will-change: opacity;
+  }
 }

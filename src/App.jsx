@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import allMessages from './i18n'
-import flatten from './i18n/i18n-utils'
-import Routes from './routes'
+import allMessages from 'helpers/i18n'
+import flatten from 'helpers/i18n/i18n-utils'
+import Routes from 'routes'
 
 /* multi language feature */
 function getMessages(language) {

@@ -6,7 +6,7 @@ Used perform "code splitting", in order to decrease the size of the main JavaScr
 https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html
 */
 import React, { Component } from 'react'
-import Spinner from '../components/common/Spinner'
+import Spinner from 'components/common/Spinner'
 
 export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {

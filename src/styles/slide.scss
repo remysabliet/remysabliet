@@ -1,0 +1,86 @@
+ @import './variables';
+ 
+
+.slide {
+  position:relative;
+  min-width: 100vw;
+  // min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+
+  .App-header {
+  position: relative;
+  text-align: center;
+  background: #222!important;
+  height: 10vh!important;
+  color: white;
+    h1{
+      @extend %vertical-align;
+      position: absolute;
+    }
+  }
+
+  main{
+    background: transparent;
+    margin: 0;
+    width: 100vw;
+    height: 90vh;
+    position:relative; /* every element inside, having position absolute, will be positionned accordingly*/
+
+    canvas{
+      position: absolute; /* Canvas will be positionned in the middle of their parent (Main)*/
+      top:50%;
+      left:50%;
+      -webkit-transform: translate(-50%, -50%); 
+      -moz-transform: translate(-50%, -50%); 
+      -ms-transform: translate(-50%, -50%); 
+      -o-transform: translate(-50%, -50%); 
+      transform: translate(-50%, -50%); 
+    }
+  }
+
+  .slide-home{ 
+    background-image: url('assets/img/background-trees.jpg');
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background: $background-color-silver-fallback;
+    background: $background-color-silver-webkit;
+    background: $background-color-silver;
+  }
+  .slide-aboutMe{
+    background-image: url('assets/img/background-trees.jpg');
+    background-size:     cover; /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+
+    p {
+      display: absolute;
+      font-size: 14px;  
+      padding: 0px; /* remove padding above and below */
+      margin:0px;  /* remove margin left and right */
+    }
+    main::before{
+      content:"";
+      display:block;
+      width: 80vw;
+      max-width:100vw;
+      height: 400px;
+      max-height:100vh;
+      float: left;
+      /* background: rgb(0,212,255);
+      background: linear-gradient(150deg, rgba(0,212,255,1) 30%, rgba(9,9,121,0) 50%);
+      shape-outside: linear-gradient(150deg, rgba(0,212,255,1) 30%, rgba(9,9,121,0) 50%);*/
+    }    
+  }
+  .slide-experience{
+    background: $background-color-green-black-fallback;
+    background: $background-color-green-black-webkit;
+    background: $background-color-green-black;
+  }
+
+  .slide-contact{
+    background: $background-color-earthly-fallback;
+    background: $background-color-earthly-webkit;
+    background: $background-color-earthly;
+  }
+}

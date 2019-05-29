@@ -1,12 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { timer } from 'd3-timer'
-import { squareConf } from '../configuration/animationConf'
-
-// import Konva from 'konva'
-// import { scaleLinear } from 'd3-scale'
-// import { max } from 'd3-array'
-// import { select } from 'd3-selection'
+import { squareConf } from 'helpers/constants/animation'
 
 // We leverage the lifecycle of a React.Component
 class MainCanvas extends React.Component {

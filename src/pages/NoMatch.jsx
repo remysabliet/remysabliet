@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../stylesheets/nomatch.scss'
-import imgNoMatch from '../img/pageNotFound.jpg'
+import imgNoMatch from 'assets/img/pageNotFound.jpg'
 
 const NoMatch = () => (
   <div className="main">

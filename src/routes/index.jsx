@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import NoMatch from '../pages/NoMatch'
-import HomePage from '../pages/HomePage'
+import NoMatch from 'pages/NoMatch'
+import HomePage from 'pages/HomePage'
 
 const Routes = props => (
   <Switch>

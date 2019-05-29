@@ -22,6 +22,7 @@ const { choosePort, createCompiler, prepareProxy, prepareUrls } = require("react
 const openBrowser = require("react-dev-utils/openBrowser");
 const paths = require("../config/paths");
 const config = require("../config/webpack.config.dev");
+
 const createDevServerConfig = require("../config/webpackDevServer.config");
 
 const useYarn = fs.existsSync(paths.yarnLockFile);

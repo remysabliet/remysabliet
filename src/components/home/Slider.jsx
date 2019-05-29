@@ -1,21 +1,20 @@
 import React from 'react'
 
-import Slide from '../../layout/Slide'
-import MainCanvas from '../../canvas/MainCanvas'
-import ForegroundUI from './ForegroundUI'
-import MagicSlider from '../../HOC/MagicSlider'
-import '../../stylesheets/slider.scss'
+import Slide from 'components/layout/Slide'
+import MainCanvas from 'components/organisms/drawer/canvas/MainCanvas'
+import ForegroundUI from 'components/layout/ForegroundUI'
+import MagicSlider from 'helpers/HOC/MagicSlider'
 
-/* Component representing the slider and its different states
-   it is enhanced by MagicSlider(Slider,slides);
-  */
+/**
+ * Component representing the slider and its different states
+ * Enhanced by MagicSlider(Slider,slides);
+ */
 
 class Slider extends React.Component {
   constructor(props) {
     super(props)
     const { slides } = props
     this.state = {
-      // slides: { slides },
       currentSlide: { slides }[0]
     }
 
@@ -52,19 +51,23 @@ class Slider extends React.Component {
     return true
   }
 
-  render(props) {
-    // console.log('render Slider')
+  render() {
+    const { slides } = this.props
     return (
       <div className="slider-container">
         <ForegroundUI />
-        <Slide {...props} className="slide-home" id="home" ref={this.slideHome}>
-          <MainCanvas width={300} height={400} />
-          <a href="https://www.freepik.com/free-vector/beautiful-green-landscape-background_922670.htm">
-            Designed by Kjpargeter
-          </a>
+        <Slide
+          {...this.props}
+          title={slides[0]}
+          className="slide-home"
+          id="home"
+          ref={this.slideHome}
+        >
+          {/* <ReactD3 /> */}
         </Slide>
         <Slide
-          {...props}
+          {...this.props}
+          title={slides[1]}
           className="slide-aboutMe"
           id="aboutMe"
           ref={this.slideAboutMe}
@@ -85,7 +88,8 @@ class Slider extends React.Component {
           <MainCanvas width={300} height={400} />
         </Slide>
         <Slide
-          {...props}
+          {...this.props}
+          title={slides[2]}
           className="slide-experience"
           id="experience"
           ref={this.slideExperience}
@@ -94,7 +98,8 @@ class Slider extends React.Component {
           <MainCanvas width={300} height={400} />
         </Slide>
         <Slide
-          {...props}
+          {...this.props}
+          title={slides[3]}
           className="slide-portfolio"
           id="portfolio"
           ref={this.slidePortfolio}
@@ -102,7 +107,8 @@ class Slider extends React.Component {
           <MainCanvas width={300} height={400} />
         </Slide>
         <Slide
-          {...props}
+          {...this.props}
+          title={slides[4]}
           className="slide-contact"
           id="contact"
           ref={this.slideContact}
@@ -115,61 +121,3 @@ class Slider extends React.Component {
 }
 
 export default MagicSlider(Slider)
-// MagicSlider
-
-/*
-  <div className="slider-container">
-        <ForegroundUI />
-        <Slide {...props} className="slide-home" id="home" ref={this.slideHome}>
-          <MainCanvas width={300} height={400} />
-          <a href="https://www.freepik.com/free-vector/beautiful-green-landscape-background_922670.htm">
-            Designed by Kjpargeter
-          </a>
-        </Slide>
-      </div>
-  <Slide
-          {...props}
-          className="slide-aboutMe"
-          id="aboutMe"
-          ref={this.slideAboutMe}
-        >
-          <p> This is a short story about me</p>
-          <p> This is a long story or a short story about me</p>
-          <p>
-            ABCD From the Middle Ages until about the middle of the 20th
-            century, Latin was a central part of a man’s schooling in the West.
-            Along with logic and rhetoric, grammar (as Latin was then known) was
-            included as part of the Trivium – the foundation of a medieval
-            liberal arts education. From Latin, all scholarship flowed an it was
-            truly the gateway to the life of the mind, as the bulk of
-            scientific, 3religious, legal, and philosophical literature was
-            written in the language until about the 16th century. To immerse
-            oneself in classical and humanistic studies, Latin was a must.
-          </p>
-          <MainCanvas width={300} height={400} />
-        </Slide>
-        <Slide
-          {...props}
-          className="slide-experience"
-          id="experience"
-          ref={this.slideExperience}
-        >
-          <MainCanvas width={300} height={400} />
-        </Slide>
-        <Slide
-          {...props}
-          className="slide-portfolio"
-          id="portfolio"
-          ref={this.slidePortfolio}
-        >
-          <MainCanvas width={300} height={400} />
-        </Slide>
-        <Slide
-          {...props}
-          className="slide-contact"
-          id="contact"
-          ref={this.slideContact}
-        >
-          <MainCanvas width={300} height={400} />
-        </Slide>
-    */

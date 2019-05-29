@@ -1,6 +1,5 @@
 import React from 'react'
-import '../../stylesheets/foregroundui.scss'
-import NavBar from './NavBar'
+import NavBar from 'components/molecules/NavBar'
 
 const ForegroundUI = props => (
   <div className="foregroundUI">

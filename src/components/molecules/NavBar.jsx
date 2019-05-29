@@ -10,6 +10,12 @@ const NavBar = props => (
       <Link smooth to="/#aboutMe">
         About me
       </Link>
+      <Link smooth to="/#experience">
+        About me
+      </Link>
+      <Link smooth to="/#contact">
+        Contact
+      </Link>
     </nav>
   </React.Fragment>
 )

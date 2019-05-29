@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import Slider from '../../components/home/Slider'
 
 const HomePage = props => {
-  const slides = ['Home', 'aboutMe', 'experience', 'portfolio', 'contact']
+  const slides = ['Home', 'aboutMe', 'portfolio', 'contact']
+  console.log("new versionc")
   return <Slider {...props} slides={slides} />
 }
 
