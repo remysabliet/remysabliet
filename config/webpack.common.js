@@ -92,14 +92,14 @@ const babelLoader = {
   },
 }
 
-const urlLoader = (pathPrefix) => ({
+const urlLoader = {
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
   loader: require.resolve("url-loader"),
   options: {
     limit: 10000,
-    name: `${pathPrefix}/media/[name].[hash:8].[ext]`
+    name: `/media/[name].[hash:8].[ext]`
   }
-});
+};
 
 const sourceMapLoader = {
   test: /\.(js|jsx)$/,
@@ -290,7 +290,7 @@ const createConfig = () => {
         sourceMapLoader,
         {
           oneOf: [
-            urlLoader(pathPrefix),
+            urlLoader,
             babelLoader,
             scssLoader,
             // cssLoader(pathPrefix),
