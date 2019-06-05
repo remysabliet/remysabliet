@@ -6,7 +6,7 @@ import {statisticLogs, elapsedTime, currentFps} from "helpers/utils/animation";
 const MagicSlider = WrappedComponent => {
   // Information like slides or deviceInfo are retrieved from the props
   // Depending on the deviceType different coeff are applied to the slider effect.
-  class HOC extends React.Component {
+  class HOC extends React.PureComponent {
     constructor(props) {
       super(props)
       this.handleOnWheel = this.handleOnWheel.bind(this)
@@ -16,8 +16,8 @@ const MagicSlider = WrappedComponent => {
 
       const { slides } = props
       this.speed = 0 
-      // We can't work with React State to manage this variable> Indeed, the slider effect 
-      // algorithm require a recursivity call (high speed), the update of the setState is asynchronous and  being quickly saturated (queue),
+      // We can't work with React State to manage this variable, Indeed, the slider effect 
+      // algorithm require a recursivity call (high speed), the update of the setState is asynchronous and being quickly saturated (queue),
       // setState doesn't update quickly enough to follow the natural speed of the slider effect and have a smooth fps.
 
       this.currentPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
@@ -44,8 +44,6 @@ const MagicSlider = WrappedComponent => {
         currentSlide: slides[0] // We naturally start at the first slide of the array
       }
     }
-
-
     
     /** 
     * We apply a lower fps in order to reduce freezing effect
@@ -79,7 +77,6 @@ const MagicSlider = WrappedComponent => {
           // Slide property: height: calc(var(--vh, 1vh) * 100);
           document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-          console.log("RESIZE", document.documentElement.style)
           // We execute the same script as before
           this.setState({
             viewportHeight: window.innerHeight
@@ -100,7 +97,6 @@ const MagicSlider = WrappedComponent => {
       )
       */
       this.startAnimating(60) // By default maximum (screen's default 60hz)
-    
     }
 
     componentWillUnmount() {
@@ -150,7 +146,6 @@ const MagicSlider = WrappedComponent => {
   }
 
   velocityComputation(deltaY) {
-    //console.log("y-distance moved:", deltaY)
     this.speed += -1 * deltaY * 0.0006 // -1 allow to inverse touch scrolling orientation on mobile
   }
 
@@ -165,7 +160,6 @@ const MagicSlider = WrappedComponent => {
 
       const { viewportHeight } = this.state
       this.speed *= this.slideChangeSpeedCoeff
-      console.log("New speed",  this.speed)
       this.currentPosition += this.speed
       const slideBoundary = Math.round(this.currentPosition)
       const dif = slideBoundary - this.currentPosition
@@ -176,10 +170,8 @@ const MagicSlider = WrappedComponent => {
         // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
         // to avoid an infinite division
         this.currentPosition = slideBoundary
-        console.log("Current position",  this.currentPosition, "ViewportHeight" , viewportHeight)
       }
       window.scrollTo(0, this.currentPosition * viewportHeight)
-      // console.log("We are scrolling to this new position : ", this.currentPosition * viewportHeight)
       const curSlide = this.state.slides[slideBoundary]
 
       // Will trigger a render every loop if we don't add this condition.
@@ -189,6 +181,8 @@ const MagicSlider = WrappedComponent => {
           currentSlide: curSlide
         })
       }
+
+      // Statistics purpose
       // const sinceStart = this.now - this.startTime
       // this.statisticLogs(
       //   this.elapsedTime(sinceStart),
@@ -200,7 +194,6 @@ const MagicSlider = WrappedComponent => {
 
     handleOnWheel(event) {
       const { deviceInfo } = this.props
-      console.log("DELTA Y", event.deltaY)
       if (deviceInfo !== null) {
         if (deviceInfo === 'firefox') {
           this.speed += event.deltaY * 0.006 //0.006 Firefox

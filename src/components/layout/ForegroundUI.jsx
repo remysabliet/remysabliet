@@ -3,7 +3,7 @@ import NavBar from 'components/molecules/NavBar'
 
 const ForegroundUI = props => (
   <div className="foregroundUI">
-    <NavBar {...props} />
+    {/*<NavBar {...props} />*/}
   </div>
 )
 

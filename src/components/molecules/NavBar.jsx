@@ -1,21 +1,14 @@
 import React from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 
-const NavBar = props => (
+const NavBar = ({slides}) => (
   <React.Fragment>
     <nav>
-      <Link smooth to="/#home">
-        Home
-      </Link>
-      <Link smooth to="/#aboutMe">
-        About me
-      </Link>
-      <Link smooth to="/#experience">
-        About me
-      </Link>
-      <Link smooth to="/#contact">
-        Contact
-      </Link>
+      {slides.map((slide) => 
+        <Link smooth to={`/#${slide}`}>
+          {slide}
+        </Link> 
+      )}
     </nav>
   </React.Fragment>
 )

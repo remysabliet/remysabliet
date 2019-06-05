@@ -96,7 +96,7 @@ const urlLoader = {
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
   loader: require.resolve("url-loader"),
   options: {
-    limit: 10000,
+    limit: 100,
     name: `/media/[name].[hash:8].[ext]`
   }
 };
@@ -111,16 +111,17 @@ const sourceMapLoader = {
 const scssLoader = {
   test: /\.scss$/,
   loaders: [
-    'style-loader',
-    'css-loader?modules&importLoaders=1&localIdentName=[local]',
-    'sass-loader'
+   'style-loader',
+   'css-loader?modules&importLoaders=1&localIdentName=[local]',
+   'sass-loader'
   ]
   // Risk of CSS file cached (and so dont take care of update) as we dont include hash inside its name 
-  // ,
-  // options: {
-  //   name: `media/[name].[hash:8].[css]`
-  // }
-};
+  //  ,
+  //   options: {
+  //      name: `media/[name].[hash:8].[css]`
+  //    }
+  //
+ };
 
 const cssLoader = {
   test: /\.css$/,
@@ -293,7 +294,7 @@ const createConfig = () => {
             urlLoader,
             babelLoader,
             scssLoader,
-            // cssLoader(pathPrefix),
+            cssLoader,
             fileLoader
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.

@@ -1,18 +1,18 @@
 
 // Main tags, layout Style
-@import "./base";
+@import "styles/base";
 
 // foreground elements: menu, etc ..
-@import "./foregroundui";
+@import "styles/foregroundui";
 
 // Main container
-@import "./slider";
+@import "styles/slider";
 
-@import "./slide";
+@import "styles/slide";
 
-@import "./fonts";
+@import "styles/fonts";
 // BoundError page
-@import "./nomatch";
+@import "styles/nomatch";
 
 
 
