@@ -1,4 +1,12 @@
-import React from "react"
+import React, { Fragment } from "react"
 
-const Home = () => (<p>Welcome Home</p>)
+import Matrix from "components/layout/Matrix"
+
+const Home = () => (
+  <Fragment>
+    <Matrix />
+    <p>Welcome Home</p>
+  </Fragment>
+)
+
 export default Home;

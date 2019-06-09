@@ -96,8 +96,8 @@ const urlLoader = {
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
   loader: require.resolve("url-loader"),
   options: {
-    limit: 100,
-    name: `/media/[name].[hash:8].[ext]`
+    limit: 8192,
+    name: `data:[name].[hash:8].[ext]`
   }
 };
 

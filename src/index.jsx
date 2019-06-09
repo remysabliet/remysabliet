@@ -9,7 +9,6 @@ import 'styles/main.scss'
 import App from './App'
 import rootReducer from 'reducers'
 
-import 'styles/main.scss'
 
 const store = createStore(rootReducer)
 

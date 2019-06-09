@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Slide from 'components/layout/Slide'
 import MagicSlider from 'helpers/HOC/MagicSlider'
 
 /**
@@ -14,16 +13,17 @@ class Slider extends React.PureComponent {
     this.state = {
       currentSlide: { slides }[0]
     }
-    const refs = slides.map( () => React.createRef())
+    this.refs = slides.map(() => React.createRef())
+    console.log(this.refs)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { history } = this.props
     const { currentSlide } = this.props
     history.push(`/#${currentSlide}`) // Push to first Slide
   }
 
-  componentWillReceiveProps(nextProps) {
+  getDerivedStateFromProps(nextProps) {
     const { currentSlide } = nextProps
     if (nextProps.currentSlide !== this.state.currentSlide) {
       this.setState({
@@ -41,21 +41,24 @@ class Slider extends React.PureComponent {
     return true
   }
 
+  /**
+   * 
+   *  Make a loop through children to add specific Slide properties
+   */
   render() {
     const { children, slides, ...others } = this.props
     return (
       <div className="slider-container">
-        {children}
-        {slides.map((slide, i) => (
-            <Slide
-              {...others}
-              title={slide}
-              className={`slide-${slide}`}
-              id={slide}
-              ref={this.refs[i]}
-            />
-          )
-        )}
+        {children.map((child, i) => {
+          const slide = slides[i];
+          const additionalProps = {
+            title: slide,
+            className: `slide-${slide}`,
+            id: slide,
+            ref: this.refs[i]
+          };
+          return  React.cloneElement(child, additionalProps)
+        })}
       </div>
     )
   }

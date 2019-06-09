@@ -39,16 +39,45 @@
   }
 
   .slide-home{ 
-    background-image: url('assets/img/background-trees.jpg');
+    background-image: url('../assets/img/background-trees.jpg');
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
-    background: $background-color-silver-fallback;
-    background: $background-color-silver-webkit;
-    background: $background-color-silver;
+    background: black;
+
+    .matrix{
+      opacity:1;
+    
+      @for $i from 1 through 100 {
+        $y: randomRange(-30,70);
+        $x: randomRange(-5,95);
+        $opa:  randomRange(3,10)/10; // opacite between 0.3 and 1
+        // @warn $y; 
+        p{ 
+          &:nth-child(#{$i}) {
+          opacity: 0;
+          font-size: percentage(random(15)/5);
+          color: #C0C0C0;
+          writing-mode: vertical-rl;
+          text-orientation: upright;
+          position: absolute;
+          animation: vertical-transform infinite randomRange(4,10)+s linear #{$i/2}s; 
+          left: calc(var(--vw, 1vw) * #{$x});
+          top: 	calc(var(--vh, 1vh) * #{$y});
+        }
+      }
+    
+        @keyframes vertical-transform {
+          0% {  opacity: 0; transform: translateY(0%)} 
+          50% {  opacity : #{$opa}; transform: translateY(10%)} 
+          100% {  opacity :	0; transform: translateY(20%)} 
+        }
+      }
+    } 
   }
+  
   .slide-aboutMe{
-    background-image: url('assets/img/background-trees.jpg');
+    background-image: url('../assets/img/background-trees.jpg');
     background-size:     cover; /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
