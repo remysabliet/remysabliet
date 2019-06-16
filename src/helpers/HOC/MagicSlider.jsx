@@ -1,7 +1,7 @@
 import React from 'react'
 import {statisticLogs, elapsedTime, currentFps} from "helpers/utils/animation";
 /**
- * This HOC ensure a sliding effect supporting both browser and Mobile
+ * This HOC ensure a sliding effect supporting desktop/smartphone browsers
  *  */ 
 const MagicSlider = WrappedComponent => {
   // Information like slides or deviceInfo are retrieved from the props
@@ -13,7 +13,6 @@ const MagicSlider = WrappedComponent => {
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
       this.velocityComputation= this.velocityComputation.bind(this);
-
       const { slides } = props
       this.speed = 0 
       // We can't work with React State to manage this variable, Indeed, the slider effect 
@@ -52,6 +51,7 @@ const MagicSlider = WrappedComponent => {
     componentDidMount() {
       const { deviceInfo } = this.props
 
+      console.log("deviceInfo", deviceInfo)
       window.scrollTo(0,10)
       let vh = window.innerHeight * 0.01;
       // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
@@ -82,20 +82,7 @@ const MagicSlider = WrappedComponent => {
             viewportHeight: window.innerHeight
           })
         })
-      /*deviceInfo === 'ios' || deviceInfo === 'ios' ? 
-      window.addEventListener('touchmove',this.handleOnWheel.bind(this), true)
-      : window.addEventListener('wheel', this.handleOnWheel.bind(this), true)
-      */
-    /*  window.addEventListener(
-        'resize',
-        event => {
-          this.setState({
-            viewportHeight: document.documentElement.clientHeight
-          })
-        },
-        true
-      )
-      */
+
       this.startAnimating(60) // By default maximum (screen's default 60hz)
     }
 

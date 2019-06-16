@@ -39,9 +39,10 @@ const shouldUseSourceMap = !IN_PRODUCTION;
 
 const fileLoader = {
   loader: require.resolve("file-loader"),
+  test: /.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
   exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
   options: {
-    name: "media/[name].[hash:8].[ext]"
+    name: "static/media/[name].[hash:8].[ext]"
   }
 };
 
@@ -93,11 +94,11 @@ const babelLoader = {
 }
 
 const urlLoader = {
-  test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+  test: [/\.(svg|png|jpg|etc)$/],
   loader: require.resolve("url-loader"),
   options: {
-    limit: 8192,
-    name: `data:[name].[hash:8].[ext]`
+    limit: 10000,
+    name: `static/media/[name].[hash:8].[ext]`
   }
 };
 

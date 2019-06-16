@@ -23,7 +23,7 @@
     background: transparent;
     margin: 0;
     width: 100vw;
-    height: 90vh;
+    height:100vh; // Can be leveraged to create Header/Footer and so reduce slide size (ex: Header : 5vh, main:90, footer:5vh
     position:relative; /* every element inside, having position absolute, will be positionned accordingly*/
 
     canvas{
@@ -39,44 +39,22 @@
   }
 
   .slide-home{ 
+    z-index: 0;
     background-image: url('../assets/img/background-trees.jpg');
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
-    background: black;
+    background: white;
 
-    .matrix{
-      opacity:1;
-    
-      @for $i from 1 through 100 {
-        $y: randomRange(-30,70);
-        $x: randomRange(-5,95);
-        $opa:  randomRange(3,10)/10; // opacite between 0.3 and 1
-        // @warn $y; 
-        p{ 
-          &:nth-child(#{$i}) {
-          opacity: 0;
-          font-size: percentage(random(15)/5);
-          color: #C0C0C0;
-          writing-mode: vertical-rl;
-          text-orientation: upright;
-          position: absolute;
-          animation: vertical-transform infinite randomRange(4,10)+s linear #{$i/2}s; 
-          left: calc(var(--vw, 1vw) * #{$x});
-          top: 	calc(var(--vh, 1vh) * #{$y});
-        }
+      #suit{
+        fill:blue !important
       }
     
-        @keyframes vertical-transform {
-          0% {  opacity: 0; transform: translateY(0%)} 
-          50% {  opacity : #{$opa}; transform: translateY(10%)} 
-          100% {  opacity :	0; transform: translateY(20%)} 
-        }
-      }
-    } 
+    
   }
   
   .slide-aboutMe{
+    z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     background-image: url('../assets/img/background-trees.jpg');
     background-size:     cover; /* <------ */
     background-repeat:   no-repeat;

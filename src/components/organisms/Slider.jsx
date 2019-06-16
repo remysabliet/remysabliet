@@ -14,7 +14,6 @@ class Slider extends React.PureComponent {
       currentSlide: { slides }[0]
     }
     this.refs = slides.map(() => React.createRef())
-    console.log(this.refs)
   }
 
   componentDidMount() {
@@ -55,7 +54,8 @@ class Slider extends React.PureComponent {
             title: slide,
             className: `slide-${slide}`,
             id: slide,
-            ref: this.refs[i]
+            ref: this.refs[i],
+            ...others
           };
           return  React.cloneElement(child, additionalProps)
         })}

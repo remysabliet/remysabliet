@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import withCCConcernInfo from 'containers/withCCConcernInfo'
 import Slider from 'components/organisms/Slider'
 import Slide from 'components/layout/Slide'
 import ForegroundUI from 'components/layout/ForegroundUI'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides';
+
 
 const HomePage = props => {
   const slides = ['home', 'aboutMe', 'experience', 'contact']
@@ -12,24 +13,20 @@ const HomePage = props => {
       <ForegroundUI slides={slides} />
       <Slider {...props} slides={slides}>
         <Slide> 
-          <Home/>
+          <Home />
         </Slide>
         <Slide> 
-          <AboutMe/>
+          <AboutMe />
         </Slide>
         <Slide> 
-          <Contact/>
+          <Experience /> 
         </Slide>
         <Slide> 
-          <Experience/>
+          <Contact />
         </Slide>
       </Slider>
     </Fragment>
   )
 }
 
-const mapStateToProps = state => ({
-  deviceInfo: state.deviceInfo
-})
-
-export default connect(mapStateToProps)(HomePage)
+export default withCCConcernInfo(HomePage)

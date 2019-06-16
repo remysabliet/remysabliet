@@ -1,4 +1,4 @@
-export const getDeviceInfo = deviceInfo => ({
+export const fetchDeviceInfo = deviceInfo => ({
   type: 'FETCH_DEVICE_INFO',
   payload: deviceInfo
 })
