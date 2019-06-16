@@ -43,6 +43,7 @@ class Slider extends React.PureComponent {
   /**
    * 
    *  Make a loop through children to add specific Slide properties
+   *  // TO DO add a test to check whether there is an array of Children or only one
    */
   render() {
     const { children, slides, ...others } = this.props

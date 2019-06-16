@@ -1,6 +1,10 @@
 import React from "react"
 
-export default () => <svg class="defs-only"  xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+const svgStyle = {
+  opacity:0
+};
+
+export default () => <svg  xmlns="http://www.w3.org/2000/svg"  display="none">
 	<path id="suit" d="M180.85,324c1.13-14.05,2.25-28.1,3.41-42.14c0.36-4.36,0.83-8.7,0.37-13.08c-0.4-3.83,1.08-7.38,1.56-11.07
 		c1.68-12.72,1.22-25.15-4.58-36.95c-0.63-1.28-0.93-2.72-0.97-4.53c14.75,16.62,34.9,23.97,54.2,32.76
 		c0,24.13-0.04,48.25,0.06,72.37c0.01,2.24-0.45,2.71-2.69,2.69C215.1,323.95,197.98,324,180.85,324z M73.6,324

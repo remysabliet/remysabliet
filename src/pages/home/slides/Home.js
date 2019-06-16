@@ -13,15 +13,22 @@ const Home = (props) => {
   return (
     <Fragment>
       <Matrix list={__('ITTerminology', locale)} />
-      <Portrait/>   
-      <svg  width="100vw" height="100vh"  viewBox="0 0 251 327">
-        <use xlinkHref="#suit"/>
-        <use xlinkHref="#tie"/>
-        <use xlinkHref="#hair"/>
-        <use xlinkHref="#face"/>
-      </svg>
+      <Portrait/>
+        <svg className="svgStyle" viewBox="0 0 251 327">
+          <use id="suit" xlinkHref="#suit"/>
+          <use id="tie" xlinkHref="#tie"/>
+          <use id="hair" xlinkHref="#hair"/>
+          <use id="face" xlinkHref="#face"/>
+        </svg>
     </Fragment>
   )
 }
 
 export default Home;
+
+/*
+
+  <div style={divStyle} >
+        <svg style={svgStyle} viewBox="0 0 251 327">
+
+        */

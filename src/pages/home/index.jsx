@@ -6,6 +6,8 @@ import ForegroundUI from 'components/layout/ForegroundUI'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides';
 
 
+import Portrait from "assets/svg/portrait";
+
 const HomePage = props => {
   const slides = ['home', 'aboutMe', 'experience', 'contact']
   return (
@@ -30,3 +32,13 @@ const HomePage = props => {
 }
 
 export default withCCConcernInfo(HomePage)
+/*
+<Slide> 
+          <AboutMe />
+        </Slide>
+        <Slide> 
+          <Experience /> 
+        </Slide>
+        <Slide> 
+          <Contact />
+        </Slide>*/

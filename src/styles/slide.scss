@@ -46,13 +46,19 @@
     background-position: center center;
     background: white;
 
-      #suit{
-        fill:blue !important
-      }
-    
-    
+
+    .svgStyle  {
+      height: 100vh;
+      width: 100vw;
+
+      
+    }
+
+    #suit{
+      fill:blue !important
+    }
   }
-  
+ 
   .slide-aboutMe{
     z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     background-image: url('../assets/img/background-trees.jpg');
