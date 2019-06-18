@@ -1,9 +1,11 @@
 import React, { Fragment } from "react"
 import { injectIntl } from "react-intl"; 
 
-import Portrait from "assets/svg/portrait";
+import SvgAnimator from "components/organisms/svgAnimator"
 import Matrix from "components/molecules/effects/Matrix"
+import { portraitAnimSetting } from 'helpers/constants/animation'
 import __ from 'helpers/i18n'
+
 
 /**
  * Home page
@@ -13,22 +15,9 @@ const Home = (props) => {
   return (
     <Fragment>
       <Matrix list={__('ITTerminology', locale)} />
-      <Portrait/>
-        <svg className="svgStyle" viewBox="0 0 251 327">
-          <use id="suit" xlinkHref="#suit"/>
-          <use id="tie" xlinkHref="#tie"/>
-          <use id="hair" xlinkHref="#hair"/>
-          <use id="face" xlinkHref="#face"/>
-        </svg>
+      <SvgAnimator setting={portraitAnimSetting} />
     </Fragment>
   )
 }
 
 export default Home;
-
-/*
-
-  <div style={divStyle} >
-        <svg style={svgStyle} viewBox="0 0 251 327">
-
-        */

@@ -4,14 +4,14 @@ import Slider from 'components/organisms/Slider'
 import Slide from 'components/layout/Slide'
 import ForegroundUI from 'components/layout/ForegroundUI'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides';
+import SVGLoader from 'assets/svg/SVGLoader';
 
-
-import Portrait from "assets/svg/portrait";
 
 const HomePage = props => {
   const slides = ['home', 'aboutMe', 'experience', 'contact']
   return (
     <Fragment>
+      <SVGLoader/>
       <ForegroundUI slides={slides} />
       <Slider {...props} slides={slides}>
         <Slide> 
@@ -32,13 +32,3 @@ const HomePage = props => {
 }
 
 export default withCCConcernInfo(HomePage)
-/*
-<Slide> 
-          <AboutMe />
-        </Slide>
-        <Slide> 
-          <Experience /> 
-        </Slide>
-        <Slide> 
-          <Contact />
-        </Slide>*/

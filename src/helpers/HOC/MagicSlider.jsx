@@ -51,7 +51,6 @@ const MagicSlider = WrappedComponent => {
     componentDidMount() {
       const { deviceInfo } = this.props
 
-      console.log("deviceInfo", deviceInfo)
       window.scrollTo(0,10)
       let vh = window.innerHeight * 0.01;
       // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
