@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect} from 'react';
+import SVGDisplayer from 'components/atoms/SVGDisplayer';
 
 /**
  * Stateless component leveraging React Hooks to display SVG frames sequentially.
@@ -13,16 +14,12 @@ const SvgAnimator = ({
   
   const anim = () => {
     setting && setting.map(async anim => 
-      await new Promise(resolve => setTimeout(resolve, anim.msTime)).then(() => 
+      await new Promise(resolve => setTimeout(resolve, anim.msTime)).then(() => {
+        // console.log("SVGDISPLAYER RETURN : ", SVGDisplayer({svg:{anim} }))
         setResult(
-          <svg {...anim.frame}>
-            {anim.frame.uses && anim.frame.uses.map(use => {
-              return (
-                <use {...use} />
-              )
-            })}
-          </svg>
+          <SVGDisplayer svg={anim.frame} />
         )
+          }
       )  
     )
   }
