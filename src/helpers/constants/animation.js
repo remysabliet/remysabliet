@@ -10,10 +10,10 @@ export const portraitAnimSetting = [
   viewBox: "0 0 251 327",
   preserveAspectRatio: undefined,
   uses: [
-    {fill:"green", id:"suit", xlinkHref: "#suit", opacity: "0.5"},
-    {fill:"yellow", id:"tie", xlinkHref: "#tie", opacity: "0.9"},
-    {fill:"blue", id:"hair", xlinkHref: "#hair", opacity: "1"},
-    {fill:"pink", id:"face", xlinkHref: "#face", opacity: "0.4"}
+    {fill:"green", xlinkHref: "#suit", opacity: "0.5"},
+    {fill:"yellow", xlinkHref: "#tie", opacity: "0.9"},
+    {fill:"blue", xlinkHref: "#hair", opacity: "1"},
+    {fill:"pink", xlinkHref: "#face", opacity: "0.4"}
   ]
 }},
 { 
@@ -23,10 +23,10 @@ export const portraitAnimSetting = [
   viewBox: "0 0 251 327",
   preserveAspectRatio: undefined,
   uses: [
-    {fill:"red", id:"suit", xlinkHref: "#suit", opacity: "1"},
-    {fill:"red", id:"tie", xlinkHref: "#tie", opacity: "1"},
-    {fill:"red", id:"hair", xlinkHref: "#hair", opacity: "1"},
-    {fill:"red", id:"face", xlinkHref: "#face", opacity: "1"}
+    {fill:"blue",  xlinkHref: "#suit", opacity: "1"},
+    {fill:"red",  xlinkHref: "#tie", opacity: "1"},
+    {fill:"blue",  xlinkHref: "#hair", opacity: "1"},
+    {fill:"red",  xlinkHref: "#face", opacity: "1"}
   ]
   }
 }]

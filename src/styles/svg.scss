@@ -1,16 +1,41 @@
 
 svg {
   &.fullViewPort{
-  height: 100vh;
-  width: 100vw;
+    height: 100vh;
+    width: 100vw;
   }
 
-  &.iconViewPort{
-    height: 100px;
-    width: 133px;
+  &.icon{
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    .flag {
+      &:hover{
+        opacity: 0.5;
+        transition: opacity .3s ease-in-out;
+      }
+    }
   }
 }
 
-path.suit{
-  fill:blue !important
+
+/*on peut pas specifier hover sur des elements Path/Rectangle etc a l'interieur d'un SVG reference par <use> */
+/* Neanmoins on peut appliquer un effet hover sur l'element use dans sa globalité, pour cela il doit imperativement avoir un id */
+/*
+#japanFlag {
+  path{
+    fill: #a5a206;
+  }
+  ellipse{
+    fill: rgb(56, 8, 133);
+  }
 }
+
+
+ellipse {
+  fill: rgb(96, 133, 8);
+  &:hover{
+    fill: #06a506;
+  }
+}*/
