@@ -63,10 +63,14 @@ export function getDeviceInfo() {
 }
 
 /**
- * Retrieve locale
+ * Retrieve browser's locale
  */
 export function getLocale() {
-  return navigator.languages && navigator.languages[0] // Chrome / Firefox
-  || navigator.language // All browsers
+
+  const locale = navigator.language // All browsers
+  || navigator.languages && navigator.languages[0] // Chrome / Firefox
   || navigator.userLanguage; // IE <= 10
+
+  const shortCode = locale && locale.length > 2 ? locale.substr(0,2) : locale
+  return shortCode ? shortCode : 'en'
 }

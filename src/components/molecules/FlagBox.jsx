@@ -14,25 +14,30 @@ const FlagBox = props => {
     const newFlags = flags.map( flag => 
       flag.locale === locale ? {
         locale: locale, active: true 
-        } : {
+      } : {
         locale: flag.locale, active: false 
-        } 
+      } 
     )
     setFlags(newFlags)
   }, [locale]);
    
- 
+  // FireFox catch the <svg> element as target of the onClick event whereas other browser catch the <use> element
+  // Asan ID should be unique, we must assign specific ID to both svg and use tags but still must be able
+  // to figure out which language has been selected.
+  // Hence, we will concatenate the language as the last charaters of the ID
   let settings = {}
   flags.forEach(x => { 
     settings[`${x.locale}`]= {
       className: "icon",
       viewBox: "0 0 640 480",
+      id:`svg-locale-${x.locale}`, 
       uses: [{
-          id:x.locale , className:"flag", xlinkHref: `#${x.locale}Flag`
+          id:`use-locale-${x.locale}` , className:"flag", xlinkHref: `#${x.locale}Flag`
         }]
       }
   })
 
+  
   return (
   <div className="flagBox">
     {flags && flags.map(flag => (
