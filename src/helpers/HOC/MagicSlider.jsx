@@ -178,19 +178,6 @@ const MagicSlider = WrappedComponent => {
     window.requestAnimationFrame(this.magicSlider)
   }
 
-    /*handleOnWheel(event) {
-      const { deviceInfo } = this.props
-      if (deviceInfo !== null) {
-        if (deviceInfo === 'firefox') {
-          this.speed += event.deltaY * 0.006 //0.006 Firefox
-        } else {
-          this.speed += event.deltaY * 0.0003  // 0.0003 Chrome, Opera, Safari
-        }
-      } else {
-        this.speed += event.deltaY * 0.0003
-      }
-    }*/
-
     handleOnWheel(event) {
       const { deviceInfo } = this.props
       switch(deviceInfo){

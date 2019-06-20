@@ -1,6 +1,6 @@
 {
     "name": "remysabliet",
-    "version": "0.32.0",
+    "version": "0.33.0",
     "private": true,
     "scripts": {
         "start": "cross-env NODE_ENV=development node scripts/start.js",

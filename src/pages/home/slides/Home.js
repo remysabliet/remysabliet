@@ -13,15 +13,18 @@ const test = {
     { id:"test", xlinkHref: "#test", opacity: "1"}
   ]
 }
-
 /**
  * Home page
  */
 const Home = (props) => {
-  const { locale } = props;
+  const { locale, deviceInfo } = props;
+
+  //For mobile, we reduce the number of div to be displayed in order to save cpu
+  const matrixLimit= deviceInfo && deviceInfo === 'mobile' ? 30 : undefined;
+
   return (
     <Fragment>
-      <Matrix list={__('ITTerminology', locale)} />
+      <Matrix limit={matrixLimit} list={__('ITTerminology', locale)} />
       <SVGAnimator setting={portraitAnimSetting} />
     </Fragment>
   )
