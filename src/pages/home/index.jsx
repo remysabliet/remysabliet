@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react'
-import withCCConcernInfo from 'containers/withCCConcernInfo'
+import withGlobalInfo from 'containers/withGlobalInfo'
 import Slider from 'components/organisms/Slider'
 import Slide from 'components/layout/Slide'
-import ForegroundUI from 'components/layout/ForegroundUI'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides';
 import SVGLoader from 'assets/svg/SVGLoader';
 
+import Layout from './Layout'
 
 const HomePage = props => {
   const slides = ['home', 'aboutMe', 'experience', 'contact']
   return (
     <Fragment>
       <SVGLoader/>
-      <ForegroundUI slides={slides} />
+      <Layout {...props} />
       <Slider {...props} slides={slides}>
         <Slide> 
           <Home />
@@ -31,4 +31,4 @@ const HomePage = props => {
   )
 }
 
-export default withCCConcernInfo(HomePage)
+export default withGlobalInfo(HomePage)

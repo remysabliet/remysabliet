@@ -12,6 +12,7 @@ const Button = ({
   loading,
   className,
   children,
+  id,
   ...props
 }) => {
 
@@ -24,9 +25,8 @@ const Button = ({
     className
   );
 
-  console.log(classes)
   return (
-    <button className={classes} {...props}>
+    <button className={classes} id={id} {...props} >
       {children}
     </button>
   );

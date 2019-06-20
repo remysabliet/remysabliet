@@ -12,7 +12,8 @@ initEventListener()
 
 const deviceInfo = getDeviceInfo()
 const locale = getLocale()
-const store = configureStore({ deviceInfo, locale })
+
+const store = configureStore({global: { deviceInfo, locale }})
 
 render(
   <Router>

@@ -1,12 +1,10 @@
 import React from 'react'
 
-import Header from 'components/layout/Header'
 // import NavBar from 'components/molecules/NavBar'
 
-const ForegroundUI = props => (
+const ForegroundUI = ({children}) => (
   <div className="foregroundUI">
-    <Header/>
-    {/*<NavBar {...props} />*/}
+    {children}
   </div>
 )
 

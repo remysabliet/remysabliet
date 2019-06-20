@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux'
-import deviceInfo from 'reducers/deviceInfo'
+import global from 'reducers/global'
 
-// refers to rootReducer in src/index.js
-export default combineReducers({
-  deviceInfo
-})
+const rootReducer = combineReducers({global})
+export default rootReducer

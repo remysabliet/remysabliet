@@ -17,9 +17,10 @@ class Slider extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { history } = this.props
+   /* const { history } = this.props
     const { currentSlide } = this.props
-    history.push(`/#${currentSlide}`) // Push to first Slide
+   // history.push(`/#${currentSlide}`) // Push to first Slide
+   */
   }
 
   getDerivedStateFromProps(nextProps) {

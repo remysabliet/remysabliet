@@ -4,7 +4,7 @@
   @for $i from 1 through 100 {
     $y: randomRange(-30,70);
     $x: randomRange(-5,95);
-    $opa:  randomRange(3,10)/10; // opacite between 0.3 and 1
+    $opa:  randomRange(7,10)/10; // opacite between 0.3 and 1
     // @warn $y; 
     p{ 
       &:nth-child(#{$i}) {

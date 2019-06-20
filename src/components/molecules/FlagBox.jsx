@@ -1,29 +1,43 @@
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import Button from 'components/atoms/Button'
 import SVGDisplayer from 'components/atoms/SVGDisplayer'
+import {locales as InitConf} from 'helpers/constants/global'
 
-const FlagBox = ({flags}) => {
+const FlagBox = props => {
+  const {locale, setLocale} = props;
 
+  const [flags, setFlags] = useState(InitConf); // initialized to Empty
+
+  useEffect(() => {
+    const newFlags = flags.map( flag => 
+      flag.locale === locale ? {
+        locale: locale, active: true 
+        } : {
+        locale: flag.locale, active: false 
+        } 
+    )
+    setFlags(newFlags)
+  }, [locale]);
+   
+ 
   let settings = {}
-  flags.forEach(x =>  { 
-    settings[`${x.lang}`]= {
+  flags.forEach(x => { 
+    settings[`${x.locale}`]= {
       className: "icon",
       viewBox: "0 0 640 480",
       uses: [{
-          className:"flag", xlinkHref: `#${x.lang}Flag`
+          id:x.locale , className:"flag", xlinkHref: `#${x.locale}Flag`
         }]
       }
   })
 
-  const [active, setActive] = useState(false); // initialized to Empty
-
   return (
   <div className="flagBox">
-    {flags.map(flag => (
-      <Button type="button" active={active} onClick={({})=>setActive(!active)} >
-        <SVGDisplayer svg={settings[flag.lang]} />
+    {flags && flags.map(flag => (
+      <Button type="button" id={`${flag.locale}`} active={flag.active} onClick={setLocale}>
+        <SVGDisplayer svg={settings[flag.locale]} />
       </Button>
     ))}
   </div>
