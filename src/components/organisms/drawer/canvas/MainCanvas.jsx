@@ -14,6 +14,7 @@ class MainCanvas extends React.Component {
 
     this.canvasRef = React.createRef()
   }
+
   componentDidMount() {
     this.ctx = this.canvasRef.current.getContext('2d')
     this.animCanvas()

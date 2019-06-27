@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment } from 'react'
 import MainCanvas from 'components/organisms/drawer/canvas/MainCanvas'
 
 const Experience = () => (
@@ -7,4 +7,4 @@ const Experience = () => (
     <MainCanvas width={300} height={400} />
   </Fragment>
 )
-export default Experience;
+export default Experience

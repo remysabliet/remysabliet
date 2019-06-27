@@ -34,9 +34,6 @@ if (
   }
 }
 
-// Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = !IN_PRODUCTION;
-
 const fileLoader = {
   loader: require.resolve("file-loader"),
   test: /.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -58,7 +55,7 @@ const babelLoader = {
     // @remove-on-eject-begin
     babelrc: false,
     configFile: false,
-    presets: [require.resolve('babel-preset-react-app')],
+    presets: ["react-app"],
     // Make sure we have a unique cache identifier, erring on the
     // side of caution.
     // We remove this when the user ejects because the default

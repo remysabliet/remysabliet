@@ -1,15 +1,14 @@
-import React from 'react';
+import React from 'react'
 
-import Flags  from "./Flags";
-import Portrait from "./Portrait";
-import Test from "./Test";
+import Flags from './Flags'
+// import Japanese  from "./calligraphy/Japanese";
+import Portrait from './Portrait'
 
 const SVGLoader = () => (
   <>
     <Flags />
     <Portrait />
-    <Test />
   </>
-);
+)
 
-export default SVGLoader;
+export default SVGLoader

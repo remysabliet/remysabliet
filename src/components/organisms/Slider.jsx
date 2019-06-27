@@ -16,13 +16,6 @@ class Slider extends React.PureComponent {
     this.refs = slides.map(() => React.createRef())
   }
 
-  componentDidMount() {
-   /* const { history } = this.props
-    const { currentSlide } = this.props
-   // history.push(`/#${currentSlide}`) // Push to first Slide
-   */
-  }
-
   getDerivedStateFromProps(nextProps) {
     const { currentSlide } = nextProps
     if (nextProps.currentSlide !== this.state.currentSlide) {
@@ -42,7 +35,7 @@ class Slider extends React.PureComponent {
   }
 
   /**
-   * 
+   *
    *  Make a loop through children to add specific Slide properties
    *  // TO DO add a test to check whether there is an array of Children or only one
    */
@@ -51,15 +44,15 @@ class Slider extends React.PureComponent {
     return (
       <div className="slider-container">
         {children.map((child, i) => {
-          const slide = slides[i];
+          const slide = slides[i]
           const additionalProps = {
             title: slide,
             className: `slide-${slide}`,
             id: slide,
             ref: this.refs[i],
             ...others
-          };
-          return  React.cloneElement(child, additionalProps)
+          }
+          return React.cloneElement(child, additionalProps)
         })}
       </div>
     )

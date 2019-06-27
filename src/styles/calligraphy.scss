@@ -1,0 +1,36 @@
+.japanese{
+  height: 200px;
+  width: 400px;
+}
+.japanese2{
+  height: 500px;
+  width: 300px;
+}
+
+@keyframes top-anim {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#yume-top-1 {
+  animation: top-anim 1s linear forwards;
+  stroke-dashoffset: 200;
+  stroke-dasharray: 200;
+}
+
+#yume-top-2 {
+  animation: top-anim 1s linear 1s forwards;
+  stroke-dashoffset: 200;
+  stroke-dasharray: 200;
+}
+
+#yume-top-3 {
+  animation: top-anim 1s linear 1.25s 1 forwards;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+/* stroke-dashoffset: 0; */

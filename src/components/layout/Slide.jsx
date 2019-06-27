@@ -7,12 +7,11 @@ const Slide = props => {
       <div className={className} id={id}>
         {/* ID va permettre au NavBar de faire le lien avec #home, #aboutMe etc..}*/}
         {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" /> 
+          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">{title}</h1>
         </header> */}
-        <main>
-          {React.cloneElement(children, newProps)}
-        </main>
+
+        {React.cloneElement(children, newProps)}
       </div>
     </div>
   )

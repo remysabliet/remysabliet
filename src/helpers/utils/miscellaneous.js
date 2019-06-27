@@ -2,34 +2,34 @@ import is from 'is_js'
 
 /**
  * Shuffle an array of items (*)
- * @param {*} array 
+ * @param {*} array
  */
-export const shuffle = (array) => {
-	const cloneTab = array.slice();
-	for (let i = cloneTab.length - 1; i > 0; i--) {
-		let j = Math.floor(Math.random() * (i + 1));
-		[cloneTab[i], cloneTab[j]] = [cloneTab[j], cloneTab[i]];
-	}
+export const shuffle = array => {
+  const cloneTab = array.slice();
+  for (let i = cloneTab.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cloneTab[i], cloneTab[j]] = [cloneTab[j], cloneTab[i]];
+  }
 
-	return cloneTab;
+  return cloneTab
 }
-  
-/**
- * During initialization of the page, will setup a few custom CSS properties as well as 
- * Listener and eventListener to handle resizing of the page
- * @param {*} array 
- */
-export const initEventListener = () => {
-  window.addEventListener(
-  'resize',() => {
-    // First we get the viewport height and width and multiply them by 1% to get a value in px corresponding to a vh unit
-    let vh = window.innerHeight * 0.01;
-    let vw = window.innerWidth * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
-    // Slide property: height: calc(var(--vh, 1vh) * 100);
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    document.documentElement.style.setProperty('--vw', `${vw}px`);
-  })
+
+export const recomputeViewportSize = () => {
+  // First we get the viewport height and width and multiply them by 1% to get a value in px corresponding to a vh unit
+  const vh = window.innerHeight * 0.01
+  const vw = window.innerWidth * 0.01
+  // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
+  // Slide property: height: calc(var(--vh, 1vh) * 100);
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+  document.documentElement.style.setProperty('--vw', `${vw}px`)
+}
+
+export const addEventListener = (type, fn) => {
+  window.addEventListener(type, fn)
+}
+
+export const removeEventListener = (type, fn) => {
+  window.removeEventListener(type, fn)
 }
 
 /**
@@ -67,11 +67,12 @@ export function getDeviceInfo() {
  * Retrieve browser's locale
  */
 export function getLocale() {
+  const locale =
+    navigator.language
+      // All browsers 
+    || (navigator.languages && navigator.languages[0]) // Chrome / Firefox
+    || navigator.userLanguage // IE <= 10
 
-  const locale = navigator.language // All browsers
-  || navigator.languages && navigator.languages[0] // Chrome / Firefox
-  || navigator.userLanguage; // IE <= 10
-
-  const shortCode = locale && locale.length > 2 ? locale.substr(0,2) : locale
-  return shortCode ? shortCode : 'en'
+  const shortCode = locale && locale.length > 2 ? locale.substr(0, 2) : locale
+  return shortCode || 'en'
 }

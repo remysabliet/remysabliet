@@ -1,8 +1,9 @@
 import React from 'react'
-import {statisticLogs, elapsedTime, currentFps} from "helpers/utils/animation";
+import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
 /**
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
- *  */ 
+ *  */
+
 const MagicSlider = WrappedComponent => {
   // Information like slides or deviceInfo are retrieved from the props
   // Depending on the deviceType different coeff are applied to the slider effect.
@@ -12,10 +13,14 @@ const MagicSlider = WrappedComponent => {
       this.handleOnWheel = this.handleOnWheel.bind(this)
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
-      this.velocityComputation= this.velocityComputation.bind(this);
+      this.velocityComputation = this.velocityComputation.bind(this)
+      this.touchStartHandler = this.touchStartHandler.bind(this)
+      this.touchEndHandler = this.touchEndHandler.bind(this)
+      this.handleResize = this.handleResize.bind(this)
+
       const { slides } = props
-      this.speed = 0 
-      // We can't work with React State to manage this variable, Indeed, the slider effect 
+      this.speed = 0
+      // We can't work with React State to manage this variable, Indeed, the slider effect
       // algorithm require a recursivity call (high speed), the update of the setState is asynchronous and being quickly saturated (queue),
       // setState doesn't update quickly enough to follow the natural speed of the slider effect and have a smooth fps.
 
@@ -33,7 +38,7 @@ const MagicSlider = WrappedComponent => {
       this.elapse = 0
 
       /* Mobile Variable*/
-      this.touchesInAction = {};
+      this.touchesInAction = {}
 
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
@@ -43,62 +48,46 @@ const MagicSlider = WrappedComponent => {
         currentSlide: slides[0] // We naturally start at the first slide of the array
       }
     }
-    
-    /** 
-    * We apply a lower fps in order to reduce freezing effect
-    * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
-    */
+
+    handleResize() {
+      this.setState({
+        viewportHeight: window.innerHeight
+      })
+    }
+
+    /**
+     * We apply a lower fps in order to reduce freezing effect
+     * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
+     */
     componentDidMount() {
       const { deviceInfo } = this.props
 
-      window.scrollTo(0,10)
-      let vh = window.innerHeight * 0.01;
-      // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
-      // Slide property: height: calc(var(--vh, 1vh) * 100);
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-      this.setState({ viewportHeight: document.documentElement.clientHeight }) // Retrieve height of the viewPort
-      if(deviceInfo === 'ios' || deviceInfo === 'android'){
-        window.addEventListener("touchstart", this.touchStartHandler.bind(this),{passive: true} );
-        window.addEventListener("touchend", this.touchEndHandler.bind(this),{passive: true} );
-      }else{ //Browser
-        window.addEventListener('wheel', this.handleOnWheel.bind(this), true)
-        
+      // Initialize vh property
+      window.scrollTo(0, 10)
+      this.handleResize()
+      console.log(deviceInfo)
+      if (deviceInfo === 'mobile') {
+        window.addEventListener('touchstart', this.touchStartHandler)
+        window.addEventListener('touchend', this.touchEndHandler)
+      } else {
+        // Browser
+        window.addEventListener('wheel', this.handleOnWheel)
       }
 
-      // Everytime our viewport is resized (for example when the searchBar appears on Mobile) 
+      // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
       // below function will be called in order to update our Slide's height accordingly
-      window.addEventListener(
-        'resize',() => {
-          // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-          let vh = window.innerHeight * 0.01;
-          // Then we set the value in the --vh custom property to the root of the document (In order to be accessible from our CSS calculation function)
-          // Slide property: height: calc(var(--vh, 1vh) * 100);
-          document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-          // We execute the same script as before
-          this.setState({
-            viewportHeight: window.innerHeight
-          })
-        })
+      window.addEventListener('resize', this.handleResize)
 
       this.startAnimating(60) // By default maximum (screen's default 60hz)
     }
 
     componentWillUnmount() {
-      window.removeEventListener("touchstart", this.touchStartHandler.bind(this),{passive: true} );
-      window.removeEventListener("touchend", this.touchEndHandler.bind(this),{passive: true} );
-      window.removeEventListener('wheel', this.handleOnWheel.bind(this), true)
-      window.removeEventListener(
-        'resize',
-        event => {
-          this.setState({
-            viewportHeight: window.outerHeight
-          })
-        },
-        true
-      )
+      window.removeEventListener('touchstart', this.touchStartHandler)
+      window.removeEventListener('touchend', this.touchEndHandler)
+      window.removeEventListener('wheel', this.handleOnWheel)
+      window.removeEventListener('resize', this.handleResize)
     }
+
     startAnimating(fps) {
       this.fpsInterval = 1000 / fps
       this.then = Date.now()
@@ -135,60 +124,60 @@ const MagicSlider = WrappedComponent => {
     this.speed += -1 * deltaY * 0.0006 // -1 allow to inverse touch scrolling orientation on mobile
   }
 
-  magicSlider() {
-    this.now = Date.now()
-    this.elapsed = this.now - this.then
-    // if enough time has elapsed, draw the next frame
-    if (this.elapsed > this.fpsInterval) {
-      // Get ready for next frame by setting then=now, but...
-      // Also, adjust for fpsInterval not being multiple of 16.67
-      this.then = this.now - (this.elapsed % this.fpsInterval)
+    magicSlider() {
+      this.now = Date.now()
+      this.elapsed = this.now - this.then
+      // if enough time has elapsed, draw the next frame
+      if (this.elapsed > this.fpsInterval) {
+        // Get ready for next frame by setting then=now, but...
+        // Also, adjust for fpsInterval not being multiple of 16.67
+        this.then = this.now - (this.elapsed % this.fpsInterval)
 
-      const { viewportHeight } = this.state
-      this.speed *= this.slideChangeSpeedCoeff
-      this.currentPosition += this.speed
-      const slideBoundary = Math.round(this.currentPosition)
-      const dif = slideBoundary - this.currentPosition
+        const { viewportHeight } = this.state
+        this.speed *= this.slideChangeSpeedCoeff
+        this.currentPosition += this.speed
+        const slideBoundary = Math.round(this.currentPosition)
+        const dif = slideBoundary - this.currentPosition
 
-      this.currentPosition += dif * this.slideChangeHardnessCoeff
+        this.currentPosition += dif * this.slideChangeHardnessCoeff
 
-      if (Math.abs(slideBoundary - this.currentPosition) < 0.001) {
-        // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
-        // to avoid an infinite division
-        this.currentPosition = slideBoundary
+        if (Math.abs(slideBoundary - this.currentPosition) < 0.001) {
+          // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
+          // to avoid an infinite division
+          this.currentPosition = slideBoundary
+        }
+        window.scrollTo(0, this.currentPosition * viewportHeight)
+        const curSlide = this.state.slides[slideBoundary]
+
+        // Will trigger a render every loop if we don't add this condition.
+        // Purpose is to save performance
+        if (curSlide !== this.state.currentSlide) {
+          this.setState({
+            currentSlide: curSlide
+          })
+        }
+
+        // Statistics purpose
+        // const sinceStart = this.now - this.startTime
+        // this.statisticLogs(
+        //   this.elapsedTime(sinceStart),
+        //   this.currentFps(sinceStart, this.frameCount)
+        // )
       }
-      window.scrollTo(0, this.currentPosition * viewportHeight)
-      const curSlide = this.state.slides[slideBoundary]
-
-      // Will trigger a render every loop if we don't add this condition.
-      // Purpose is to save performance
-      if (curSlide !== this.state.currentSlide) {
-        this.setState({
-          currentSlide: curSlide
-        })
-      }
-
-      // Statistics purpose
-      // const sinceStart = this.now - this.startTime
-      // this.statisticLogs(
-      //   this.elapsedTime(sinceStart),
-      //   this.currentFps(sinceStart, this.frameCount)
-      // )
-    } 
-    window.requestAnimationFrame(this.magicSlider)
-  }
+      window.requestAnimationFrame(this.magicSlider)
+    }
 
     handleOnWheel(event) {
       const { deviceInfo } = this.props
-      switch(deviceInfo){
+      switch (deviceInfo) {
         case 'firefox':
-          this.speed += event.deltaY * 0.006 //0.006 Firefox
-        break;
+          this.speed += event.deltaY * 0.006 // 0.006 Firefox
+          break
         case 'edge':
-          this.speed += event.deltaY * 0.0006 //0.006 Firefox
-        break;
+          this.speed += event.deltaY * 0.0006 // 0.006 Firefox
+          break
         default:
-          this.speed += event.deltaY * 0.0002  // 0.0003 Chrome, Opera, Safari
+          this.speed += event.deltaY * 0.0002 // 0.0003 Chrome, Opera, Safari
       }
     }
 

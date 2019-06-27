@@ -5,11 +5,8 @@ module.exports = {
     'jest': true
   },
   'extends': [
-    'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    'airbnb',
-    'prettier'
+    'airbnb-base'
   ],
   'parser': 'babel-eslint',
   'parserOptions': {

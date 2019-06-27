@@ -1,4 +1,4 @@
-import ITTerminology from "./ITTerminology";
+import ITTerminology from './ITTerminology'
 
 /**
  * Transform a JSON tree into a flat key/value objet
@@ -8,19 +8,19 @@ import ITTerminology from "./ITTerminology";
 
 const nestedMessages = {
   ITTerminology
-};
-
-function flatten(nestedMessages, prefix = "") {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
-    let value = nestedMessages[key];
-    let prefixedKey = prefix ? `${prefix}.${key}` : key;
-    if (typeof value === "string") {
-      messages[prefixedKey] = value;
-    } else {
-      Object.assign(messages, flatten(value, prefixedKey));
-    }
-    return messages;
-  }, {});
 }
 
-export default flatten(nestedMessages);
+function flatten(nestedMessages, prefix = '') {
+  return Object.keys(nestedMessages).reduce((messages, key) => {
+    const value = nestedMessages[key]
+    const prefixedKey = prefix ? `${prefix}.${key}` : key
+    if (typeof value === 'string') {
+      messages[prefixedKey] = value
+    } else {
+      Object.assign(messages, flatten(value, prefixedKey))
+    }
+    return messages
+  }, {})
+}
+
+export default flatten(nestedMessages)

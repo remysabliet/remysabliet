@@ -16,12 +16,14 @@ export default function asyncComponent(importComponent) {
         component: () => <Spinner />
       }
     }
+
     async componentDidMount() {
       const { default: component } = await importComponent()
       this.setState({
         component
       })
     }
+
     render() {
       const C = this.state.component
       return C ? <C {...this.props} /> : null

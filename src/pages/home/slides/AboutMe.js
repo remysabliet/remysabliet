@@ -1,25 +1,36 @@
-import React, { Fragment } from "react"
-import MainCanvas from 'components/organisms/drawer/canvas/MainCanvas'
+import React, { Fragment, useState, useEffect } from 'react'
+import Japanese from 'assets/svg/calligraphy/Japanese'
 
-const AboutMe = () => (
-  <Fragment>
-    <p> This is a short story about me</p>
-    <p> This is a long story or a short story about me</p>
-    <p>
-      ABCD From the Middle Ages until about the middle of the 20th
-      century, Latin was a central part of a man’s schooling in the West.
-      Along with logic and rhetoric, grammar (as Latin was then known) was
-      included as part of the Trivium – the foundation of a medieval
-      liberal arts education. From Latin, all scholarship flowed an it was
-      truly the gateway to the life of the mind, as the bulk of
-      scientific, 3religious, legal, and philosophical literature was
-      written in the language until about the 16th century. To immerse
-      oneself in classical and humanistic studies, Latin was a must.
-    </p>
-    <MainCanvas width={300} height={400}/>
-  </Fragment>
-)
+const AboutMe = props => {
+  const { locale, deviceInfo } = props
 
-export default AboutMe;
+  // We must consider both scroll/touch (mobile) and resize to check whenever an element get into the viewport
 
-          
+  // console.log("AboutMe", document.getElementsByClassName("animation-element"))
+  useEffect(() => {}, [])
+
+  return (
+    <Fragment>
+      <div className="calligraphy-container">
+        <div className="animated-element">
+          <Japanese />
+        </div>
+        <div className="animated-element">
+          <Japanese />
+        </div>
+      </div>
+    </Fragment>
+  )
+}
+export default AboutMe
+
+// <SVGDisplayer svg={settings[flag.locale]} />
+// Restart CSS animation
+// https://css-tricks.com/restart-css-animation/
+// So a slide up effect for my profile picture
+// https://codeburst.io/animating-dynamically-created-elements-pure-css-c864fdb6e366
+
+// Animate when scrolling into view
+// https://www.sitepoint.com/scroll-based-animations-jquery-css3/
+
+// https://www.sitepoint.com/scroll-based-animations-jquery-css3/

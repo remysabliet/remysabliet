@@ -1,13 +1,12 @@
-// Main tags, layout Style
+// function 
 @import "styles/utils";
 
-// Main tags, layout Style
+// main tags, layout Style
 @import "styles/base";
 
-// foreground elements: menu, etc ..
+// foreground elements: menu, header ..
 @import "styles/foregroundui";
 
-// Main container
 @import "styles/slider";
 
 @import "styles/slide";
@@ -21,4 +20,5 @@
 
 @import "styles/svg";
 
+@import "styles/calligraphy";
 

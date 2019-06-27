@@ -1,14 +1,14 @@
 export const locales = [
   {
-    locale:"fr",
+    locale: 'fr',
     active: false
   },
   {
-    locale:"ja",
+    locale: 'ja',
     active: false
   },
   {
-    locale:"en",
+    locale: 'en',
     active: true
   }
 ]

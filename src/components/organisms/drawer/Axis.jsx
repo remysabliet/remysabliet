@@ -8,9 +8,11 @@ class Axis extends React.Component {
     super()
     this.groupingRef = React.createRef()
   }
+
   componentDidMount() {
     this.renderAxis()
   }
+
   componentDidUpdate() {
     this.renderAxis()
   }

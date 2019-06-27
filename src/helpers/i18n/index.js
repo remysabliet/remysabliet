@@ -18,5 +18,3 @@ const __ = (wordId, locale) => {
 };
 
 export default __;
-
-// https://tvanro.github.io/tech/building-a-translation-component-with-react-and-redux/

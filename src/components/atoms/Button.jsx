@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 /*
 The classic button, in different colors, sizes, and states
@@ -15,21 +15,19 @@ const Button = ({
   id,
   ...props
 }) => {
-
-
   const classes = classNames(
-    "button",
+    'button',
     {
-      "active": active,
+      active
     },
     className
-  );
+  )
 
   return (
-    <button className={classes} id={id} {...props} >
+    <button className={classes} id={id} {...props}>
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

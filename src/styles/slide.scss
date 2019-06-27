@@ -1,9 +1,9 @@
  @import './variables';
  
 .slide {
-  position:relative;
-  min-width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100); //prevent height of problem on mobile because of url bar
+  margin: 0;
 
   .App-header {
   position: relative;
@@ -13,32 +13,15 @@
   color: white;
     h1{
       @extend %vertical-align;
-      position: absolute;
-    }
-  }
-
-  main{
-    background: transparent;
-    margin: 0;
-    width: 100vw;
-    height:100vh; // Can be leveraged to create Header/Footer and so reduce slide size (ex: Header : 5vh, main:90, footer:5vh
-    position:relative; /* every element inside, having position absolute, will be positionned accordingly*/
-
-    canvas{
-      position: absolute; /* Canvas will be positionned in the middle of their parent (Main)*/
-      top:50%;
-      left:50%;
-      -webkit-transform: translate(-50%, -50%); 
-      -moz-transform: translate(-50%, -50%); 
-      -ms-transform: translate(-50%, -50%); 
-      -o-transform: translate(-50%, -50%); 
-      transform: translate(-50%, -50%); 
+     
     }
   }
 
   .slide-home{ 
+    position:relative;
     z-index: 0;
-    background-image: url('../assets/img/background-trees.jpg');
+    height: inherit;
+    width: inherit;
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
@@ -55,38 +38,38 @@
   }
  
   .slide-aboutMe{
+    position:relative;
+    height: inherit;
+    width: inherit;
     z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     background-image: url('../assets/img/background-trees.jpg');
     background-size:     cover; /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
 
-    p {
-      display: absolute;
-      font-size: 14px;  
-      padding: 0px; /* remove padding above and below */
-      margin:0px;  /* remove margin left and right */
+    .calligraphy-container{
+      @extend %vertical-align;
+      width: 70vw;
+      height:70vh;
+      background-color:grey;
+
     }
-    main::before{
-      content:"";
-      display:block;
-      width: 80vw;
-      max-width:100vw;
-      height: 400px;
-      max-height:100vh;
-      float: left;
-      /* background: rgb(0,212,255);
-      background: linear-gradient(150deg, rgba(0,212,255,1) 30%, rgba(9,9,121,0) 50%);
-      shape-outside: linear-gradient(150deg, rgba(0,212,255,1) 30%, rgba(9,9,121,0) 50%);*/
-    }    
   }
   .slide-experience{
+    height: inherit;
+    width: inherit;
     background: $background-color-green-black-fallback;
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
+
+    canvas{
+      @extend %vertical-align;
+    }
   }
 
   .slide-contact{
+    height: inherit;
+    width: inherit;
     background: $background-color-earthly-fallback;
     background: $background-color-earthly-webkit;
     background: $background-color-earthly;

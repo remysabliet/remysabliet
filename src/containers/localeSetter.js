@@ -4,12 +4,12 @@ import { updateLocales } from 'actions/global'
 
 /**
  * // the locale code is located at the last 2 character of returned event.target id
- * @param {*} dispatch 
+ * @param {*} dispatch
  */
 function mapDispatchToProps(dispatch) {
-  const updateLocale = (event) => {
-    const targetID = event.target.id;
-    const locale = targetID ? targetID.substr(targetID.length-2) : 'en';
+  const updateLocale = event => {
+    const targetID = event.target.id
+    const locale = targetID ? targetID.substr(targetID.length - 2) : 'en'
     dispatch(updateLocales(locale))
   }
 
@@ -18,9 +18,11 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-// HoC used to inject cross-cutting concern info 
-const localeSetter = Component => {
-  return connect(null, mapDispatchToProps)(Component)
-}
+// HoC used to inject cross-cutting concern info
+const localeSetter = Component =>
+  connect(
+    null,
+    mapDispatchToProps
+  )(Component)
 
-export default localeSetter;
+export default localeSetter

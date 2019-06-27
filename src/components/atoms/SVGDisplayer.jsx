@@ -1,13 +1,7 @@
-import React from "react"
+import React from 'react'
 
-const SVGDisplayer = ({svg}) => (
-  <svg {...svg}>
-    {svg.uses && svg.uses.map(use => {
-        return (
-        <use {...use} />
-        )
-      })}
-  </svg>
+const SVGDisplayer = ({ svg }) => (
+  <svg {...svg}>{svg.uses && svg.uses.map(use => <use {...use} />)}</svg>
 )
 
-export default SVGDisplayer;
+export default SVGDisplayer

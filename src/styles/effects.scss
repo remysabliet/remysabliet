@@ -4,7 +4,7 @@
   @for $i from 1 through 100 {
     $y: randomRange(-30,70);
     $x: randomRange(-5,95);
-    $opa:  randomRange(7,10)/10; // opacite between 0.3 and 1
+    $opa: randomRange(7,10)/10; // opacite between 0.3 and 1
     // @warn $y; 
     p{ 
       &:nth-child(#{$i}) {
@@ -16,8 +16,8 @@
       text-orientation: upright;
       position: absolute;
       animation: vertical-transform infinite randomRange(4,10)+s linear #{$i/2}s; 
-      left: calc(var(--vw, 1vw) * #{$x});
-      top: 	calc(var(--vh, 1vh) * #{$y});
+      left: calc(var(--vw, 1vw) * #{$x}); // Will replace p element on the X according to viewport resize
+      top: 	calc(var(--vh, 1vh) * #{$y}); // Will replace p element on the Y according to viewport resize
     }
   }
 
@@ -28,3 +28,15 @@
     }
   }
 } 
+
+.animated-element{
+  opacity : 0;
+  &.slide-up{
+    animation: slide-up 1s forwards;
+  }
+}
+
+@keyframes slide-up {
+  0% {  opacity : 0; transform: translateY(calc(var(--vh, 1vh)*5))}
+  100% {  opacity : 1;transform: translateY(0px)} 
+}
