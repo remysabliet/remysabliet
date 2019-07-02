@@ -24,6 +24,21 @@ export const portraitAnimSetting = [
       viewBox: '0 0 251 327',
       preserveAspectRatio: undefined,
       uses: [
+        { fill: 'white', xlinkHref: '#jacket', opacity: '1' },
+        { fill: 'white', xlinkHref: '#tie', opacity: '1' },
+        { fill: 'white', xlinkHref: '#hair', opacity: '1' },
+        { fill: 'white', xlinkHref: '#face', opacity: '1' }
+      ]
+    }
+  }
+  /* TRUMP
+  {
+    msTime: 3000,
+    frame: {
+      className: 'fullViewPort',
+      viewBox: '0 0 251 327',
+      preserveAspectRatio: undefined,
+      uses: [
         { fill: '#02085b', xlinkHref: '#jacket', opacity: '1' },
         { fill: '#6d071a', xlinkHref: '#tie', opacity: '1' },
         { fill: '#D9CC00', xlinkHref: '#hair', opacity: '1' },
@@ -31,4 +46,5 @@ export const portraitAnimSetting = [
       ]
     }
   }
+  */
 ]

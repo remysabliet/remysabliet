@@ -18,24 +18,3 @@ svg {
     }
   }
 }
-
-
-/*on peut pas specifier hover sur des elements Path/Rectangle etc a l'interieur d'un SVG reference par <use> */
-/* Neanmoins on peut appliquer un effet hover sur l'element use dans sa globalité, pour cela il doit imperativement avoir un id */
-/*
-#japanFlag {
-  path{
-    fill: #a5a206;
-  }
-  ellipse{
-    fill: rgb(56, 8, 133);
-  }
-}
-
-
-ellipse {
-  fill: rgb(96, 133, 8);
-  &:hover{
-    fill: #06a506;
-  }
-}*/

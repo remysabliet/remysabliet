@@ -11,6 +11,7 @@
       opacity: 0;
       cursor: default;
       font-size: percentage(random(15)/5);
+      // color: white;
       color: #C0C0C0;
       writing-mode: vertical-rl;
       text-orientation: upright;
@@ -37,6 +38,12 @@
 }
 
 @keyframes slide-up {
-  0% {  opacity : 0; transform: translateY(calc(var(--vh, 1vh)*5))}
-  100% {  opacity : 1;transform: translateY(0px)} 
+  0% {
+    opacity : 0; 
+    transform: translateY(calc(var(--vh, 1vh)*5))
+  }
+  100% {
+    opacity : 1;
+    transform: translateY(0px)
+  } 
 }

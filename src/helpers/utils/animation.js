@@ -25,34 +25,37 @@ export const animateIfInView = (className) => {
   const windowTopPos =  0 
   const windowBottomPos = windowTopPos + window.innerHeight;
 
-  document.getElementsByClassName(className)
+  const elements = document.getElementsByClassName(className)
   const animatedElement = [...document.getElementsByClassName(className)];
 
   animatedElement.forEach( elem => {
     const elementBounds = elem.getBoundingClientRect();
     const elemTopPos = elementBounds.y;
     const elemBottomPos = elemTopPos + elementBounds.height;
+
+    //For now we do not manage dynamically effects (only slide-up effect works) => to be improved
     const classNameEffect = "slide-up";
 
     let activate = false;
     
     if((elemTopPos >= windowTopPos && elemTopPos <= windowBottomPos) || 
-          elemBottomPos >= windowTopPos && elemBottomPos <= windowBottomPos) {
-                activate = true;
+      elemBottomPos >= windowTopPos && elemBottomPos <= windowBottomPos) {
+        activate = true;
     }
-    
+
     if(activate){
       console.log("ACTIVATED")
-    // console.log("IN VIEW",  "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos) 
-    // Cross-browser solution
+      // console.log("IN VIEW",  "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos) 
+      // Cross-browser solution
       const arr = elem.className.split(" ");
       if (arr.indexOf(classNameEffect) == -1) {
-            elem.className += " " + classNameEffect;
+            elem.className += " " +classNameEffect;
       }
-    } else{
+    } else {
     // console.log("NOT IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
-      const regExp = new RegExp(`\\b${classNameEffect}\\b`)
-      elem.className = elem.className.replace(regExp, "");
+     const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
+     elem.className = elem.className.replace(regExp, "");
+     console.log(elem.className)
     }
   })
 }
