@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import 'helpers/window'
 import configureStore from 'store/configureStore'
 
 import { getDeviceInfo, getLocale } from 'helpers/utils/miscellaneous'

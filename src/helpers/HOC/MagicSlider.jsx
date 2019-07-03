@@ -2,6 +2,10 @@ import React from 'react'
 import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
 /**
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
+ * Event Type leveraged: 
+ *   All Device: resize
+ *   Mobile: touchstart/touchend
+ *   Browser: wheel + keyup/keydown
  *  */
 
 const MagicSlider = WrappedComponent => {
@@ -13,16 +17,20 @@ const MagicSlider = WrappedComponent => {
       this.handleOnWheel = this.handleOnWheel.bind(this)
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
-      this.velocityComputation = this.velocityComputation.bind(this)
+      // this.velocityComputation = this.velocityComputation.bind(this)
       this.touchStartHandler = this.touchStartHandler.bind(this)
       this.touchEndHandler = this.touchEndHandler.bind(this)
+      this.keyUpHandler=this.keyUpHandler.bind(this)
+      this.keyDownHandler=this.keyDownHandler.bind(this)
       this.handleResize = this.handleResize.bind(this)
 
-      const { slides } = props
+    
       this.speed = 0
-      // We can't work with React State to manage this variable, Indeed, the slider effect
-      // algorithm require a recursivity call (high speed), the update of the setState is asynchronous and being quickly saturated (queue),
-      // setState doesn't update quickly enough to follow the natural speed of the slider effect and have a smooth fps.
+      // We can't work with React State to manage this variable as the slider effect
+      // algorithm require a recursivity call (high speed)
+      // setState is asynchronous and quickly saturated (queue),
+      // setState doesn't update quickly enough to follow the natural speed of the slider effect 
+      // to provide a smooth rendering.
 
       this.currentPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
       this.slideChangeHardnessCoeff = 0.03 // Bigger the coef is, harder it is to change of slide. norm: 0.03
@@ -43,12 +51,14 @@ const MagicSlider = WrappedComponent => {
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
       this.state = {
-        slides: props.slides,
+        keyCode: undefined,
+        keyTimestamp: undefined,
         viewportHeight: 0,
-        currentSlide: slides[0] // We naturally start at the first slide of the array
+        currentSlide: props.slides[0] // We naturally start at the first slide of the array
       }
     }
 
+    // Update the wi to be taken into account magicSlider calculation
     handleResize() {
       this.setState({
         viewportHeight: window.innerHeight
@@ -61,17 +71,19 @@ const MagicSlider = WrappedComponent => {
      */
     componentDidMount() {
       const { deviceInfo } = this.props
-
+    
       // Initialize vh property
       window.scrollTo(0, 10)
       this.handleResize()
-      console.log(deviceInfo)
+      // console.log(deviceInfo)
       if (deviceInfo === 'mobile') {
         window.addEventListener('touchstart', this.touchStartHandler)
         window.addEventListener('touchend', this.touchEndHandler)
       } else {
         // Browser
         window.addEventListener('wheel', this.handleOnWheel)
+        window.addEventListener('keyup', this.keyUpHandler)
+        window.addEventListener('keydown', this.keyDownHandler)
       }
 
       // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
@@ -86,6 +98,8 @@ const MagicSlider = WrappedComponent => {
       window.removeEventListener('touchend', this.touchEndHandler)
       window.removeEventListener('wheel', this.handleOnWheel)
       window.removeEventListener('resize', this.handleResize)
+      window.removeEventListener('keyup', this.keyUpHandler)
+      window.removeEventListener('keydown', this.keyDownHandler)
     }
 
     startAnimating(fps) {
@@ -98,18 +112,17 @@ const MagicSlider = WrappedComponent => {
     touchStartHandler(event) {
       var touches = event.changedTouches;
       for(var j = 0; j < touches.length; j++) {
-  
-           /* store touch info on touchstart */
-           this.touchesInAction[ "$" + touches[j].identifier ] = {
-  
-              identifier : touches[j].identifier,
-              pageX : touches[j].pageX,
-              pageY : touches[j].pageY
-           };
+        /* store touch info on touchstart */
+        this.touchesInAction[ "$" + touches[j].identifier ] = {
+
+          identifier : touches[j].identifier,
+          pageX : touches[j].pageX,
+          pageY : touches[j].pageY
+        };
       }
-  }
+    }
   
-  touchEndHandler(event) {
+    touchEndHandler(event) {
       var touches = event.changedTouches;
       for(var j = 0; j < touches.length; j++) {
           /* access stored touch info on touchend */
@@ -118,11 +131,32 @@ const MagicSlider = WrappedComponent => {
           theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
       }
       this.velocityComputation(theTouchInfo.dy);
-  }
+    }
 
-  velocityComputation(deltaY) {
-    this.speed += -1 * deltaY * 0.0006 // -1 allow to inverse touch scrolling orientation on mobile
-  }
+    keyDownHandler(event) {
+      //38 UpArrow 40 DownArrow
+      if((event.keyCode === 38 || event.keyCode === 40) && !event.repeat){
+        this.setState({
+          keyCode: event.keyCode,
+          keyTimestamp: event.timeStamp
+        })
+      }
+    }
+    
+    keyUpHandler(event) {
+      const { keyCode, keyTimestamp } = this.state;
+
+      const elapsedTime = event.keyCode === keyCode? event.timeStamp - keyTimestamp : 0;
+      if(elapsedTime){
+        const deltaY = keyCode === 38 ? -1 : 1;
+        this.speed += deltaY * elapsedTime/1000;
+      }
+      
+    }
+
+    velocityComputation(deltaY) {
+      this.speed += -1 * deltaY * 0.0006 // -1 allow to inverse touch scrolling orientation on mobile
+    }
 
     magicSlider() {
       this.now = Date.now()
@@ -146,8 +180,9 @@ const MagicSlider = WrappedComponent => {
           // to avoid an infinite division
           this.currentPosition = slideBoundary
         }
+
         window.scrollTo(0, this.currentPosition * viewportHeight)
-        const curSlide = this.state.slides[slideBoundary]
+        const curSlide = this.props.slides[slideBoundary]
 
         // Will trigger a render every loop if we don't add this condition.
         // Purpose is to save performance
@@ -179,6 +214,14 @@ const MagicSlider = WrappedComponent => {
         default:
           this.speed += event.deltaY * 0.0002 // 0.0003 Chrome, Opera, Safari
       }
+    }
+
+    // We trigger rerendering only if current slide change
+    shouldComponentUpdate( nextState){
+      const { currentSlide } = this.state;
+      if(nextState.currentSlide === currentSlide)
+        return false 
+
     }
 
     render() {

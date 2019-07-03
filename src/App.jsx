@@ -8,41 +8,13 @@ import { addEventListener, recomputeViewportSize, removeEventListener } from 'he
 import { animateIfInView } from 'helpers/utils/animation'
 import Routes from 'routes'
 
-/**
- * In order to be able to remove the eventListener we must bind 
- * associated function to a component instance.
- * 
- */
-class App extends React.Component{
-  constructor(props){
-    super(props)
-
-    this.animatedElementClassName = "animated-element"
-
-    this.recomputeViewPort = this.recomputeViewPort.bind(this);
-    this.animateIfInView = this.animateIfInView.bind(this);
-
-    addEventListener('resize', this.recomputeViewPort)
-    addEventListener('resize', this.animateIfInView)
-    addEventListener('scroll', this.animateIfInView)
-  }
-
-  recomputeViewPort = () => recomputeViewportSize()
-  animateIfInView = () => animateIfInView(this.animatedElementClassName)
-
-  componentWillUnmount(){
-    removeEventListener('resize', this.recomputeViewPort)
-    removeEventListener('resize', this.animateIfInView)
-    removeEventListener('scroll', this.animateIfInView)
-  }  
-
-  render(){ 
-    const { store } = this.props;
+const App = (props) => {
+  const { store } = props;
     return (
     <Provider store={store}>
-      <Routes {...this.props} />
+      <Routes {...props} />
     </Provider>
-  )}
+  )
 }
 
 export default withRouter(App)

@@ -6,7 +6,7 @@ import CalligraphyWritter from "components/molecules/CalligraphyWriter"
 
 const AboutMe = props => {
   const { locale, deviceInfo } = props
-
+  console.log("Rerendering")
   // We must consider both scroll/touch (mobile) and resize to check whenever an element get into the viewport
 
   // console.log("AboutMe", document.getElementsByClassName("animation-element"))

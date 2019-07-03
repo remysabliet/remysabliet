@@ -25,7 +25,6 @@ export const animateIfInView = (className) => {
   const windowTopPos =  0 
   const windowBottomPos = windowTopPos + window.innerHeight;
 
-  const elements = document.getElementsByClassName(className)
   const animatedElement = [...document.getElementsByClassName(className)];
 
   animatedElement.forEach( elem => {
