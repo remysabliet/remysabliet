@@ -1,27 +1,14 @@
+# remysabliet
+---
+This project was bootstrapped with React, Redux, React Router, Webpack
 
-<router>
-  <Route comp='homepage' '/'>
-       #home 
-       #Presentation 
-       #CV 
-       #portfolio 
-       #contact 
-   </Route>
+# Introduction
+This page is a presentation of its owner and has been implemented using 
+several animation teckniques including JS CSS3 and SVG.
 
-<slider>
-  <slide>
+# Installation
+- Clone the repo
+- Issue `npm install` command
 
-Host -> 
-  FullScreen-slider -> 
-        slider-slide  -> 
-              #home 
-              #Presentation 
-              #CV 
-              #portfolio 
-              #contact 
 
-Navigation Item:
-  They should be fixed to the view port/windows and placed in foreground (Container absolute).
-  Regarding the Navigation bar or other particulars item, they should be moved outside out the view point when scrolling, and moved in again when reaching a position.
 
-Regarding Navigation Item: Nav, button, return to first slide.. Menu ( Home, Work, etc).
