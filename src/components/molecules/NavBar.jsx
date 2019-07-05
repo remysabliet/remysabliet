@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 
-const NavBar = ({ slides }) => (
+const NavBar = React.memo(({ slides }) => (
   <React.Fragment>
     <nav>
       {slides.map(slide => (
@@ -11,6 +11,6 @@ const NavBar = ({ slides }) => (
       ))}
     </nav>
   </React.Fragment>
-)
+))
 
 export default NavBar

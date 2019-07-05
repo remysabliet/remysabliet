@@ -3,13 +3,12 @@ import React from 'react'
 
 import FlagBox from 'components/molecules/FlagBox'
 
-// console.log("Header active", active)
-const Header = props => (
+const Header = React.memo(props => (
   <div className="header">
     <div className="content">
       <FlagBox {...props} />
     </div>
   </div>
-)
+))
 
 export default Header

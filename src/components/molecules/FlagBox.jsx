@@ -5,7 +5,7 @@ import Button from 'components/atoms/Button'
 import SVGDisplayer from 'components/atoms/SVGDisplayer'
 import { locales as InitConf } from 'helpers/constants/global'
 
-const FlagBox = props => {
+const FlagBox = React.memo(props => {
   const { locale, setLocale } = props;
 
   const [flags, setFlags] = useState(InitConf) // initialized to Empty
@@ -57,6 +57,6 @@ const FlagBox = props => {
         ))}
   </div>
   )
-}
+})
 
 export default FlagBox

@@ -6,7 +6,7 @@ import SVGDisplayer from 'components/atoms/SVGDisplayer'
  *
  * @param {*} setting
  */
-const SvgAnimator = ({
+const SvgAnimator = React.memo(({
   setting
 }) => {
 
@@ -29,5 +29,6 @@ const SvgAnimator = ({
   }, [setting]) // Will be re-executed if setting prop get updated
 
   return <Fragment>{result}</Fragment>
-}
+})
+
 export default SvgAnimator

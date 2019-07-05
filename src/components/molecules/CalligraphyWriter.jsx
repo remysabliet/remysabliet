@@ -1,10 +1,9 @@
 import React from 'react'
 
-const CalligraphyWriter = (props) => {
+const CalligraphyWriter = React.memo((props) => {
   const { symbols, className} = props;
 
   const classes = className? className : "calligraphy-grid-container";
-  //console.log(symbols)
   return (
     <div className={classes}>
       {symbols.map( symbol => 
@@ -14,6 +13,6 @@ const CalligraphyWriter = (props) => {
       )}
     </div>
   )
-}
+})
 
 export default CalligraphyWriter;

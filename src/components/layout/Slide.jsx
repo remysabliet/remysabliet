@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Slide = props => {
+const Slide = React.memo(props => {
   const { title, className, children, id, ...newProps } = props
   return (
     <div className="slide">
@@ -15,6 +15,6 @@ const Slide = props => {
       </div>
     </div>
   )
-}
+})
 
 export default Slide

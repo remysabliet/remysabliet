@@ -5,7 +5,7 @@ import { shuffle } from 'helpers/utils/miscellaneous'
  * Considering an array in input, will randomly generate p for
  * every items of those with random size and opacity.
  */
-const Matrix = ({ list = [], limit = 100, className }) => {
+const Matrix = React.memo(({ list = [], limit = 100, className }) => {
   const classNames = className || 'matrix'
   let count = limit
   const arr = []
@@ -19,6 +19,6 @@ const Matrix = ({ list = [], limit = 100, className }) => {
   }
 
   return <div className={classNames}>{arr}</div>
-}
+})
 
 export default Matrix
