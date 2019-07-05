@@ -5,12 +5,12 @@ import Header from 'components/layout/Header'
 
 import localeSetter from 'containers/localeSetter'
 
-const Layout = React.memo(props => (
+const Layout = props => (
   <>
     <ForegroundUI>
       <Header {...props} />
     </ForegroundUI>
   </>
-))
+)
 
 export default localeSetter(Layout)

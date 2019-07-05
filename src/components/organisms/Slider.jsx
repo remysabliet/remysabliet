@@ -9,9 +9,9 @@ import MagicSlider from 'helpers/HOC/MagicSlider'
 class Slider extends React.PureComponent {
   constructor(props) {
     super(props)
-    const { slides, children } = props
+    const { slides } = props
     this.state = {
-      currentSlide: { slides }[0]
+      currentSlide: slides[0]
     }
     this.refs = slides.map(() => React.createRef())
   }
@@ -27,8 +27,9 @@ class Slider extends React.PureComponent {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.currentSlide !== this.state.currentSlide) {
+  /*We avoid re-render even if we change of slide*/
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.currentSlide !== this.state.currentSlide) {
       return false
     }
     return true

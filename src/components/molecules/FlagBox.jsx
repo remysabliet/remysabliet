@@ -41,7 +41,6 @@ const FlagBox = React.memo(props => {
     }
   })
 
-
   return (
     <div className="flagBox">
       {flags &&

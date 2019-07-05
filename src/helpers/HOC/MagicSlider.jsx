@@ -24,7 +24,6 @@ const MagicSlider = WrappedComponent => {
       this.keyDownHandler=this.keyDownHandler.bind(this)
       this.handleResize = this.handleResize.bind(this)
 
-    
       this.speed = 0
       // We can't work with React State to manage this variable as the slider effect
       // algorithm require a recursivity call (high speed)
@@ -32,6 +31,7 @@ const MagicSlider = WrappedComponent => {
       // setState doesn't update quickly enough to follow the natural speed of the slider effect 
       // to provide a smooth rendering.
 
+      this.viewportHeight= 0
       this.currentPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
       this.slideChangeHardnessCoeff = 0.03 // Bigger the coef is, harder it is to change of slide. norm: 0.03
       this.slideChangeSpeedCoeff = 0.8 // Speed du changement de slide   norm= 0.8
@@ -48,21 +48,18 @@ const MagicSlider = WrappedComponent => {
       /* Mobile Variable*/
       this.touchesInAction = {}
 
+      this.keyCode = undefined
+      this.keyTimestamp = undefined
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
       this.state = {
-        keyCode: undefined,
-        keyTimestamp: undefined,
-        viewportHeight: 0,
         currentSlide: props.slides[0] // We naturally start at the first slide of the array
       }
     }
 
     // Update the wi to be taken into account magicSlider calculation
     handleResize() {
-      this.setState({
-        viewportHeight: window.innerHeight
-      })
+      this.viewportHeight= window.innerHeight
     }
 
     /**
@@ -114,7 +111,6 @@ const MagicSlider = WrappedComponent => {
       for(var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */
         this.touchesInAction[ "$" + touches[j].identifier ] = {
-
           identifier : touches[j].identifier,
           pageX : touches[j].pageX,
           pageY : touches[j].pageY
@@ -136,22 +132,17 @@ const MagicSlider = WrappedComponent => {
     keyDownHandler(event) {
       //38 UpArrow 40 DownArrow
       if((event.keyCode === 38 || event.keyCode === 40) && !event.repeat){
-        this.setState({
-          keyCode: event.keyCode,
-          keyTimestamp: event.timeStamp
-        })
+          this.keyCode= event.keyCode,
+          this.keyTimestamp= event.timeStamp 
       }
     }
     
     keyUpHandler(event) {
-      const { keyCode, keyTimestamp } = this.state;
-
-      const elapsedTime = event.keyCode === keyCode? event.timeStamp - keyTimestamp : 0;
+      const elapsedTime = event.keyCode === this.keyCode? event.timeStamp - this.keyTimestamp : 0;
       if(elapsedTime){
-        const deltaY = keyCode === 38 ? -1 : 1;
+        const deltaY = this.keyCode === 38 ? -1 : 1;
         this.speed += deltaY * elapsedTime/1000;
       }
-      
     }
 
     velocityComputation(deltaY) {
@@ -167,7 +158,6 @@ const MagicSlider = WrappedComponent => {
         // Also, adjust for fpsInterval not being multiple of 16.67
         this.then = this.now - (this.elapsed % this.fpsInterval)
 
-        const { viewportHeight } = this.state
         this.speed *= this.slideChangeSpeedCoeff
         this.currentPosition += this.speed
         const slideBoundary = Math.round(this.currentPosition)
@@ -181,7 +171,7 @@ const MagicSlider = WrappedComponent => {
           this.currentPosition = slideBoundary
         }
 
-        window.scrollTo(0, this.currentPosition * viewportHeight)
+        window.scrollTo(0, this.currentPosition * this.viewportHeight)
         const curSlide = this.props.slides[slideBoundary]
 
         // Will trigger a render every loop if we don't add this condition.
@@ -218,10 +208,10 @@ const MagicSlider = WrappedComponent => {
 
     // We trigger rerendering only if current slide change
     shouldComponentUpdate( nextState){
-      const { currentSlide } = this.state;
+      const { currentSlide} = this.state;
       if(nextState.currentSlide === currentSlide)
-        return false 
-
+        return false
+      return true
     }
 
     render() {

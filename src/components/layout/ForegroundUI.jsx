@@ -2,8 +2,8 @@ import React from 'react'
 
 // import NavBar from 'components/molecules/NavBar'
 
-const ForegroundUI = ({ children }) => (
+const ForegroundUI = React.memo(({children}) => (
   <div className="foregroundUI">{children}</div>
-)
+))
 
 export default ForegroundUI
