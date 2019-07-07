@@ -1,9 +1,9 @@
- /**
+/**
   *  Return an random number between a min and max limit
   */
-  @function randomRange($min, $max) {
-    $rand: random();
-    $randomRange: $min + floor($rand * (($max - $min) + 1));
-    @warn  $randomRange;
-    @return $randomRange;
-  }
+@function randomRange($min, $max) {
+  $rand: random();
+  $randomRange: $min + floor($rand * (($max - $min) + 1));
+  @warn $randomRange;
+  @return $randomRange;
+}
