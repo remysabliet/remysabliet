@@ -14,18 +14,28 @@ export const currentFps = (sinceStart, framecount) =>
       Math.round(((1000 / (sinceStart / ++this.frameCount)) * 100) / 100)
 
 /**
+ * 
+ *     ITERATOR PROBLEM WITH EDGE
+ * 
+ * 
+ * 
    *  1) Retrieve all elements owning "animation-element" class inside the DOM
    *  2) Check wether those elements inner boundaries are in view, that is to say 
    *   whether their top boundary is equal or above viewport's top boundary and bottom boundary is above window bottom boundary
    *  3) if inside the viewport, add an animation class to the div element in order to trigger animation
    *     if outside the viewport, remove the animation class from the div element
    */
-export const animateIfInView = (className) => {
+
+/*
+ export const animateIfInView = (className) => {
 
   const windowTopPos =  0 
   const windowBottomPos = windowTopPos + window.innerHeight;
 
-  const animatedElement = [...document.getElementsByClassName(className)];
+  const elementToAnimate = document.getElementsByClassName(className);
+  if(elementToAnimate){
+    console.log(elementToAnimate)
+  const animatedElement = [...elementToAnimate];
 
   animatedElement.forEach( elem => {
     const elementBounds = elem.getBoundingClientRect();
@@ -56,6 +66,8 @@ export const animateIfInView = (className) => {
      elem.className = elem.className.replace(regExp, "");
      console.log(elem.className)
     }
-  })
+  }
+  )
 }
-
+}
+*/

@@ -1,0 +1,7 @@
+export {default as HaHira} from  "./Ha"
+export {default as KoHira} from  "./Ko"
+export {default as NHira} from  "./N"
+export {default as NiHira} from  "./Ni"
+export {default as ChiHira} from  "./Chi"
+export {default as DeHira} from  "./De"
+export {default as SuHira} from  "./Su"
