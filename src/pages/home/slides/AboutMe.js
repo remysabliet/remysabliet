@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
 import { ChiHira, DeHira, HaHira, KoHira, NHira, NiHira, SuHira } from 'assets/svg/calligraphy/japanese/hiragana'
-import { Yume } from 'assets/svg/calligraphy/japanese/kanji'
+import { Kuru, Watashi, Yume } from 'assets/svg/calligraphy/japanese/kanji'
 import { MiKata, ReKata } from 'assets/svg/calligraphy/japanese/katakana'
 import CalligraphyWritter from "components/molecules/CalligraphyWriter"
 
@@ -24,7 +24,10 @@ const AboutMe = props => {
     })
     console.log("number of child", childcount)
   }, [locale])
-
+  
+  // To do list 
+  //1 re-trigger the whole painting as soon as calligraphy is out of screen
+  //2 make sure the display is elastic works on all browser (except IE) and IOS/Android last version
   const symbols = [
     { class: 'a1', element: <KoHira /> },
     { class: 'a2', element: <NHira /> },
@@ -35,16 +38,16 @@ const AboutMe = props => {
     { class: 'a7', element: <MiKata /> },
     { class: 'a8', element: <DeHira /> },
     { class: 'a9', element: <SuHira /> },
-    { class: 'b0', element: <Yume /> },
-    { class: 'c1', element: <KoHira /> },
-    { class: 'c2', element: <NHira /> },
-    { class: 'c3', element: <NiHira /> },
-    { class: 'c4', element: <ChiHira /> },
-    { class: 'c5', element: <HaHira /> },
+    { class: 'b0', element: <Watashi /> },
+    { class: 'b1', element: <Kuru /> },
+    { class: 'b2', element: <NHira /> },
+    { class: 'b3', element: <NiHira /> },
+    { class: 'b4', element: <Kuru /> },
+    { class: 'b5', element: <HaHira /> },
     { class: 'c6', element: <ReKata /> },
     { class: 'c7', element: <MiKata /> },
     { class: 'c8', element: <DeHira /> },
-    { class: 'c9', element: <SuHira /> },
+    { class: 'c9', element: <Yume /> },
     
   ]
 
