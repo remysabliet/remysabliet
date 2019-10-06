@@ -1,2 +1,5 @@
-export { default as ReKata } from "./Re"
+export { default as JiKata } from "./Ji"
 export { default as MiKata } from "./Mi"
+export { default as PeKata } from "./Pe"
+export { default as ReKata } from "./Re"
+export { default as VertiBarreKata } from "./VertiBarre"

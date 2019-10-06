@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
-import { ChiHira, DeHira, HaHira, KoHira, NHira, NiHira, SuHira } from 'assets/svg/calligraphy/japanese/hiragana'
+import { ChiHira, DeHira, HaHira, KoHira, NHira, NiHira, NoHira, SuHira, SoHira, YoHira, UHira } from 'assets/svg/calligraphy/japanese/hiragana'
 import { Kuru, Watashi, Yume } from 'assets/svg/calligraphy/japanese/kanji'
-import { MiKata, ReKata } from 'assets/svg/calligraphy/japanese/katakana'
+import {JiKata, MiKata, PeKata, ReKata, VertiBarreKata } from 'assets/svg/calligraphy/japanese/katakana'
 import CalligraphyWritter from "components/molecules/CalligraphyWriter"
 
 const AboutMe = props => {
@@ -39,16 +39,27 @@ const AboutMe = props => {
     { class: 'a8', element: <DeHira /> },
     { class: 'a9', element: <SuHira /> },
     { class: 'b0', element: <Watashi /> },
-    { class: 'b1', element: <Kuru /> },
-    { class: 'b2', element: <NHira /> },
-    { class: 'b3', element: <NiHira /> },
-    { class: 'b4', element: <Kuru /> },
-    { class: 'b5', element: <HaHira /> },
-    { class: 'c6', element: <ReKata /> },
-    { class: 'c7', element: <MiKata /> },
-    { class: 'c8', element: <DeHira /> },
-    { class: 'c9', element: <Yume /> },
-    
+    { class: 'b1', element: <NoHira/> },
+    { class: 'b2', element: <PeKata /> },
+    { class: 'b3', element: <VertiBarreKata /> },
+    { class: 'b4', element: <JiKata /> },
+    { class: 'b5', element: <NiHira /> },
+    { class: 'b6', element: <YoHira /> },
+    { class: 'b7', element: <UHira /> },
+    { class: 'b8', element: <KoHira /> },
+    { class: 'b9', element: <SoHira /> },
+    { class: 'c0', element: <Yume /> },
+    { class: 'c1', element: <KoHira /> },
+    { class: 'c2', element: <KoHira /> },
+    { class: 'c3', element: <KoHira /> },
+    { class: 'c4', element: <KoHira /> },
+    { class: 'c5', element: <KoHira /> },
+    { class: 'c6', element: <KoHira /> },
+    { class: 'c7', element: <KoHira /> },
+    { class: 'c8', element: <KoHira /> },
+    { class: 'c9', element: <KoHira /> },
+    { class: 'd0', element: <KoHira /> },
+
   ]
 
   return (
