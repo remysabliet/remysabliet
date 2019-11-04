@@ -7,6 +7,8 @@ import __ from 'helpers/i18n'
 import Routes from 'routes'
 
 const App = (props) => {
+  const q = () => console("AAAAA")
+window.removeEventListener('scroll', q)
   const { store } = props;
     return (
     <Provider store={store}>

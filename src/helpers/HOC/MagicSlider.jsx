@@ -74,13 +74,13 @@ const MagicSlider = WrappedComponent => {
       this.handleResize()
       // console.log(deviceInfo)
       if (deviceInfo === 'mobile') {
-        window.addEventListener('touchstart', this.touchStartHandler)
-        window.addEventListener('touchend', this.touchEndHandler)
+        window.addEventListener('touchstart', this.touchStartHandler, false)
+        window.addEventListener('touchend', this.touchEndHandler, false)
       } else {
         // Browser
-        window.addEventListener('wheel', this.handleOnWheel)
-        window.addEventListener('keyup', this.keyUpHandler)
-        window.addEventListener('keydown', this.keyDownHandler)
+        window.addEventListener('wheel', this.handleOnWheel, false)
+        window.addEventListener('keyup', this.keyUpHandler, false)
+        window.addEventListener('keydown', this.keyDownHandler, false)
       }
 
       // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
@@ -91,12 +91,12 @@ const MagicSlider = WrappedComponent => {
     }
 
     componentWillUnmount() {
-      window.removeEventListener('touchstart', this.touchStartHandler)
-      window.removeEventListener('touchend', this.touchEndHandler)
-      window.removeEventListener('wheel', this.handleOnWheel)
-      window.removeEventListener('resize', this.handleResize)
-      window.removeEventListener('keyup', this.keyUpHandler)
-      window.removeEventListener('keydown', this.keyDownHandler)
+      window.removeEventListener('touchstart', this.touchStartHandler, false)
+      window.removeEventListener('touchend', this.touchEndHandler, false)
+      window.removeEventListener('wheel', this.handleOnWheel, false)
+      window.removeEventListener('resize', this.handleResize, false)
+      window.removeEventListener('keyup', this.keyUpHandler, false)
+      window.removeEventListener('keydown', this.keyDownHandler, false)
     }
 
     startAnimating(fps) {

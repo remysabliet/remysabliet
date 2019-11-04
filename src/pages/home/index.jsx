@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import withGlobalInfo from 'containers/withGlobalInfo'
 import Slider from 'components/organisms/Slider'
 import Slide from 'components/layout/Slide'
@@ -9,22 +9,27 @@ import Layout from './Layout'
 
 const HomePage = props => {
   const slides = ['home', 'aboutMe', 'experience', 'contact']
+
+  useEffect(() => {
+    console.log("HomePage", props.locale)
+  }, [props.locale])
+
   return (
     <Fragment>
       <SVGLoader />
       <Layout {...props} />
       <Slider {...props} slides={slides}>
         <Slide>
-          <Home />
+          <Home/>
         </Slide>
         <Slide>
-          <AboutMe />
+          <AboutMe/>
         </Slide>
+        {/* </Slide>
+        <Experience />
+       </Slide>*/}
         <Slide>
-          <Experience />
-        </Slide>
-        <Slide>
-          <Contact />
+          <Contact/>
         </Slide>
       </Slider>
     </Fragment>
@@ -32,3 +37,5 @@ const HomePage = props => {
 }
 
 export default withGlobalInfo(HomePage)
+
+

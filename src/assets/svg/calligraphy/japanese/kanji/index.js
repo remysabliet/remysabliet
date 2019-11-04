@@ -1,4 +1,11 @@
-
+export { default as Ashita } from "./Ashita"
+export { default as Atarashii } from "./Atarashii"
+export { default as Hi } from "./Hi"
+export { default as Hito } from "./Hito"
+export { default as Idomu } from "./Idomu"
 export { default as Kuru } from "./Kuru"
+export { default as O } from "./O"
+export { default as Ou } from "./Ou"
+export { default as Tatakau } from "./Tatakau"
 export { default as Yume } from "./Yume"
 export { default as Watashi } from "./Watashi"

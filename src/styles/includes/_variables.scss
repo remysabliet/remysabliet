@@ -1,0 +1,26 @@
+@import "colors";
+
+
+
+$font-family-base: "Alegria";
+
+%vertical-align {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+// By default, a grid item cannot be smaller than the size of its content.
+// Grid items have an initial size of min-width: auto and min-height: auto.
+// You can override this behavior by setting grid items to min-width: 0, min-height: 0 or overflow with any value other than visible.
+%grid-item-size {
+  min-width: 0;
+  min-height: 0;
+}
+// Gutter spacing
+$gutter: 16px !default;

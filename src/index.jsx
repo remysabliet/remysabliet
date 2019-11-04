@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-
+import 'helpers/window'
 import App from './App'
 import { getDeviceInfo, getLocale } from 'helpers/utils/miscellaneous'
-import 'helpers/window'
+
 import configureStore from 'store/configureStore'
 import 'styles/main.scss'
 

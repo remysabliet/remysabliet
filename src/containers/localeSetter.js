@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { updateLocales } from 'actions/global'
 
 /**
- * // the locale code is located at the last 2 character of returned event.target id
+ * the locale code is located at the last 2 character of returned event.target id
  * @param {*} dispatch
  */
 function mapDispatchToProps(dispatch) {

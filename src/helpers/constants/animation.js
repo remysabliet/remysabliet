@@ -6,7 +6,7 @@ export const portraitAnimSetting = [
   {
     msTime: 0,
     frame: {
-      className: 'fullViewPort',
+      className: 'full-view-port',
       viewBox: '0 0 251 327',
       preserveAspectRatio: undefined,
       uses: [
@@ -20,7 +20,7 @@ export const portraitAnimSetting = [
   {
     msTime: 3000,
     frame: {
-      className: 'fullViewPort',
+      className: 'full-view-port',
       viewBox: '0 0 251 327',
       preserveAspectRatio: undefined,
       uses: [
@@ -35,7 +35,7 @@ export const portraitAnimSetting = [
   {
     msTime: 3000,
     frame: {
-      className: 'fullViewPort',
+      className: 'full-view-port',
       viewBox: '0 0 251 327',
       preserveAspectRatio: undefined,
       uses: [

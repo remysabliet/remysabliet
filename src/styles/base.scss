@@ -1,3 +1,4 @@
+@import "styles/includes/_variables";
 /* Hide scrollBar but allow scrolling */
 html {
   /*  -ms-overflow-style: none;    IE 10+*/
@@ -21,3 +22,19 @@ html {
 head {
   display: none;
 }
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-base;
+  margin: 0px;
+}
+
+p {
+  margin: 0px;
+}
+

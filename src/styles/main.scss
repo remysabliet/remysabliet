@@ -1,3 +1,11 @@
+// includes
+@import "styles/includes/_colors";
+@import "styles/includes/_flex";
+@import "styles/includes/_mixins";
+@import "styles/includes/_responsive";
+@import "styles/includes/_variables";
+
+
 // function
 @import "styles/utils";
 
@@ -11,7 +19,6 @@
 
 @import "styles/slide";
 
-@import "styles/fonts";
 // BoundError page
 @import "styles/nomatch";
 

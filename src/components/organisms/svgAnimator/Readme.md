@@ -6,7 +6,7 @@ const arr = [
  { 
     msTime: 0,
     frame: {
-    className: "fullViewPort",
+    className: "full-view-port",
     viewBox: "0 0 251 327",
     preserveAspectRatio: undefined,
     uses: [
@@ -19,7 +19,7 @@ const arr = [
   { 
     msTime: 3000,
     frame: {
-    className: "fullViewPort",
+    className: "full-view-port",
     viewBox: "0 0 251 327",
     preserveAspectRatio: undefined,
     uses: [

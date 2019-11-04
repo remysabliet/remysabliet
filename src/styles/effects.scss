@@ -42,17 +42,20 @@
 .animated-element {
   opacity: 0;
   &.slide-up {
-    animation: slide-up 1s forwards;
+    animation: slide-up 3s forwards;
   }
 }
 
+/**
+ * Sliding 10 vh towards up and making opacity from 0 to 1
+ */
 @keyframes slide-up {
   0% {
     opacity: 0;
-    transform: translateY(calc(var(--vh, 1vh) * 5));
+    transform: translateY(calc(var(--vh, 1vh) * 10 ));
   }
   100% {
     opacity: 1;
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 }

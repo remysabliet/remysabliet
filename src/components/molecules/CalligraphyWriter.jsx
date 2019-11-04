@@ -6,11 +6,12 @@ const CalligraphyWriter = React.memo((props) => {
   const classes = className? className : "calligraphy-grid-container";
   return (
     <div className={classes}>
-      {symbols.map( symbol => 
+      { symbols && symbols.length ? 
+      symbols.map( symbol => 
         <div className={`grid-item-${symbol['class']}`}>
           {symbol['element']}
         </div>
-      )}
+      ) : null }
     </div>
   )
 })

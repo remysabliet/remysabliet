@@ -1,5 +1,5 @@
 export const statisticLogs = (elapsedTime, currentFps) =>
-      console.log(`Elapsed time=  ${elapsedTime} secs @ ${currentFps} fps.`)
+  console.log(`Elapsed time=  ${elapsedTime} secs @ ${currentFps} fps.`)
 
 export const elapsedTime = sinceStart => Math.round((sinceStart / 1000) * 100) / 100
 
@@ -11,33 +11,24 @@ export const elapsedTime = sinceStart => Math.round((sinceStart / 1000) * 100) /
  * @param {*} framecount
 */
 export const currentFps = (sinceStart, framecount) =>
-      Math.round(((1000 / (sinceStart / ++this.frameCount)) * 100) / 100)
+  Math.round(((1000 / (sinceStart / ++this.frameCount)) * 100) / 100)
 
 /**
- * 
- *     ITERATOR PROBLEM WITH EDGE
- * 
- * 
- * 
-   *  1) Retrieve all elements owning "animation-element" class inside the DOM
-   *  2) Check wether those elements inner boundaries are in view, that is to say 
-   *   whether their top boundary is equal or above viewport's top boundary and bottom boundary is above window bottom boundary
-   *  3) if inside the viewport, add an animation class to the div element in order to trigger animation
-   *     if outside the viewport, remove the animation class from the div element
-   */
+ *  1) Retrieve all elements owning "animation-element" class inside the DOM
+ *  2) Check wether those elements inner boundaries are in view, that is to say 
+ *   whether their top boundary is equal or above viewport's top boundary and bottom boundary is above window bottom boundary
+ *  3) if inside the viewport, add an animation class to the div element in order to trigger animation
+ *     if outside the viewport, remove the animation class from the div element
+ */
+export const animateIfInView = (className) => {
 
-/*
- export const animateIfInView = (className) => {
-
-  const windowTopPos =  0 
+  const windowTopPos = 0
   const windowBottomPos = windowTopPos + window.innerHeight;
 
-  const elementToAnimate = document.getElementsByClassName(className);
-  if(elementToAnimate){
-    console.log(elementToAnimate)
-  const animatedElement = [...elementToAnimate];
+  const elementToAnimate = document.getElementsByClassName("animated-element");
 
-  animatedElement.forEach( elem => {
+  Array.prototype.forEach.call(elementToAnimate, (elem) => {
+    // console.log("animatedElement #3 ", elem)
     const elementBounds = elem.getBoundingClientRect();
     const elemTopPos = elementBounds.y;
     const elemBottomPos = elemTopPos + elementBounds.height;
@@ -46,28 +37,28 @@ export const currentFps = (sinceStart, framecount) =>
     const classNameEffect = "slide-up";
 
     let activate = false;
-    
-    if((elemTopPos >= windowTopPos && elemTopPos <= windowBottomPos) || 
+
+    // console.log("elemTopPos:", elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "elemBottomPos:", windowBottomPos)
+    if ((elemTopPos >= windowTopPos && elemTopPos <= windowBottomPos) ||
       elemBottomPos >= windowTopPos && elemBottomPos <= windowBottomPos) {
-        activate = true;
+      activate = true;
+      // console.log("animatedElement #4 to be activated", elem)
     }
 
-    if(activate){
-      console.log("ACTIVATED")
-      // console.log("IN VIEW",  "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos) 
+    if (activate) {
+      // console.log("animatedElement #5 activate start IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
       // Cross-browser solution
       const arr = elem.className.split(" ");
       if (arr.indexOf(classNameEffect) == -1) {
-            elem.className += " " +classNameEffect;
+        elem.className += " " + classNameEffect;
       }
     } else {
-    // console.log("NOT IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
-     const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
-     elem.className = elem.className.replace(regExp, "");
-     console.log(elem.className)
+      // console.log("animatedElement #6 activate start NOT IN VIEW")
+      // console.log("NOT IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
+      const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
+      elem.className = elem.className.replace(regExp, "");
+      // console.log(elem.className)
     }
   }
   )
 }
-}
-*/

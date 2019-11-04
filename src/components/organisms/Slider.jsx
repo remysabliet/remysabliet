@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import MagicSlider from 'helpers/HOC/MagicSlider'
 
@@ -16,6 +16,8 @@ class Slider extends React.PureComponent {
     this.refs = slides.map(() => React.createRef())
   }
 
+ 
+
   getDerivedStateFromProps(nextProps) {
     const { currentSlide } = nextProps
     if (nextProps.currentSlide !== this.state.currentSlide) {
@@ -28,12 +30,12 @@ class Slider extends React.PureComponent {
   }
 
   /*We avoid re-render even if we change of slide*/
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.currentSlide !== this.state.currentSlide) {
-      return false
-    }
-    return true
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   if (nextProps.currentSlide !== this.state.currentSlide) {
+  //     return false
+  //   }
+  //   return true
+  // }
 
   /**
    *
@@ -41,7 +43,8 @@ class Slider extends React.PureComponent {
    *  // TO DO add a test to check whether there is an array of Children or only one
    */
   render() {
-    const { children, slides, ...others } = this.props
+    const { children, slides, currentSlide, ...others } = this.props
+
     return (
       <div className="slider-container">
         {children.map((child, i) => {
@@ -51,6 +54,8 @@ class Slider extends React.PureComponent {
             className: `slide-${slide}`,
             id: slide,
             ref: this.refs[i],
+            isCurrentSlide: currentSlide === slide? true : false
+            ,
             ...others
           }
           return React.cloneElement(child, additionalProps)

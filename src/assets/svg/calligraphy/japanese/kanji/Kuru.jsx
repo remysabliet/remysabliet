@@ -1,7 +1,8 @@
 import React from 'react'
+import classNames from "classnames";
 
 // style="enable-background:new 0 0 195.6 196.2;"
-export default () => (
+export default ({className}) => (
   <svg version="1.1" class="calligraphy"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244.31 262.38">
 
@@ -10,7 +11,7 @@ export default () => (
     </clipPath>
 
     <g clip-path="url(#kuru-1-mask)">
-      <polyline class="siblings" stroke-width="32px" points="17.12 67.88 103.12 52.88 148.12 49.88 206.12 54.88" />
+      <polyline class={classNames('siblings', className)} stroke-width="32px" points="17.12 67.88 103.12 52.88 148.12 49.88 206.12 54.88" />
       <line class="siblings" stroke-width="32px" x1="46.62" y1="77.38" x2="88.89" y2="116.85" />
       <polyline class="siblings" stroke-width="32px" points="178.62 65.38 160.62 89.38 137.61 105.44" />
       <polyline class="siblings" stroke-width="32px" points="9.62 134.38 121.62 124.38 234.62 127.38" />

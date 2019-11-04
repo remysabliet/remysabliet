@@ -1,20 +1,21 @@
-@import "./variables";
+@import "styles/includes/_variables";
+@import "styles/includes/_flex";
 
 .slide {
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100); //prevent height of problem on mobile because of url bar
   margin: 0;
 
-  .App-header {
-    position: relative;
-    text-align: center;
-    background: #222 !important;
-    height: 10vh !important;
-    color: white;
-    h1 {
-      @extend %vertical-align;
-    }
-  }
+  // .App-header {
+  //   position: relative;
+  //   text-align: center;
+  //   background: #222 !important;
+  //   height: 10vh !important;
+  //   color: white;
+  //   h1 {
+  //     @extend %vertical-align;
+  //   }
+  // }
 
   .slide-home {
     position: relative;
@@ -35,6 +36,11 @@
     width: inherit;
     z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     // background-image: url('../assets/img/background-trees.jpg');
+
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+
     background-size: cover; /* <------ */
     background-repeat: no-repeat;
     background-position: center center;
@@ -43,23 +49,27 @@
     background: $background-color-green-black;
 
     .calligraphy-container {
-      @extend %vertical-align;
+      @include flexbox();
+      @include flex-direction(column);
       width: 70vw;
-      height: 70vh;
-      background-image: url("../assets/img/calligraphyPaper.jpg");
+      background: url("../assets/img/calligraphyPaper.jpg") no-repeat center;
+      background-size: 100% 100%;
       border-width: 3px;
       border-style: outset;
       -webkit-box-shadow: 5px 5px 20px 5px #c4ff65;
       -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
       box-shadow: 5px 5px 20px 5px #c4ff65;
-      // background-repeat: repeat-y;
+
       .border {
+        @include flex-grow(0.05);
         height: 3vh;
         background: grey;
         opacity: 0.4;
       }
       .middle {
-        height: 64vh;
+        @include flex-grow(0.6);
+        height: 61vh;
+        padding: 1rem;
       }
     }
   }
@@ -70,10 +80,6 @@
     background: $background-color-green-black-fallback;
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
-
-    canvas {
-      // @extend %vertical-align;
-    }
   }
 
   .slide-contact {
@@ -89,22 +95,33 @@
   grid-gap: 10px;
   height: 100%;
   width: 100%;
-  
+
   //  grid-template-columns: repeat(3, auto);
   //  grid-template-rows: repeat(3, auto);
   grid-template-areas:
-    "j0 i0 h0 g0 f0 e0 d0 c0 b0 a0"
-    "j1 i1 h1 g1 f1 e1 d1 c1 b1 a1"
-    "j2 i2 h2 g2 f2 e2 d2 c2 b2 a2"
-    "j3 i3 h3 g3 f3 e3 d3 c3 b3 a3"
-    "j4 i4 h4 g4 f4 e4 d4 c4 b4 a4"
-    "j5 i5 h5 g5 f5 e5 d5 c5 b5 a5"
-    "j6 i6 h6 g6 f6 e6 d6 c6 b6 a6"
-    "j7 i7 h7 g7 f7 e7 d7 c7 b7 a7"
-    "j8 i8 h8 g8 f8 e8 d8 c8 b8 a8"
-    "j9 i9 h9 g9 f9 e9 d9 c9 b9 a9";
+    "f0 e0 d0 c0 b0 a0"
+    "f1 e1 d1 c1 b1 a1"
+    "f2 e2 d2 c2 b2 a2"
+    "f3 e3 d3 c3 b3 a3"
+    "f4 e4 d4 c4 b4 a4"
+    "f5 e5 d5 c5 b5 a5"
+    "f6 e6 d6 c6 b6 a6"
+    "f7 e7 d7 c7 b7 a7"
+    "f8 e8 d8 c8 b8 a8"
+    "f9 e9 d9 c9 b9 a9";
 }
 
+// grid-template-areas:
+//     "j0 i0 h0 g0 f0 e0 d0 c0 b0 a0"
+//     "j1 i1 h1 g1 f1 e1 d1 c1 b1 a1"
+//     "j2 i2 h2 g2 f2 e2 d2 c2 b2 a2"
+//     "j3 i3 h3 g3 f3 e3 d3 c3 b3 a3"
+//     "j4 i4 h4 g4 f4 e4 d4 c4 b4 a4"
+//     "j5 i5 h5 g5 f5 e5 d5 c5 b5 a5"
+//     "j6 i6 h6 g6 f6 e6 d6 c6 b6 a6"
+//     "j7 i7 h7 g7 f7 e7 d7 c7 b7 a7"
+//     "j8 i8 h8 g8 f8 e8 d8 c8 b8 a8"
+//     "j9 i9 h9 g9 f9 e9 d9 c9 b9 a9";
 // https://lisilinhart.info/posts/css-grid-sass/
 $grid-column-count: 10;
 $grid-row-count: 10;
@@ -113,69 +130,69 @@ $grid-calligraphy-count: 10;
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-a#{$i} {
     grid-area: a#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-b#{$i} {
     grid-area: b#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-c#{$i} {
     grid-area: c#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-d#{$i} {
     grid-area: d#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-e#{$i} {
     grid-area: e#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-f#{$i} {
     grid-area: f#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-g#{$i} {
     grid-area: g#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-h#{$i} {
     grid-area: h#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-i#{$i} {
     grid-area: i#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
 
 @for $i from 0 to $grid-calligraphy-count {
   .grid-item-j#{$i} {
     grid-area: j#{$i};
-    @extend %grid-item-size
+    @extend %grid-item-size;
   }
 }
