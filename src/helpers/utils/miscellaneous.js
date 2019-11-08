@@ -1,4 +1,5 @@
 import is from 'is_js'
+import { locales } from "helpers/constants/global"
 
 /**
  * Shuffle an array of items (*)
@@ -73,6 +74,7 @@ export function getLocale() {
     || (navigator.languages && navigator.languages[0]) // Chrome / Firefox
     || navigator.userLanguage // IE <= 10
 
-  const shortCode = locale && locale.length > 2 ? locale.substr(0, 2) : locale
-  return shortCode || 'en'
+  const browserCountryCode = locale && locale.length > 2 ? locale.substr(0, 2) : locale
+  console.log(browserCountryCode, locales,  locales.indexOf(browserCountryCode))
+  return locales.filter(element => element.locale === browserCountryCode).length > 0 ? browserCountryCode : 'en'
 }

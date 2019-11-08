@@ -31,15 +31,14 @@
   }
 
   .slide-aboutMe {
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
     position: relative;
     height: inherit;
     width: inherit;
     z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     // background-image: url('../assets/img/background-trees.jpg');
-
-    @include flexbox();
-    @include align-items(center);
-    @include justify-content(center);
 
     background-size: cover; /* <------ */
     background-repeat: no-repeat;
@@ -59,7 +58,7 @@
       -webkit-box-shadow: 5px 5px 20px 5px #c4ff65;
       -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
       box-shadow: 5px 5px 20px 5px #c4ff65;
-
+      
       .border {
         @include flex-grow(0.05);
         height: 3vh;
@@ -123,6 +122,7 @@
 //     "j8 i8 h8 g8 f8 e8 d8 c8 b8 a8"
 //     "j9 i9 h9 g9 f9 e9 d9 c9 b9 a9";
 // https://lisilinhart.info/posts/css-grid-sass/
+
 $grid-column-count: 10;
 $grid-row-count: 10;
 $grid-calligraphy-count: 10;

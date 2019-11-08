@@ -17,6 +17,14 @@
 svg.calligraphy {
   width: 100%;
   height: 100%;
+  will-change: opacity;
+
+  &.faded-out {
+    opacity: 0;
+  }
+  &.anim-opacity-up {
+    animation: opacity-up 5s linear forwards !important;
+  }
 
   g[clip-path] {
     stroke: #000;
@@ -32,6 +40,5 @@ svg.calligraphy {
 
   .siblings {
     animation: top-anim 0.3s ease-in forwards;
-    // @include delayed-draw(20);
   }
 }

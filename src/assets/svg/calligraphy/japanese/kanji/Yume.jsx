@@ -2,8 +2,7 @@ import React from 'react'
 import classNames from "classnames";
 
 // style="enable-background:new 0 0 195.6 196.2;"
-export default ({className}) => (
-<svg version="1.1" class="calligraphy" 
+export default ({ className, firstStrokeClassName }) => <svg class={classNames('calligraphy', className)}
   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 209.89 196.17">
 
   <clipPath id="yume-4-mask">
@@ -126,7 +125,7 @@ export default ({className}) => (
 
     <g  clip-path="url(#yume-1-mask)">
    
-      <polyline class={classNames('siblings', className)} points="62.1,14.5 71.3,21.7 76.3,31.3 84.8,46.2"/>
+      <polyline class={classNames('siblings', firstStrokeClassName)} points="62.1,14.5 71.3,21.7 76.3,31.3 84.8,46.2"/>
       <polyline class="siblings" points="127.8,6.5 126.3,22.5 119.3,42.9"/>
       <polyline class="siblings" points="30,37.7 92.2,27.3 127.2,24.5 172.9,29.8 172.9,29.8	"/>
     </g>
@@ -155,4 +154,3 @@ export default ({className}) => (
     
     </g> 
   </svg>
-)

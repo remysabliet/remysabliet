@@ -1,118 +1,132 @@
-import React, { Fragment, forceUpdate, useState, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
-import { ChiHira, DeHira, HaHira, KoHira, IHira, NHira, NiHira, NoHira, ShiHira, SoHira, SuHira, ToHira, YoHira, UHira } from 'assets/svg/calligraphy/japanese/hiragana'
-import { Ashita, Atarashii, Hi, Hito, Idomu, O, Ou, Tatakau, Watashi, Yume } from 'assets/svg/calligraphy/japanese/kanji'
+import { ChiHira, DeHira, GaHira, HaHira, KoHira, IHira, KaHira, KiHira, NHira, NiHira, NoHira, ShiHira, SoHira, SuHira, ToHira, YoHira, UHira, WoHira } from 'assets/svg/calligraphy/japanese/hiragana'
+import { Ashita, Atarashii, Hi, Hito, Hitotsu, Idomu, O, Ooki, Ou, Tatakau, Watashi, Yume } from 'assets/svg/calligraphy/japanese/kanji'
 import { JiKata, MiKata, PeKata, ReKata, VertiBarreKata } from 'assets/svg/calligraphy/japanese/katakana'
 import CalligraphyWritter from "components/molecules/CalligraphyWriter"
-
-import {useCompare} from "helpers/hooks"
+import { isDoWhileStatement } from '@babel/types'
 
 const AboutMe = props => {
   const { locale, isCurrentSlide } = props
-  console.log("AboutMe isOnView:", isCurrentSlide)
-  // We must consider both scroll/touch (mobile) and resize to check whenever an element get into the viewport
-  const [displayCalligraphy, setDisplayCalligraphy] = useState(false);
+  // console.log("AboutMe isOnView:", isCurrentSlide)
+
+
+  const [isAlreadyActivated, setIsAlreadyActivated] = useState(false);
 
   useEffect(() => {
+    console.log("use effect: isCurrentlSlide, isAlreadyActivated", isCurrentSlide, isAlreadyActivated)
+    let svgElem = document.querySelectorAll('.calligraphy')
+    let strokeElem = document.querySelectorAll('.calligraphy .siblings')
 
-    // Bug to fix in the future, reactHooks include only 
-    // componentDidMount(), componentDidUpdate and componentWillUnmount
-    // Problem is that what ever logic I have here, this functional component will render before I apply the logic
-    // so all the calligraphy will appears at once first
-    if (isCurrentSlide) {
-      // console.log("Redisplaying", displayCalligraphy)
-      setDisplayCalligraphy(false)
 
+    if (isCurrentSlide && isAlreadyActivated === false) {
+      setIsAlreadyActivated(true);
       let counter = 0.8; // initial delay
+
       // Apply delay at initialization
-      var childcount = document.querySelectorAll('.calligraphy .siblings')
-      childcount.forEach(element => {
-         // console.log("Reaching element",element.className.baseVal.includes('punctuation-delay'))
-         // We check whether if the class punctuation-delay is associated to the first element of the SVG
-         // If yes we temporize by one second
+      strokeElem.forEach(element => {
+        console.log(element.className)
+        // We check whether the class punctuation-delay is associated to the element of the SVG or not
+        // This give birth to extra temporization yes to respect reading experience related to punctuation
         const additionalTime = element.className.baseVal.includes('punctuation-delay') ? 1 : 0.12;
         counter = counter + additionalTime;
 
         element.style.animationDelay = `${counter}s`
+        element.style.opacity = 1; // By default the opacity of a SVG element is having opacity: 0
+        // to avoid appearing on the screen when user come and leave
+
       })
-      console.log("number of child", childcount)
-      setDisplayCalligraphy(true)
+
+      // Once we have et opacity on the stroke-element we can remove the opacity=0 on the SVG parent element
+      // This will allow for stroke to be visible through the animation
+      svgElem.forEach(elem =>  elem.classList.remove('faded-out'))
+
+    } else { //This case corresponds when user come back to the same slide without relaunching the full writing animation
+      console.log(svgElem);
+      // elemList.forEach(elem =>  elem.classList.remove('faded-out'))
+      svgElem.forEach(elem => elem.classList.add('anim-opacity-up'))
+      // const classNameEffect = "slide-up";
+      // const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
+      //elem.className = elem.className.replace(regExp, regExp + 'anim-opacity-up'); 
+      // childcount.forEach(elem => elem.classList.toggle('siblings'))
+      // childcount.forEach(elem =>  elem.classList.add('anim-opacity-up'))
     }
-    
+
   }, [locale, isCurrentSlide])
 
+  useEffect(() => {
+    setIsAlreadyActivated(false);
+  }, locale)
+
+
+  const idiomClassName = "faded-out"
   // To do list 
-  //1 re-trigger the whole painting as soon as calligraphy is out of screen
-  //2 make sure the display is elastic works on all browser (except IE) and IOS/Android last version
+  // 1 re-trigger the whole painting as soon as calligraphy is out of screen
+  // 2 make sure the display is elastic works on all browser (except IE) and IOS/Android last version
   const symbols = {
     'empty': [], // used for refresh purpose
     'ja': [
-      { class: 'a1', element: <KoHira className="punctuation-delay"/> },
-      { class: 'a2', element: <NHira /> },
-      { class: 'a3', element: <NiHira /> },
-      { class: 'a4', element: <ChiHira /> },
-      { class: 'a5', element: <HaHira /> },
-      { class: 'a6', element: <ReKata /> },
-      { class: 'a7', element: <MiKata /> },
-      { class: 'a8', element: <DeHira /> },
-      { class: 'a9', element: <SuHira /> },
-      { class: 'b0', element: <Watashi className="punctuation-delay" /> },
-      { class: 'b1', element: <NoHira /> },
-      { class: 'b2', element: <PeKata /> },
-      { class: 'b3', element: <VertiBarreKata /> },
-      { class: 'b4', element: <JiKata /> },
-      { class: 'b5', element: <NiHira /> },
-      { class: 'b6', element: <YoHira /> },
-      { class: 'b7', element: <UHira /> },
-      { class: 'b8', element: <KoHira /> },
-      { class: 'b9', element: <SoHira /> },
-      { class: 'c0', element: <Yume /> },
-      { class: 'c1', element: <Ou /> },
-      { class: 'c2', element: <IHira /> },
-      { class: 'c3', element: <Hito /> },
-      { class: 'c4', element: <DeHira /> },
-      { class: 'c5', element: <Atarashii /> },
-      { class: 'c6', element: <ShiHira /> },
-      { class: 'c7', element: <IHira /> },
-      { class: 'c8', element: <KoHira /> },
-      { class: 'c9', element: <ToHira /> },
-      { class: 'd0', element: <NiHira /> },
-      { class: 'd1', element: <Idomu /> },
-      { class: 'd2', element: <Tatakau /> },
-      { class: 'd3', element: <SuHira /> },
-      { class: 'd4', element: <SuHira /> },
-      { class: 'd5', element: <KoHira /> },
-      { class: 'd6', element: <ToHira /> },
-      { class: 'd7', element: <ToHira /> },
-      { class: 'd8', element: <ToHira /> },
-      { class: 'd9', element: <ToHira /> },
-      { class: 'e0', element: <ToHira /> },
-      { class: 'e1', element: <ToHira /> },
-      { class: 'e2', element: <ToHira /> },
-      { class: 'e3', element: <O /> },
-      { class: 'e4', element: <NiHira /> },
-      { class: 'e5', element: <Ashita /> },
-      { class: 'e6', element: <Hi /> },
-      { class: 'e7', element: <Hi /> },
-      { class: 'e8', element: <Hi /> },
-      { class: 'e9', element: <Hi /> },
-      { class: 'f0', element: <Hi /> },
-      { class: 'f1', element: <ShiHira /> },
-      { class: 'f2', element: <UHira /> },
-      { class: 'f3', element: <ToHira /> },
-      { class: 'f4', element: <ToHira /> }
+      { class: 'a1', element: <KoHira className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
+      { class: 'a2', element: <NHira className={idiomClassName} /> },
+      { class: 'a3', element: <NiHira className={idiomClassName} /> },
+      { class: 'a4', element: <ChiHira className={idiomClassName} /> },
+      { class: 'a5', element: <HaHira className={idiomClassName} /> },
+      { class: 'a6', element: <ReKata className={idiomClassName} /> },
+      { class: 'a7', element: <MiKata className={idiomClassName} /> },
+      { class: 'a8', element: <DeHira className={idiomClassName} /> },
+      { class: 'a9', element: <SuHira className={idiomClassName}/> },
+      { class: 'b0', element: <Watashi className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
+      { class: 'b1', element: <NoHira className={idiomClassName} /> },
+      { class: 'b2', element: <PeKata className={idiomClassName} /> },
+      { class: 'b3', element: <VertiBarreKata className={idiomClassName} /> },
+      { class: 'b4', element: <JiKata className={idiomClassName} /> },
+      { class: 'b5', element: <NiHira className={idiomClassName}/> },
+      { class: 'b6', element: <YoHira className={idiomClassName}/> },
+      { class: 'b7', element: <UHira className={idiomClassName}/> },
+      { class: 'b8', element: <KoHira className={idiomClassName}/> },
+      { class: 'b9', element: <SoHira className={idiomClassName}/> },
+      { class: 'c0', element: <Yume className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
+      { class: 'c1', element: <Ou className={idiomClassName}/> } ,
+      { class: 'c2', element: <IHira className={idiomClassName} /> },
+      { class: 'c3', element: <Hito className={idiomClassName} /> },
+      { class: 'c4', element: <DeHira className={idiomClassName}/> },
+      { class: 'c5', element: <Atarashii className={idiomClassName}/> },
+      { class: 'c6', element: <ShiHira className={idiomClassName} /> },
+      { class: 'c7', element: <IHira className={idiomClassName}/> },
+      { class: 'c8', element: <KoHira className={idiomClassName}/> },
+      { class: 'c9', element: <ToHira className={idiomClassName}/> },
+      { class: 'd0', element: <NiHira className={idiomClassName}/> },
+      { class: 'd1', element: <Idomu className={idiomClassName}/> },
+      { class: 'd2', element: <Tatakau className={idiomClassName}/> },
+      { class: 'd3', element: <SuHira className={idiomClassName}/> },
+      { class: 'd4', element: <SuHira className={idiomClassName}/> },
+      { class: 'd5', element: <KoHira className={idiomClassName}/> },
+      { class: 'd6', element: <ToHira className={idiomClassName}/> },
+      { class: 'd7', element: <GaHira className={idiomClassName}/> },
+      { class: 'd8', element: <Ooki className={idiomClassName}/> },
+      { class: 'd9', element: <ToHira className={idiomClassName}/> },
+      { class: 'e0', element: <KiHira className={idiomClassName}/> },
+      { class: 'e1', element: <DeHira className={idiomClassName}/> },
+      { class: 'e2', element: <SuHira className={idiomClassName}/> },
+      { class: 'e3', element: <Hitotsu className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
+      { class: 'e4', element: <O className={idiomClassName}/> },
+      { class: 'e5', element: <NiHira className={idiomClassName}/> },
+      { class: 'e6', element: <Hi className={idiomClassName}/> },
+      { class: 'e7', element: <Ashita className={idiomClassName}/> },
+      { class: 'e8', element: <WoHira className={idiomClassName}/> },
+      { class: 'e9', element: <Hi className={idiomClassName}/> },
+      { class: 'f0', element: <Hi className={idiomClassName}/> },
+      { class: 'f1', element: <Hi className={idiomClassName}/> },
+      { class: 'f2', element: <ShiHira className={idiomClassName}/> },
+      { class: 'f3', element: <UHira className={idiomClassName}/> },
+      { class: 'f4', element: <UHira className={idiomClassName}/> },
+      { class: 'f5', element: <KaHira className={idiomClassName}/> }
     ],
     'en': [{ class: 'a1', element: <SuHira /> },
     { class: 'a2', element: <SuHira /> }]
   }
 
-  const getSymbols = () => {
-    console.log("getSymbols", displayCalligraphy)
-    return displayCalligraphy ? symbols[locale] : symbols['empty'] ;
-  }
-
-  // add animated-element to calligraphy div 
-  // <div className="animated-element calligraphy-container">
+  //  {isCurrentSlide ? <CalligraphyWritter symbols={symbols[locale]} /> : null}
   return (
     <Fragment>
       <div className="calligraphy-container animated-element">
@@ -126,8 +140,3 @@ const AboutMe = props => {
   )
 }
 export default AboutMe
-
-// <SVGDisplayer svg={settings[flag.locale]} />
-// Restart CSS animation
-// https://css-tricks.com/restart-css-animation/
-

@@ -1,6 +1,4 @@
 .matrix {
-  opacity: 1;
-
   @for $i from 1 through 100 {
     $y: randomRange(-30, 70);
     $x: randomRange(-5, 95);
@@ -57,5 +55,14 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes opacity-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

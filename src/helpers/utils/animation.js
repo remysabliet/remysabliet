@@ -52,12 +52,15 @@ export const animateIfInView = (className) => {
       if (arr.indexOf(classNameEffect) == -1) {
         elem.className += " " + classNameEffect;
       }
-    } else {
+    } else { // Not in view anymore 
       // console.log("animatedElement #6 activate start NOT IN VIEW")
       // console.log("NOT IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
-      const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
-      elem.className = elem.className.replace(regExp, "");
-      // console.log(elem.className)
+     
+
+      // For now I decided not to reset animation when element get out of views
+      // const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
+      // elem.className = elem.className.replace(regExp, ""); 
+
     }
   }
   )

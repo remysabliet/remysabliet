@@ -1,8 +1,8 @@
 export const locales = [
-  {
-    locale: 'fr',
-    active: false
-  },
+  // {
+  //   locale: 'fr',
+  //   active: false
+  // },
   {
     locale: 'ja',
     active: false
