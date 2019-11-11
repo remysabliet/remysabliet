@@ -1,15 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
-import { ChiHira, DeHira, GaHira, HaHira, KoHira, IHira, KaHira, KiHira, NHira, NiHira, NoHira, ShiHira, SoHira, SuHira, ToHira, YoHira, UHira, WoHira } from 'assets/svg/calligraphy/japanese/hiragana'
-import { Ashita, Atarashii, Hi, Hito, Hitotsu, Idomu, O, Ooki, Ou, Tatakau, Watashi, Yume } from 'assets/svg/calligraphy/japanese/kanji'
+import { ChiHira, DeHira, GaHira, HaHira, KoHira, IHira, KaHira, KiHira, MaHira, NHira, NiHira, NoHira, RiHira, RuHira, SeHira, ShiHira, SoHira, SuHira, ToHira, YoHira, UHira, WoHira } from 'assets/svg/calligraphy/japanese/hiragana'
+import { Ashita, Atarashii, Hi, Hito, Hitotsu, Idomu, O, Ooki, Ou, Tatakau, Watashi, Suki, Tsukuru, Yume } from 'assets/svg/calligraphy/japanese/kanji'
 import { JiKata, MiKata, PeKata, ReKata, VertiBarreKata } from 'assets/svg/calligraphy/japanese/katakana'
 import CalligraphyWritter from "components/molecules/CalligraphyWriter"
-import { isDoWhileStatement } from '@babel/types'
 
 const AboutMe = props => {
   const { locale, isCurrentSlide } = props
-  // console.log("AboutMe isOnView:", isCurrentSlide)
-
 
   const [isAlreadyActivated, setIsAlreadyActivated] = useState(false);
 
@@ -41,28 +38,20 @@ const AboutMe = props => {
       // This will allow for stroke to be visible through the animation
       svgElem.forEach(elem =>  elem.classList.remove('faded-out'))
 
-    } else { //This case corresponds when user come back to the same slide without relaunching the full writing animation
-      console.log(svgElem);
-      // elemList.forEach(elem =>  elem.classList.remove('faded-out'))
+    } else { 
+      //This case corresponds when user come back to the same slide without relaunching the full writing animation
+      // console.log(svgElem);
       svgElem.forEach(elem => elem.classList.add('anim-opacity-up'))
-      // const classNameEffect = "slide-up";
-      // const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
-      //elem.className = elem.className.replace(regExp, regExp + 'anim-opacity-up'); 
-      // childcount.forEach(elem => elem.classList.toggle('siblings'))
-      // childcount.forEach(elem =>  elem.classList.add('anim-opacity-up'))
     }
-
   }, [locale, isCurrentSlide])
 
+  // We create another useEffect which concern only locale variable update
   useEffect(() => {
     setIsAlreadyActivated(false);
   }, locale)
 
-
   const idiomClassName = "faded-out"
-  // To do list 
-  // 1 re-trigger the whole painting as soon as calligraphy is out of screen
-  // 2 make sure the display is elastic works on all browser (except IE) and IOS/Android last version
+
   const symbols = {
     'empty': [], // used for refresh purpose
     'ja': [
@@ -71,7 +60,7 @@ const AboutMe = props => {
       { class: 'a3', element: <NiHira className={idiomClassName} /> },
       { class: 'a4', element: <ChiHira className={idiomClassName} /> },
       { class: 'a5', element: <HaHira className={idiomClassName} /> },
-      { class: 'a6', element: <ReKata className={idiomClassName} /> },
+      { class: 'a6', element: <ReKata className={idiomClassName} firstStrokeClassName="punctuation-delay"/> },
       { class: 'a7', element: <MiKata className={idiomClassName} /> },
       { class: 'a8', element: <DeHira className={idiomClassName} /> },
       { class: 'a9', element: <SuHira className={idiomClassName}/> },
@@ -89,8 +78,8 @@ const AboutMe = props => {
       { class: 'c1', element: <Ou className={idiomClassName}/> } ,
       { class: 'c2', element: <IHira className={idiomClassName} /> },
       { class: 'c3', element: <Hito className={idiomClassName} /> },
-      { class: 'c4', element: <DeHira className={idiomClassName}/> },
-      { class: 'c5', element: <Atarashii className={idiomClassName}/> },
+      { class: 'c4', element: <DeHira className={idiomClassName} /> },
+      { class: 'c5', element: <Atarashii className={idiomClassName} firstStrokeClassName="punctuation-delay"/> },
       { class: 'c6', element: <ShiHira className={idiomClassName} /> },
       { class: 'c7', element: <IHira className={idiomClassName}/> },
       { class: 'c8', element: <KoHira className={idiomClassName}/> },
@@ -99,12 +88,12 @@ const AboutMe = props => {
       { class: 'd1', element: <Idomu className={idiomClassName}/> },
       { class: 'd2', element: <Tatakau className={idiomClassName}/> },
       { class: 'd3', element: <SuHira className={idiomClassName}/> },
-      { class: 'd4', element: <SuHira className={idiomClassName}/> },
+      { class: 'd4', element: <RuHira className={idiomClassName}/> },
       { class: 'd5', element: <KoHira className={idiomClassName}/> },
       { class: 'd6', element: <ToHira className={idiomClassName}/> },
       { class: 'd7', element: <GaHira className={idiomClassName}/> },
       { class: 'd8', element: <Ooki className={idiomClassName}/> },
-      { class: 'd9', element: <ToHira className={idiomClassName}/> },
+      { class: 'd9', element: <Suki className={idiomClassName}/> },
       { class: 'e0', element: <KiHira className={idiomClassName}/> },
       { class: 'e1', element: <DeHira className={idiomClassName}/> },
       { class: 'e2', element: <SuHira className={idiomClassName}/> },
@@ -114,19 +103,17 @@ const AboutMe = props => {
       { class: 'e6', element: <Hi className={idiomClassName}/> },
       { class: 'e7', element: <Ashita className={idiomClassName}/> },
       { class: 'e8', element: <WoHira className={idiomClassName}/> },
-      { class: 'e9', element: <Hi className={idiomClassName}/> },
-      { class: 'f0', element: <Hi className={idiomClassName}/> },
-      { class: 'f1', element: <Hi className={idiomClassName}/> },
-      { class: 'f2', element: <ShiHira className={idiomClassName}/> },
-      { class: 'f3', element: <UHira className={idiomClassName}/> },
-      { class: 'f4', element: <UHira className={idiomClassName}/> },
-      { class: 'f5', element: <KaHira className={idiomClassName}/> }
+      { class: 'e9', element: <Tsukuru className={idiomClassName}/> },
+      { class: 'f0', element: <RiHira className={idiomClassName}/> },
+      { class: 'f1', element: <MaHira className={idiomClassName}/> },
+      { class: 'f2', element: <SeHira className={idiomClassName}/> },
+      { class: 'f3', element: <NHira className={idiomClassName}/> },
+      { class: 'f4', element: <KaHira className={idiomClassName}/> }
     ],
     'en': [{ class: 'a1', element: <SuHira /> },
     { class: 'a2', element: <SuHira /> }]
   }
 
-  //  {isCurrentSlide ? <CalligraphyWritter symbols={symbols[locale]} /> : null}
   return (
     <Fragment>
       <div className="calligraphy-container animated-element">
