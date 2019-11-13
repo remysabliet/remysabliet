@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import withGlobalInfo from 'containers/withGlobalInfo'
+
 import Slider from 'components/organisms/Slider'
 import Slide from 'components/layout/Slide'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides'
@@ -17,7 +18,7 @@ const HomePage = props => {
   return (
     <Fragment>
       <SVGLoader />
-      <Layout {...props} />
+      <Layout {...props} slides={slides}/>
       <Slider {...props} slides={slides}>
         <Slide>
           <Home/>

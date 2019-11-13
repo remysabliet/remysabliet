@@ -42,7 +42,7 @@ const FlagBox = React.memo(props => {
   })
 
   return (
-    <div className="flagBox">
+    <div className="rs-flag-box">
       {flags &&
         flags.map(flag => (
           <Button

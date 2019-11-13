@@ -1,23 +1,10 @@
-@import "styles/includes/_variables";
-@import "styles/includes/_flex";
 
-.slide {
+.rs-slide {
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100); //prevent height of problem on mobile because of url bar
   margin: 0;
 
-  // .App-header {
-  //   position: relative;
-  //   text-align: center;
-  //   background: #222 !important;
-  //   height: 10vh !important;
-  //   color: white;
-  //   h1 {
-  //     @extend %vertical-align;
-  //   }
-  // }
-
-  .slide-home {
+  .rs-home {
     position: relative;
     z-index: 0;
     height: inherit;
@@ -28,9 +15,30 @@
     background: $background-color-green-black-fallback;
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
+    
+    svg {
+      &.rs-full-view-port {
+        height: 100vh;
+        width: 100vw;
+      }
+    
+      &.icon {
+        height: 100%;
+        width: 100%;
+        position: relative;
+    
+        .flag {
+          &:hover {
+            opacity: 0.5;
+            transition: opacity 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+    
   }
 
-  .slide-aboutMe {
+  .rs-aboutMe {
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
@@ -47,7 +55,7 @@
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
 
-    .calligraphy-container {
+    .rs-calligraphy-container {
       @include flexbox();
       @include flex-direction(column);
       width: 70vw;
@@ -59,13 +67,13 @@
       -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
       box-shadow: 5px 5px 20px 5px #c4ff65;
       
-      .border {
+      .rs-border {
         @include flex-grow(0.05);
         height: 3vh;
         background: grey;
         opacity: 0.4;
       }
-      .middle {
+      .rs-middle {
         @include flex-grow(0.6);
         height: 61vh;
         padding: 1rem;
@@ -73,7 +81,7 @@
     }
   }
 
-  .slide-experience {
+  .rs-experience {
     height: inherit;
     width: inherit;
     background: $background-color-green-black-fallback;
@@ -81,7 +89,7 @@
     background: $background-color-green-black;
   }
 
-  .slide-contact {
+  .rs-contact {
     height: inherit;
     width: inherit;
     background: $background-color-earthly-fallback;
@@ -89,7 +97,7 @@
     background: $background-color-earthly;
   }
 }
-.calligraphy-grid-container {
+.rs-calligraphy-grid-container {
   display: grid;
   grid-gap: 10px;
   height: 100%;
@@ -98,16 +106,16 @@
   //  grid-template-columns: repeat(3, auto);
   //  grid-template-rows: repeat(3, auto);
   grid-template-areas:
-    "f0 e0 d0 c0 b0 a0"
-    "f1 e1 d1 c1 b1 a1"
-    "f2 e2 d2 c2 b2 a2"
-    "f3 e3 d3 c3 b3 a3"
-    "f4 e4 d4 c4 b4 a4"
-    "f5 e5 d5 c5 b5 a5"
-    "f6 e6 d6 c6 b6 a6"
-    "f7 e7 d7 c7 b7 a7"
-    "f8 e8 d8 c8 b8 a8"
-    "f9 e9 d9 c9 b9 a9";
+    "g0 f0 e0 d0 c0 b0 a0"
+    "g1 f1 e1 d1 c1 b1 a1"
+    "g2 f2 e2 d2 c2 b2 a2"
+    "g3 f3 e3 d3 c3 b3 a3"
+    "g4 f4 e4 d4 c4 b4 a4"
+    "g5 f5 e5 d5 c5 b5 a5"
+    "g6 f6 e6 d6 c6 b6 a6"
+    "g7 f7 e7 d7 c7 b7 a7"
+    "g8 f8 e8 d8 c8 b8 a8"
+    "g9 f9 e9 d9 c9 b9 a9";
 }
 
 // grid-template-areas:

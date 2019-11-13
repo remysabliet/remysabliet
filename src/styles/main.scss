@@ -1,30 +1,19 @@
+// required
+@import "./required/base";
+@import "./required/typography";
+
 // includes
-@import "styles/includes/_colors";
-@import "styles/includes/_flex";
-@import "styles/includes/_mixins";
-@import "styles/includes/_responsive";
-@import "styles/includes/_variables";
+@import "./includes/_colors";
+@import "./includes/_flex";
+@import "./includes/_mixins";
+@import "./includes/_responsive";
+@import "./includes/_variables";
+@import "./includes/_utils";
+@import "./includes/_effects";
 
-
-// function
-@import "styles/utils";
-
-// main tags, layout Style
-@import "styles/base";
-
-// foreground elements: menu, header ..
-@import "styles/foregroundui";
-
-@import "styles/slider";
-
-@import "styles/slide";
-
-// BoundError page
-@import "styles/nomatch";
-
-// Effects (matrix..)
-@import "styles/effects";
-
-@import "styles/svg";
-
-@import "styles/calligraphy";
+// components
+@import "./components/foregroundUi";
+@import "./components/slider";
+@import "./components/slide";
+@import "./components/calligraphy";
+@import "./components/nomatch";

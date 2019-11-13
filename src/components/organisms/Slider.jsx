@@ -46,12 +46,12 @@ class Slider extends React.PureComponent {
     const { children, slides, currentSlide, ...others } = this.props
 
     return (
-      <div className="slider-container">
+      <div className="rs-slider-container">
         {children.map((child, i) => {
           const slide = slides[i]
           const additionalProps = {
             title: slide,
-            className: `slide-${slide}`,
+            className: `rs-${slide}`,
             id: slide,
             ref: this.refs[i],
             isCurrentSlide: currentSlide === slide? true : false

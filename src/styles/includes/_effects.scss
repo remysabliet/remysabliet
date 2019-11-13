@@ -1,0 +1,106 @@
+.rs-js-animated-element {
+  opacity: 0;
+  &.js-slide-up {
+    animation: slide-up-anim 3s forwards;
+  }
+}
+
+.rs-matrix {
+  @for $i from 1 through 100 {
+    $y: randomRange(-30, 70);
+    $x: randomRange(-5, 95);
+    $opa: randomRange(7, 10) / 10; // opacite between 0.3 and 1
+    // @warn $y;
+    p {
+      &:nth-child(#{$i}) {
+        position: absolute;
+        left: calc(var(--vw, 1vw) * #{$x}); // Will replace p element on the X according to viewport resize
+        top: calc(var(--vh, 1vh) * #{$y}); // Will replace p element on the Y according to viewport resize
+        opacity: 0;
+        font-size: percentage(random(15) / 5);
+        color: #c0c0c0;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        animation: vertical-trans-opa-anim infinite randomRange(4, 10) + s linear #{$i/2}s;
+        cursor: default;
+      }
+    }
+ 
+    @keyframes vertical-trans-opa-anim {
+      0% {
+        opacity: 0;
+        transform: translateY(0%);
+      }
+      50% {
+        opacity: #{$opa};
+        transform: translateY(10%);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20%);
+      }
+    }
+  }
+}
+
+/**
+ * Sliding 10 vh towards up and making opacity from 0 to 1
+ */
+@keyframes slide-up-anim {
+  0% {
+    opacity: 0;
+    transform: translateY(calc(var(--vh, 1vh) * 10));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+* Opacity from 0 to 1
+*/
+@keyframes opacity-up-anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/**
+* Perform a X-Translation loop (intended for object going out/inside viewport (NavigationBar)
+*/
+@keyframes nav-bar-anim {
+  /*Transformation are performed based on the current position of the element
+  CSS translation by percentage takes the % of the element that is being translated to 
+  figure the distance to move. It does not act like your typical css declaration like top,
+  margin-top, or padding-top, which are all based on parent container.*/
+  0% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(-100%);
+  } /* if width = 150px then =300% * 150px = 450px */
+  50% {
+    transform: translateX(-100%);
+  }
+  75% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/**
+* Apply a moving effect to any vector having:
+*  a stroke-dashoffset =  stroke-dasharray <> 0
+*/
+@keyframes svg-stroke-move-anim {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+

@@ -3,7 +3,7 @@ import { HashLink as Link } from 'react-router-hash-link'
 
 const NavBar = React.memo(({ slides }) => (
   <React.Fragment>
-    <nav>
+    <nav className='rs-nav'>
       {slides.map(slide => (
         <Link smooth to={`/#${slide}`}>
           {slide}

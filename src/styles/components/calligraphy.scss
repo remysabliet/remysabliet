@@ -1,0 +1,29 @@
+svg.calligraphy {
+  width: 100%;
+  height: 100%;
+  will-change: opacity;
+
+  &.faded-out {
+    opacity: 0;
+  }
+  &.anim-opacity-up {
+    animation: opacity-up-anim 5s linear forwards !important;
+  }
+
+  g[clip-path] {
+    stroke: #000;
+    stroke-width: 19;
+    stroke-dashoffset: 500;
+    stroke-dasharray: 500;
+  }
+
+  path,
+  polyline {
+    fill: none;
+  }
+
+  .siblings {
+    animation:svg-stroke-move-anim 0.3s ease-in forwards;
+  }
+}
+

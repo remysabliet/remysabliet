@@ -4,8 +4,8 @@ import React from 'react'
 import FlagBox from 'components/molecules/FlagBox'
 
 const Header = React.memo(props => (
-  <div className="header">
-    <div className="content">
+  <div className="rs-header">
+    <div className="rs-content">
       <FlagBox {...props} />
     </div>
   </div>

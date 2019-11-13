@@ -11,7 +11,7 @@ const AboutMe = props => {
   const [isAlreadyActivated, setIsAlreadyActivated] = useState(false);
 
   useEffect(() => {
-    console.log("use effect: isCurrentlSlide, isAlreadyActivated", isCurrentSlide, isAlreadyActivated)
+    // console.log("use effect: isCurrentlSlide, isAlreadyActivated", isCurrentSlide, isAlreadyActivated)
     let svgElem = document.querySelectorAll('.calligraphy')
     let strokeElem = document.querySelectorAll('.calligraphy .siblings')
 
@@ -22,7 +22,7 @@ const AboutMe = props => {
 
       // Apply delay at initialization
       strokeElem.forEach(element => {
-        console.log(element.className)
+        // console.log(element.className)
         // We check whether the class punctuation-delay is associated to the element of the SVG or not
         // This give birth to extra temporization yes to respect reading experience related to punctuation
         const additionalTime = element.className.baseVal.includes('punctuation-delay') ? 1 : 0.12;
@@ -97,18 +97,18 @@ const AboutMe = props => {
       { class: 'e0', element: <KiHira className={idiomClassName}/> },
       { class: 'e1', element: <DeHira className={idiomClassName}/> },
       { class: 'e2', element: <SuHira className={idiomClassName}/> },
-      { class: 'e3', element: <Hitotsu className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
-      { class: 'e4', element: <O className={idiomClassName}/> },
-      { class: 'e5', element: <NiHira className={idiomClassName}/> },
-      { class: 'e6', element: <Hi className={idiomClassName}/> },
-      { class: 'e7', element: <Ashita className={idiomClassName}/> },
-      { class: 'e8', element: <WoHira className={idiomClassName}/> },
-      { class: 'e9', element: <Tsukuru className={idiomClassName}/> },
-      { class: 'f0', element: <RiHira className={idiomClassName}/> },
-      { class: 'f1', element: <MaHira className={idiomClassName}/> },
-      { class: 'f2', element: <SeHira className={idiomClassName}/> },
-      { class: 'f3', element: <NHira className={idiomClassName}/> },
-      { class: 'f4', element: <KaHira className={idiomClassName}/> }
+      { class: 'f0', element: <Hitotsu className={idiomClassName} firstStrokeClassName="punctuation-delay" /> },
+      { class: 'f1', element: <O className={idiomClassName}/> },
+      { class: 'f2', element: <NiHira className={idiomClassName}/> },
+      { class: 'f3', element: <Ashita className={idiomClassName}/> },
+      { class: 'f4', element: <Hi className={idiomClassName}/> },
+      { class: 'f5', element: <WoHira className={idiomClassName}/> },
+      { class: 'f6', element: <Tsukuru className={idiomClassName}/> },
+      { class: 'f7', element: <RiHira className={idiomClassName}/> },
+      { class: 'f8', element: <MaHira className={idiomClassName}/> },
+      { class: 'f9', element: <SeHira className={idiomClassName}/> },
+      { class: 'g0', element: <NHira className={idiomClassName}/> },
+      { class: 'g1', element: <KaHira className={idiomClassName}/> }
     ],
     'en': [{ class: 'a1', element: <SuHira /> },
     { class: 'a2', element: <SuHira /> }]
@@ -116,12 +116,12 @@ const AboutMe = props => {
 
   return (
     <Fragment>
-      <div className="calligraphy-container animated-element">
-        <div className="border" />
-        <div className="middle">
+      <div className="rs-calligraphy-container rs-js-animated-element">
+        <div className="rs-border" />
+        <div className="rs-middle">
           {isCurrentSlide ? <CalligraphyWritter symbols={symbols[locale]} /> : null}
         </div>
-        <div className="border" />
+        <div className="rs-border" />
       </div>
     </Fragment>
   )

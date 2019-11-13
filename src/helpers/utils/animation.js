@@ -25,7 +25,7 @@ export const animateIfInView = (className) => {
   const windowTopPos = 0
   const windowBottomPos = windowTopPos + window.innerHeight;
 
-  const elementToAnimate = document.getElementsByClassName("animated-element");
+  const elementToAnimate = document.getElementsByClassName("rs-js-animated-element");
 
   Array.prototype.forEach.call(elementToAnimate, (elem) => {
     // console.log("animatedElement #3 ", elem)
@@ -34,7 +34,7 @@ export const animateIfInView = (className) => {
     const elemBottomPos = elemTopPos + elementBounds.height;
 
     //For now we do not manage dynamically effects (only slide-up effect works) => to be improved
-    const classNameEffect = "slide-up";
+    const classNameEffect = "js-slide-up";
 
     let activate = false;
 

@@ -3,7 +3,7 @@ import React from 'react'
 const Slide = React.memo(props => {
   const { title, className, children, id, ...newProps } = props
   return (
-    <div className="slide">
+    <div className="rs-slide">
       <div className={className} id={id}>
         {/* ID va permettre au NavBar de faire le lien avec #home, #aboutMe etc..}*/}
         {/* <header className="App-header">

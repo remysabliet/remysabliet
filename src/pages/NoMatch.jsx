@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import imgNoMatch from 'assets/img/pageNotFound.jpg'
 
 const NoMatch = () => (
-  <div className="no-match">
+  <div className="rs-no-match">
     <img src={imgNoMatch} />
     <p> Sorry, page not found!</p>
     <Link to="/"> Go to Home</Link>

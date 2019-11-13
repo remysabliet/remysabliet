@@ -5,7 +5,7 @@
 import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
 import { animateIfInView } from 'helpers/utils/animation'
 
-const animatedClass = "animated-element"
+const animatedClass = "rs-js-animated-element"
 
 window.addEventListener('resize', recomputeViewportSize)
 
