@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import SVGAnimator from 'components/organisms/SVGAnimator'
+import SVGAnimator from 'components/organisms/svgAnimator'
 import Matrix from 'components/molecules/effects/Matrix'
 import { portraitAnimSetting } from 'helpers/constants/animation'
 import __ from 'helpers/i18n'

@@ -17,22 +17,24 @@ const HomePage = props => {
 
   return (
     <Fragment>
-      <SVGLoader />
-      <Layout {...props} slides={slides}/>
-      <Slider {...props} slides={slides}>
-        <Slide>
-          <Home/>
-        </Slide>
-        <Slide>
-          <AboutMe/>
-        </Slide>
-        {/* </Slide>
+      <div class="fake">
+        <SVGLoader />
+        <Layout {...props} slides={slides} />
+        <Slider {...props} slides={slides}>
+          <Slide>
+            <Home />
+          </Slide>
+          <Slide>
+            <AboutMe />
+          </Slide>
+          {/* </Slide>
         <Experience />
        </Slide>*/}
-        <Slide>
-          <Contact/>
-        </Slide>
-      </Slider>
+          <Slide>
+            <Contact />
+          </Slide>
+        </Slider>
+      </div>
     </Fragment>
   )
 }

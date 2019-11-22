@@ -46,8 +46,7 @@ export function getDeviceInfo() {
     'safari',
     'phantom',
     'ios',
-    'android',
-    'mobile'
+    'android'
   ]
 
   let result

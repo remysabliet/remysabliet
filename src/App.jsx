@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom'
 import __ from 'helpers/i18n'
 import Routes from 'routes'
 
+
+
 const App = (props) => {
   const { store } = props;
     return (

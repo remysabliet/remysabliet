@@ -59,7 +59,10 @@ const MagicSlider = WrappedComponent => {
 
     // Update the wi to be taken into account magicSlider calculation
     handleResize() {
-      this.viewportHeight= window.innerHeight
+      const { deviceInfo } = this.props;
+      
+      // Resize event doesnt work on ios, and vwHeight looks to be windo.outerheight;
+      this.viewportHeight = deviceInfo === "ios" ? window.outerHeight : window.innerHeight;
     }
 
     /**
@@ -68,12 +71,12 @@ const MagicSlider = WrappedComponent => {
      */
     componentDidMount() {
       const { deviceInfo } = this.props
-    
+      
       // Initialize vh property
       window.scrollTo(0, 10)
       this.handleResize()
       // console.log(deviceInfo)
-      if (deviceInfo === 'mobile') {
+      if (['ios','android'].includes(deviceInfo)) {
         window.addEventListener('touchstart', this.touchStartHandler, false)
         window.addEventListener('touchend', this.touchEndHandler, false)
       } else {
@@ -171,6 +174,7 @@ const MagicSlider = WrappedComponent => {
           this.currentPosition = slideBoundary
         }
 
+        //console.log("window.scrollTo", this.currentPosition * this.viewportHeight)
         window.scrollTo(0, this.currentPosition * this.viewportHeight)
         const curSlide = this.props.slides[slideBoundary]
 

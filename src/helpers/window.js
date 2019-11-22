@@ -4,6 +4,7 @@
 // This is to avoid un-necessary layout re-calcs.
 import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
 import { animateIfInView } from 'helpers/utils/animation'
+import { disableBodyScroll} from 'body-scroll-lock';
 
 const animatedClass = "rs-js-animated-element"
 
@@ -15,3 +16,6 @@ window.addEventListener('resize', recomputeViewportSize)
  const animateIfInViewEvenType = ['resize', 'scroll', 'keydown', 'keyup' , 'wheel', 'touchend']
  animateIfInViewEvenType.forEach( type => window.addEventListener(type,function(){animateIfInView(animatedClass)}, false) 
  )
+
+ const targetElement = document.querySelector('#root');
+ disableBodyScroll(targetElement);
