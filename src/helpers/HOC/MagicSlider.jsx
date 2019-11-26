@@ -1,7 +1,7 @@
 import React from 'react'
 import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
 
-var innerHeight = require('ios-inner-height');
+import innerHeight from 'ios-inner-height';
 
 /**
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
