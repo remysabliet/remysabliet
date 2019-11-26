@@ -6,7 +6,8 @@ module.exports = {
   },
   'extends': [
     'plugin:react/recommended',
-    'airbnb-base'
+    'airbnb-base',
+    'plugin:prettier/recommended'
   ],
   'parser': 'babel-eslint',
   'parserOptions': {
@@ -22,6 +23,9 @@ module.exports = {
   ],
   'rules': {
     "global-require": 0,
+    "rules": {
+      "prettier/prettier": "error"
+    },
     "import/no-dynamic-require": 0,
     "no-param-reassign": [0, {"props": false}],
     "react/no-did-mount-set-state": 0,

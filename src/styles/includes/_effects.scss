@@ -1,6 +1,6 @@
 .rs-js-animated-element {
   opacity: 0;
-  &.js-slide-up {
+  &.rs-js-slide-up {
     animation: slide-up-anim 3s forwards;
   }
 }
@@ -9,23 +9,34 @@
   @for $i from 1 through 100 {
     $y: randomRange(-30, 70);
     $x: randomRange(-5, 95);
-    $opa: randomRange(7, 10) / 10; // opacite between 0.3 and 1
+    $opa: randomRange(7, 10) /
+      10; // opacite between 0.3 and 1
     // @warn $y;
     p {
       &:nth-child(#{$i}) {
         position: absolute;
-        left: calc(var(--vw, 1vw) * #{$x}); // Will replace p element on the X according to viewport resize
-        top: calc(var(--vh, 1vh) * #{$y}); // Will replace p element on the Y according to viewport resize
+        //will-change: opacity, transform;
+        left: calc(
+          var(--vw, 1vw) * #{$x}
+        ); // Will replace p element on the X according to viewport resize
+        top: calc(
+          var(--vh, 1vh) * #{$y}
+        ); // Will replace p element on the Y according to viewport resize
         opacity: 0;
         font-size: percentage(random(15) / 5);
         color: #c0c0c0;
         writing-mode: vertical-rl;
         text-orientation: upright;
-        animation: vertical-trans-opa-anim infinite randomRange(4, 10) + s linear #{$i/2}s;
+        animation: vertical-trans-opa-anim
+          infinite
+          randomRange(4, 10) +
+          s
+          linear
+          #{$i/4}s; // delay time before appearance
         cursor: default;
       }
     }
- 
+
     @keyframes vertical-trans-opa-anim {
       0% {
         opacity: 0;
@@ -49,7 +60,9 @@
 @keyframes slide-up-anim {
   0% {
     opacity: 0;
-    transform: translateY(calc(var(--vh, 1vh) * 10));
+    transform: translateY(
+      calc(var(--vh, 1vh) * 10)
+    );
   }
   100% {
     opacity: 1;
@@ -104,3 +117,18 @@
   }
 }
 
+/**
+*  Apply will-change an element
+*/
+.js-will-change-opa-tra {
+  //,.js-will-change *::after{ }//
+  will-change: opacity, transform;
+}
+
+.js-will-change-opa {
+  will-change: opacity;
+}
+
+.js-will-change-tra {
+  will-change: transform;
+}

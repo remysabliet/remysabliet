@@ -11,6 +11,7 @@
     position: fixed;
     height: 5vh;
     width: 100vw;
+    will-change: transform; //Because it is fixed we should add will-change to this element as it require much repaints
 
     .rs-content {
       display: flex;

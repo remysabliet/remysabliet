@@ -9,15 +9,14 @@ import SVGLoader from 'assets/svg/SVGLoader'
 import Layout from './Layout'
 
 const HomePage = props => {
-  const slides = ['home', 'aboutMe', 'experience', 'contact']
+  const slides = ['home', 'about-me', 'contact']
 
   useEffect(() => {
-    console.log("HomePage", props.locale)
+    //console.log("HomePage", props.locale)
   }, [props.locale])
 
   return (
     <Fragment>
-      <div class="fake">
         <SVGLoader />
         <Layout {...props} slides={slides} />
         <Slider {...props} slides={slides}>
@@ -34,7 +33,6 @@ const HomePage = props => {
             <Contact />
           </Slide>
         </Slider>
-      </div>
     </Fragment>
   )
 }

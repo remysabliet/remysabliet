@@ -26,7 +26,7 @@ export const animateIfInView = (className) => {
   const windowBottomPos = windowTopPos + window.innerHeight;
 
   const elementToAnimate = document.getElementsByClassName("rs-js-animated-element");
-
+  // console.log("animatedElement #1 ", elementToAnimate)
   Array.prototype.forEach.call(elementToAnimate, (elem) => {
     // console.log("animatedElement #3 ", elem)
     const elementBounds = elem.getBoundingClientRect();
@@ -34,7 +34,7 @@ export const animateIfInView = (className) => {
     const elemBottomPos = elemTopPos + elementBounds.height;
 
     //For now we do not manage dynamically effects (only slide-up effect works) => to be improved
-    const classNameEffect = "js-slide-up";
+    const classNameEffect = "rs-js-slide-up";
 
     let activate = false;
 
@@ -42,24 +42,23 @@ export const animateIfInView = (className) => {
     if ((elemTopPos >= windowTopPos && elemTopPos <= windowBottomPos) ||
       elemBottomPos >= windowTopPos && elemBottomPos <= windowBottomPos) {
       activate = true;
-      // console.log("animatedElement #4 to be activated", elem)
     }
 
     if (activate) {
-      // console.log("animatedElement #5 activate start IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
+    //  console.log("animatedElement #5 activate start IN VIEW", document.getElementsByClassName(".js-slide-up .siblings"))
       // Cross-browser solution
       const arr = elem.className.split(" ");
       if (arr.indexOf(classNameEffect) == -1) {
         elem.className += " " + classNameEffect;
+        // console.log("SLIDE UP CLASS ADDED")
       }
+
     } else { // Not in view anymore 
-      // console.log("animatedElement #6 activate start NOT IN VIEW")
-      // console.log("NOT IN VIEW", "windowTopPos: ", windowTopPos, "windowBottomPos: ", windowBottomPos, 'elemTopPos', elemTopPos, 'elemBottomPos', elemBottomPos)
-     
+    //  console.log("animatedElement #6 activate start NOT IN VIEW",  document.getElementsByClassName(".js-slide-up .siblings"))
 
       // For now I decided not to reset animation when element get out of views
-      // const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
-      // elem.className = elem.className.replace(regExp, ""); 
+       const regExp = new RegExp(`\\b ${classNameEffect}\\b`)
+       elem.className = elem.className.replace(regExp, ""); 
 
     }
   }

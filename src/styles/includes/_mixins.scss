@@ -4,7 +4,7 @@
   white-space: nowrap;
 }
 
-@mixin user-select ($select) {
+@mixin user-select($select) {
   -webkit-touch-callout: $select;
   -webkit-user-select: $select;
   -khtml-user-select: $select;
@@ -13,7 +13,7 @@
   user-select: $select;
 }
 
-@mixin animation ($str) {
+@mixin animation($str) {
   -webkit-animation: $str;
   -moz-animation: $str;
   -ms-animation: $str;
@@ -25,7 +25,7 @@
   -webkit-transform: $style;
   -moz-transform: $style;
   -ms-transform: $style;
-  -o-transform:$style;
+  -o-transform: $style;
   transform: $style;
 }
 
@@ -33,7 +33,7 @@
   -webkit-transition: $transition;
   -moz-transition: $transition;
   -ms-transition: $transition;
-  -o-transition:$transition;
+  -o-transition: $transition;
   transition: $transition;
 }
 
@@ -47,5 +47,24 @@
     &:nth-child(#{$var}) {
       animation-delay: #{$counter}s;
     }
+  }
+}
+
+/**
+* stop animation of current element and all sub-elements from where it
+* is included
+*/
+@mixin pausing-anim() {
+  &.js-pausing *,
+  .js-pausing *::after {
+    //
+    animation-play-state: paused !important;
+  }
+}
+
+/* Root element and its child inheritate the will-change property */
+@mixin will-change-with-child {
+  .js-will-change * {
+    will-change: opacity, transform;
   }
 }

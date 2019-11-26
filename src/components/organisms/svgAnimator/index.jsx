@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import SVGDisplayer from 'components/atoms/SVGDisplayer'
+import SVGDisplayer from 'src/components/atoms/SVGDisplayer'
 
 /**
  * Stateless component leveraging React Hooks to display SVG frames sequentially.

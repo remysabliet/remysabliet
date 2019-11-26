@@ -20,8 +20,8 @@ const MagicSlider = WrappedComponent => {
       // this.velocityComputation = this.velocityComputation.bind(this)
       this.touchStartHandler = this.touchStartHandler.bind(this)
       this.touchEndHandler = this.touchEndHandler.bind(this)
-      this.keyUpHandler=this.keyUpHandler.bind(this)
-      this.keyDownHandler=this.keyDownHandler.bind(this)
+      this.keyUpHandler = this.keyUpHandler.bind(this)
+      this.keyDownHandler = this.keyDownHandler.bind(this)
       this.handleResize = this.handleResize.bind(this)
 
       this.speed = 0
@@ -31,7 +31,7 @@ const MagicSlider = WrappedComponent => {
       // setState doesn't update quickly enough to follow the natural speed of the slider effect 
       // to provide a smooth rendering.
 
-      this.viewportHeight= 0
+      this.viewportHeight = 0
       this.currentPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
       this.slideChangeHardnessCoeff = 0.03 // Bigger the coef is, harder it is to change of slide. norm: 0.03
       this.slideChangeSpeedCoeff = 0.8 // Speed du changement de slide   norm= 0.8
@@ -111,40 +111,40 @@ const MagicSlider = WrappedComponent => {
 
     touchStartHandler(event) {
       var touches = event.changedTouches;
-      for(var j = 0; j < touches.length; j++) {
+      for (var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */
-        this.touchesInAction[ "$" + touches[j].identifier ] = {
-          identifier : touches[j].identifier,
-          pageX : touches[j].pageX,
-          pageY : touches[j].pageY
+        this.touchesInAction["$" + touches[j].identifier] = {
+          identifier: touches[j].identifier,
+          pageX: touches[j].pageX,
+          pageY: touches[j].pageY
         };
       }
     }
-  
+
     touchEndHandler(event) {
       var touches = event.changedTouches;
-      for(var j = 0; j < touches.length; j++) {
-          /* access stored touch info on touchend */
-          var theTouchInfo = this.touchesInAction[ "$" + touches[j].identifier ];
-          theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
-          theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
+      for (var j = 0; j < touches.length; j++) {
+        /* access stored touch info on touchend */
+        var theTouchInfo = this.touchesInAction["$" + touches[j].identifier];
+        theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
+        theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
       }
       this.velocityComputation(theTouchInfo.dy);
     }
 
     keyDownHandler(event) {
       //38 UpArrow 40 DownArrow
-      if((event.keyCode === 38 || event.keyCode === 40) && !event.repeat){
-          this.keyCode= event.keyCode,
-          this.keyTimestamp= event.timeStamp 
+      if ((event.keyCode === 38 || event.keyCode === 40) && !event.repeat) {
+        this.keyCode = event.keyCode,
+          this.keyTimestamp = event.timeStamp
       }
     }
-    
+
     keyUpHandler(event) {
-      const elapsedTime = event.keyCode === this.keyCode? event.timeStamp - this.keyTimestamp : 0;
-      if(elapsedTime){
+      const elapsedTime = event.keyCode === this.keyCode ? event.timeStamp - this.keyTimestamp : 0;
+      if (elapsedTime) {
         const deltaY = this.keyCode === 38 ? -1 : 1;
-        this.speed += deltaY * elapsedTime/1000;
+        this.speed += deltaY * elapsedTime / 1000;
       }
     }
 
@@ -163,7 +163,8 @@ const MagicSlider = WrappedComponent => {
 
         this.speed *= this.slideChangeSpeedCoeff
         this.currentPosition += this.speed
-        const slideBoundary = Math.round(this.currentPosition)
+        
+        const slideBoundary = Math.round(this.currentPosition);
         const dif = slideBoundary - this.currentPosition
 
         this.currentPosition += dif * this.slideChangeHardnessCoeff
@@ -176,11 +177,15 @@ const MagicSlider = WrappedComponent => {
 
         //console.log("window.scrollTo", this.currentPosition * this.viewportHeight)
         window.scrollTo(0, this.currentPosition * this.viewportHeight)
-        const curSlide = this.props.slides[slideBoundary]
+
+        // We reajust the BoundaryIndex as it can goes to -1 as well as be superior to array.length will makes crash all
+        // the logic behind currentSlide
+        const adjustedSlideIndex = slideBoundary < 0 ? 0 : slideBoundary > this.props.slides.length - 1 ? this.props.slides.length - 1 : slideBoundary;
+        const curSlide = this.props.slides[adjustedSlideIndex]
 
         // Will trigger a render every loop if we don't add this condition.
         // Purpose is to save performance
-        if (curSlide !== this.state.currentSlide) {
+        if (curSlide && curSlide !== this.state.currentSlide) {
           this.setState({
             currentSlide: curSlide
           })
@@ -211,9 +216,9 @@ const MagicSlider = WrappedComponent => {
     }
 
     // We trigger rerendering only if current slide change
-    shouldComponentUpdate( nextState){
-      const { currentSlide} = this.state;
-      if(nextState.currentSlide === currentSlide)
+    shouldComponentUpdate(nextState) {
+      const { currentSlide } = this.state;
+      if (nextState.currentSlide === currentSlide)
         return false
       return true
     }

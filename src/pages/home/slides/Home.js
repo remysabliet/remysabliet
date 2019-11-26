@@ -9,10 +9,11 @@ import __ from 'helpers/i18n'
  * Home page
  */
 const Home = props => {
-  const { locale, deviceInfo, isCurrentSlide } = props
-  console.log(" Home", locale)
+  const { locale, deviceInfo } = props
+  // console.log(" Home", locale)
   // For mobile, we reduce the number of div to be displayed in order to save cpu
-  const matrixLimit = deviceInfo && deviceInfo === 'mobile' ? 30 : undefined
+  const matrixLimit = ['ios', 'android'].includes(deviceInfo) ? 15 : undefined
+  console.log('matrixLimit', matrixLimit)
   return (
     <Fragment>
       <Matrix limit={matrixLimit} list={__('ITTerminology', locale)} />
