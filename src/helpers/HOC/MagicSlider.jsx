@@ -1,5 +1,8 @@
 import React from 'react'
 import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
+
+var innerHeight = require('ios-inner-height');
+
 /**
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
  * Event Type leveraged: 
@@ -62,7 +65,7 @@ const MagicSlider = WrappedComponent => {
       const { deviceInfo } = this.props;
       // console.log(deviceInfo)
       // Resize event doesnt work on ios, and vwHeight looks to be windo.outerheight;
-      this.viewportHeight = deviceInfo === "ios" ? window.outerHeight : window.innerHeight;
+      this.viewportHeight = deviceInfo === "ios" ? innerHeight() : window.innerHeight;
     }
 
     /**

@@ -15,7 +15,7 @@ const Home = props => {
   const matrixLimit = ['ios', 'android'].includes(deviceInfo) ? 15 : undefined
   // // console.log('matrixLimit', matrixLimit)
 
-  // const debugMode = true;
+  const debugMode = true;
 
   
   return (
