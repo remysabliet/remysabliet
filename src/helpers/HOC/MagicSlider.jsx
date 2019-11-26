@@ -60,7 +60,7 @@ const MagicSlider = WrappedComponent => {
     // Update the wi to be taken into account magicSlider calculation
     handleResize() {
       const { deviceInfo } = this.props;
-      
+      // console.log(deviceInfo)
       // Resize event doesnt work on ios, and vwHeight looks to be windo.outerheight;
       this.viewportHeight = deviceInfo === "ios" ? window.outerHeight : window.innerHeight;
     }

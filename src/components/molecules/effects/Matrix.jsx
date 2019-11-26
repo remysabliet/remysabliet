@@ -10,14 +10,17 @@ const Matrix = React.memo(({ list = [], limit = 75, className }) => {
   let count = limit
   const arr = []
 
-  while (count > list.length) {
+  console.log('LIMIT IS , ', limit)
+
+  while (count >= 0) {
     const shuffledArray = shuffle(list)
     shuffledArray.forEach(item => {
       count -= 1
-      arr.push(<p key={count} anim='_opa_tra'>{item}</p>)
+      if (count >= 0)
+        arr.push(<p key={count} anim='_opa_tra'>{item}</p>)
     })
   }
-
+  console.log(arr)
   return <div className={classNames}>{arr}</div>
 })
 

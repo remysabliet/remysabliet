@@ -69,11 +69,11 @@ export function getDeviceInfo() {
 export function getLocale() {
   const locale =
     navigator.language
-      // All browsers 
+    // All browsers 
     || (navigator.languages && navigator.languages[0]) // Chrome / Firefox
     || navigator.userLanguage // IE <= 10
 
   const browserCountryCode = locale && locale.length > 2 ? locale.substr(0, 2) : locale
-  console.log(browserCountryCode, locales,  locales.indexOf(browserCountryCode))
+  console.log(browserCountryCode, locales, locales.indexOf(browserCountryCode))
   return locales.filter(element => element.locale === browserCountryCode).length > 0 ? browserCountryCode : 'en'
 }
