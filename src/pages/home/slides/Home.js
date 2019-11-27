@@ -20,10 +20,11 @@ const Home = props => {
   
   return (
     <Fragment>
-      {debugMode && <div>{deviceInfo}
+      {/* {debugMode && <div>{deviceInfo}
       {'innerHeight: ' + window.innerHeight}
       {'  outerHeight: ' + window.outerHeight}
-    </div>}
+    </div>} */}
+
       <Matrix limit={matrixLimit} list={__('ITTerminology', locale)} />
       <SVGAnimator setting={portraitAnimSetting} />
     </Fragment>

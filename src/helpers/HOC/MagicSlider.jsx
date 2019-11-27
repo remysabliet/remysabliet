@@ -22,7 +22,8 @@ const MagicSlider = WrappedComponent => {
       this.magicSlider = this.magicSlider.bind(this)
       // this.velocityComputation = this.velocityComputation.bind(this)
       this.touchStartHandler = this.touchStartHandler.bind(this)
-      this.touchEndHandler = this.touchEndHandler.bind(this)
+      // this.touchEndHandler = this.touchEndHandler.bind(this)
+      this.onTouchMoveHandler = this.onTouchMoveHandler.bind(this)
       this.keyUpHandler = this.keyUpHandler.bind(this)
       this.keyDownHandler = this.keyDownHandler.bind(this)
       this.handleResize = this.handleResize.bind(this)
@@ -81,7 +82,8 @@ const MagicSlider = WrappedComponent => {
       // console.log(deviceInfo)
       if (['ios','android'].includes(deviceInfo)) {
         window.addEventListener('touchstart', this.touchStartHandler, false)
-        window.addEventListener('touchend', this.touchEndHandler, false)
+        // window.addEventListener('touchend', this.touchEndHandler, false)
+        window.addEventListener('touchmove', this.onTouchMoveHandler, false)
       } else {
         // Browser
         window.addEventListener('wheel', this.handleOnWheel, false)
@@ -98,7 +100,7 @@ const MagicSlider = WrappedComponent => {
 
     componentWillUnmount() {
       window.removeEventListener('touchstart', this.touchStartHandler, false)
-      window.removeEventListener('touchend', this.touchEndHandler, false)
+      // window.removeEventListener('touchend', this.touchEndHandler, false)
       window.removeEventListener('wheel', this.handleOnWheel, false)
       window.removeEventListener('resize', this.handleResize, false)
       window.removeEventListener('keyup', this.keyUpHandler, false)
@@ -113,6 +115,7 @@ const MagicSlider = WrappedComponent => {
     }
 
     touchStartHandler(event) {
+      console.log("touchStartHandler", event)
       var touches = event.changedTouches;
       for (var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */
@@ -124,7 +127,7 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
-    touchEndHandler(event) {
+    onTouchMoveHandler(event) {
       var touches = event.changedTouches;
       for (var j = 0; j < touches.length; j++) {
         /* access stored touch info on touchend */
@@ -132,8 +135,22 @@ const MagicSlider = WrappedComponent => {
         theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
         theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
       }
-      this.velocityComputation(theTouchInfo.dy);
+      // this.velocityComputation(theTouchInfo.dy);
+      this.velocityComputationMobile(theTouchInfo.dy*0.0001);
     }
+
+    // touchOnMoveHandler and touchEndHandler together doesn't works well. It is better to keep only onMove
+    // touchEndHandler(event) {
+    //   console.log("touchEndHandler", event)
+    //   var touches = event.changedTouches;
+    //   for (var j = 0; j < touches.length; j++) {
+    //     /* access stored touch info on touchend */
+    //     var theTouchInfo = this.touchesInAction["$" + touches[j].identifier];
+    //     theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
+    //     theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
+    //   }
+    //   //this.velocityComputation(theTouchInfo.dy);
+    // }
 
     keyDownHandler(event) {
       //38 UpArrow 40 DownArrow
@@ -153,6 +170,10 @@ const MagicSlider = WrappedComponent => {
 
     velocityComputation(deltaY) {
       this.speed += -1 * deltaY * 0.0006 // -1 allow to inverse touch scrolling orientation on mobile
+    }
+
+    velocityComputationMobile(deltaY) {
+      this.speed += -1 * deltaY // -1 allow to inverse touch scrolling orientation on mobile
     }
 
     magicSlider() {

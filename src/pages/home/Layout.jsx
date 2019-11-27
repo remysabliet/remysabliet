@@ -6,7 +6,7 @@ import localeSetter from 'containers/localeSetter'
 
 const Layout = props => (
   <>
-    <ForegroundUI>
+    <ForegroundUI>    <div id="debug"/>
       <Header {...props} />
     </ForegroundUI>
   </>
