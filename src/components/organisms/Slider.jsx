@@ -18,6 +18,10 @@ class Slider extends React.PureComponent {
     this.refs = slides.map(() => React.createRef())
   }
 
+   
+
+
+
   /**
    * Invoked just before render, it returns the state to update
    * 
@@ -64,25 +68,25 @@ class Slider extends React.PureComponent {
     // console.log("pausing animation", slideRef)
     const elem = document.querySelector(`.rs-${slideRef}`)
     elem.classList.add('js-pausing')
-    // elem.classList.remove('js-will-change')
+    elem.classList.remove('js-will-change')
 
-    // const elemOpaTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa_tra']`)
-    // // console.log("Slider-Elem found with attributes [anim='_opa']", elemOpaTraWillChange)
-    // elemOpaTraWillChange.forEach(e => e.classList.remove('js-will-change-opa-tra'))
+    const elemOpaTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa_tra']`)
+    // console.log("Slider-Elem found with attributes [anim='_opa']", elemOpaTraWillChange)
+    elemOpaTraWillChange.forEach(e => e.classList.remove('js-will-change-opa-tra'))
 
-    // const elemOpaWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa']`)
-    // // console.log("Slider-Elem found with attributes [anim='_tra']", elemOpaWillChange)
-    // elemOpaWillChange.forEach(e => e.classList.remove('js-will-change-opa'))
+    const elemOpaWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa']`)
+    // console.log("Slider-Elem found with attributes [anim='_tra']", elemOpaWillChange)
+    elemOpaWillChange.forEach(e => e.classList.remove('js-will-change-opa'))
 
-    // const elemTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_tra']`)
-    // // console.log("Slider-Elem found with attributes [anim='_tra']", elemTraWillChange)
-    // elemTraWillChange.forEach(e => e.classList.remove('js-will-change-tra'))
+    const elemTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_tra']`)
+    // console.log("Slider-Elem found with attributes [anim='_tra']", elemTraWillChange)
+    elemTraWillChange.forEach(e => e.classList.remove('js-will-change-tra'))
 
-    // let svgSiblingsElem = document.querySelectorAll(
-    //   '.siblings'
-    // )
+    let svgSiblingsElem = document.querySelectorAll(
+      '.siblings'
+    )
 
-    // svgSiblingsElem.forEach(e => e.classList.add('js-will-change-opa'));
+    svgSiblingsElem.forEach(e => e.classList.add('js-will-change-opa'));
   }
 
   /**

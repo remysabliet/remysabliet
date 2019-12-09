@@ -1,9 +1,10 @@
-
 .rs-slide {
   width: 100vw;
-  height: calc(var(--vh, 1vh) * 100); //prevent height of problem on mobile because of url bar
+  height: calc(
+    var(--vh, 1vh) * 100
+  ); //prevent height problem on mobile because of url bar
   margin: 0;
- 
+
   .rs-home {
     @include pausing-anim();
     // @include will-change-opti();
@@ -17,20 +18,19 @@
     background: $background-color-green-black-fallback;
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
-    
-
 
     svg {
+      max-height: 100%;
       &.rs-full-view-port {
         height: 100vh;
         width: 100vw;
       }
-    
+
       &.icon {
         height: 100%;
         width: 100%;
         position: relative;
-    
+
         .flag {
           &:hover {
             opacity: 0.5;
@@ -39,7 +39,6 @@
         }
       }
     }
-    
   }
 
   .rs-about-me {
@@ -64,14 +63,15 @@
       @include flexbox();
       @include flex-direction(column);
       width: 70vw;
-      background: url("../assets/img/calligraphyPaper.jpg") no-repeat center;
+      background: url('../assets/img/calligraphyPaper.jpg')
+        no-repeat center;
       background-size: 100% 100%;
       border-width: 3px;
       border-style: outset;
       -webkit-box-shadow: 5px 5px 20px 5px #c4ff65;
       -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
       box-shadow: 5px 5px 20px 5px #c4ff65;
-      
+
       .rs-border {
         @include flex-grow(0.05);
         height: 3vh;
@@ -80,7 +80,10 @@
       }
       .rs-middle {
         @include flex-grow(0.6);
-        height: 61vh;
+        height: calc(
+          var(--vh, 1vh) *
+            var(--calligraphy-container-height)
+        ); // We can't simply concatenate unit string to value, we must perform a calculation
         padding: 1rem;
       }
     }

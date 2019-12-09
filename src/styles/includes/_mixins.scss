@@ -38,6 +38,21 @@
 }
 
 /**
+* return a grid layout based on grid-gap and template
+*
+*/
+@mixin grid-container(
+  $grid-gap,
+  $grid-template-areas
+) {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-gap: $grid-gap;
+    grid-template-areas: $grid-template-areas;
+}
+
+/**
 * Modify animation-delay incremently to a list of child
 */
 @mixin delayed-draw($max) {

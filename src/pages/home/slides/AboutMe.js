@@ -9,7 +9,11 @@ import CalligraphyWritter from 'components/molecules/CalligraphyWriter'
 import { symbols } from 'helpers/constants/homePage'
 
 const AboutMe = props => {
-  const { locale, isCurrentSlide } = props
+  const {
+    locale,
+    isCurrentSlide,
+    deviceInfo
+  } = props
 
   const [
     isAlreadyActivated,
@@ -20,17 +24,6 @@ const AboutMe = props => {
   // AnimationDelay and class
   useEffect(() => {
     setIsAlreadyActivated(false)
-    // console.log("LOCAL USEEFECT", isAlreadyActivated)
-    // let svgElem = document.querySelectorAll(
-    //   '.calligraphy'
-    // )
-    // let strokeElem = document.querySelectorAll(
-    //   '.rs-js-animated-element.rs-js-slide-up .calligraphy .siblings'
-    // )
-
-    // svgElem.forEach(elem => {
-    //   elem.classList.add('faded-out')
-    // })
   }, locale)
 
   useEffect(() => {
@@ -39,11 +32,6 @@ const AboutMe = props => {
     )
     let strokeElem = document.querySelectorAll(
       '.rs-js-animated-element.rs-js-slide-up .calligraphy .siblings'
-    )
-    console.log('strokeElem', strokeElem)
-    console.log(
-      isCurrentSlide,
-      isAlreadyActivated
     )
     if (
       isCurrentSlide &&
@@ -59,12 +47,16 @@ const AboutMe = props => {
           'punctuation-delay'
         )
           ? 1
-          : 0.12
+          : locale === 'ja'
+          ? 0.12
+          : 0.3 // elapse time between character letter
         counter = counter + additionalTime
 
         element.style.animationDelay = `${counter}s`
-        element.style.opacity = 1 // By default the opacity of a SVG element is having opacity: 0
+
+        // By default the opacity of a SVG element is having opacity: 0
         // to avoid appearing on the screen when user come and leave
+        element.style.opacity = 1
       })
 
       // Once we have et opacity on the stroke-element we can remove the opacity=0 on the SVG parent element
@@ -74,14 +66,11 @@ const AboutMe = props => {
         // elem.classList.add('anim-opacity-up')
       })
     } else if (isCurrentSlide) {
-      //This case corresponds when user come back to the same slide without relaunching the full writing animation
+      // This case corresponds when user come back to the same slide without relaunching the full writing animation
       svgElem.forEach(elem => {
         elem.classList.add('anim-opacity-up')
       })
     } else {
-      console.log(
-        'We remove anim-opacity-up to any svgElem'
-      )
       // When user quit the slide
       svgElem.forEach(elem => {
         elem.classList.remove('anim-opacity-up')
@@ -100,6 +89,8 @@ const AboutMe = props => {
         <div className="rs-middle">
           <CalligraphyWritter
             symbols={symbols[locale]}
+            locale={locale}
+            deviceInfo={deviceInfo}
           />
         </div>
         <div className="rs-border" />
