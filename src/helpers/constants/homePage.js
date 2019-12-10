@@ -55,13 +55,16 @@ import {
 
 import {
   AEn,
+  AlwaysEn,
   AmEn,
+  AndEn,
   ChaserEn,
   DreamEn,
   ExclamationEn,
   HiWithCommaEn,
   IEn,
   IsEn,
+  LoveEn,
   MyEn,
   PageWithPointEn,
   RemyEn,
@@ -349,63 +352,63 @@ export const symbols = {
     }
   ],
   en: [
-    // {
-    //   class: 'A',
-    //   weight: 2,
-    //   element: (
-    //     <HiWithCommaEn className="faded-out" />
-    //   )
-    // },
-    // { class: 'A', weight: 0.5, element: '' },
-    // {
-    //   class: 'A',
-    //   weight: 3,
-    //   element: <ThisEn className="faded-out" />
-    // },
-    // { class: 'A', weight: 0.5, element: '' },
-    // {
-    //   class: 'A',
-    //   weight: 1.25,
-    //   element: <IsEn className="faded-out" />
-    // },
-    // { class: 'A', weight: 0.5, element: '' },
-    // {
-    //   class: 'A',
-    //   weight: 4.5,
-    //   element: <RemyEn className="faded-out" />
-    // },
-    // {
-    //   class: 'A',
-    //   weight: 0.75,
-    //   element: (
-    //     <ExclamationEn className="faded-out" />
-    //   )
-    // },
-    // {
-    //   class: 'B',
-    //   weight: 7,
-    //   element: <WelcomeEn className="faded-out" />
-    // },
-    // { class: 'B', weight: 0.5, element: '' },
-    // {
-    //   class: 'B',
-    //   weight: 1.5,
-    //   element: <ToEn className="faded-out" />
-    // },
-    // { class: 'B', weight: 0.5, element: '' },
-    // {
-    //   class: 'B',
-    //   weight: 2.5,
-    //   element: <MyEn className="faded-out" />
-    // },
-    // { class: 'B', weight: 0.5, element: '' },
-    // {
-    //   class: 'B',
-    //   weight: 3.75,
-    //   element: (
-    //     <PageWithPointEn className="faded-out" />
-    //   )
-    // },
+    {
+      class: 'A',
+      weight: 2,
+      element: (
+        <HiWithCommaEn className="faded-out" />
+      )
+    },
+    { class: 'A', weight: 0.5, element: '' },
+    {
+      class: 'A',
+      weight: 3,
+      element: <ThisEn className="faded-out" />
+    },
+    { class: 'A', weight: 0.5, element: '' },
+    {
+      class: 'A',
+      weight: 1.25,
+      element: <IsEn className="faded-out" />
+    },
+    { class: 'A', weight: 0.5, element: '' },
+    {
+      class: 'A',
+      weight: 4.5,
+      element: <RemyEn className="faded-out" />
+    },
+    {
+      class: 'A',
+      weight: 0.75,
+      element: (
+        <ExclamationEn className="faded-out" />
+      )
+    },
+    {
+      class: 'B',
+      weight: 7.5,
+      element: <WelcomeEn className="faded-out" />
+    },
+    { class: 'B', weight: 0.5, element: '' },
+    {
+      class: 'B',
+      weight: 1.75,
+      element: <ToEn className="faded-out" />
+    },
+    { class: 'B', weight: 0.5, element: '' },
+    {
+      class: 'B',
+      weight: 3,
+      element: <MyEn className="faded-out" />
+    },
+    { class: 'B', weight: 0.5, element: '' },
+    {
+      class: 'B',
+      weight: 4.25,
+      element: (
+        <PageWithPointEn className="faded-out" />
+      )
+    },
     {
       class: 'C',
       weight: 0.75,
@@ -429,20 +432,37 @@ export const symbols = {
     { class: 'C', weight: 0.5, element: '' },
     {
       class: 'C',
-      weight: 5,
+      weight: 5.5,
       element: <DreamEn className="faded-out" />
     },
     { class: 'C', weight: 0.5, element: '' },
     {
       class: 'C',
-      weight: 5,
+      weight: 5.5,
       element: <ChaserEn className="faded-out" />
     },
+    { class: 'C', weight: 0.5, element: '' },
     {
       class: 'C',
-      weight: 0.75,
+      weight: 3.25,
       element: (
-        <ExclamationEn className="faded-out" />
+        <AndEn className="faded-out" />
+      )
+    },
+    { class: 'C', weight: 0.5, element: '' },,
+    {
+      class: 'C',
+      weight: 3.25,
+      element: (
+        <LoveEn className="faded-out" />
+      )
+    },
+    { class: 'C', weight: 0.5, element: '' },,
+    {
+      class: 'C',
+      weight: 6,
+      element: (
+        <AlwaysEn className="faded-out" />
       )
     }
   ]
