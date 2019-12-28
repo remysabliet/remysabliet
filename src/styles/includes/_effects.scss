@@ -24,7 +24,8 @@
         ); // Will replace p element on the Y according to viewport resize
         opacity: 0;
         font-size: percentage(random(15) / 5);
-        color: #c0c0c0;
+        font-family: 'Matrix-MZ4P';
+        color: $silver;
         writing-mode: vertical-rl;
         text-orientation: upright;
         animation: vertical-trans-opa-anim

@@ -1,3 +1,17 @@
+$font-family-base: "Franklin Gothic Medium";
+
+h1{
+  font-size: 5em;
+}
+
+h2{
+  font-size: 3em;
+}
+
+h3{
+  font-size: 2em;
+}
+
 h1,
 h2,
 h3,
@@ -10,4 +24,18 @@ h6 {
 
 p {
   margin: 0px;
+}
+
+// Specific font 
+@font-face{ 
+  font-family: 'Matrix-MZ4P';
+  src: url('assets/font/Matrix-MZ4P.ttf') format('truetype');
+}
+
+@mixin neon-effect-green{
+  text-shadow:  0 0 55px $flashy-green, 0 0 75px $flashy-green, 2px 2px 2px $black;
+}
+
+@mixin neon-effect-white{
+  text-shadow:  0 0 35px $white,  0 0 55px $white, 0 0 75px $white, 2px 2px 2px $white;
 }

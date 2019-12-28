@@ -7,7 +7,6 @@
 
   .rs-home {
     @include pausing-anim();
-    // @include will-change-opti();
     position: relative;
     z-index: 0;
     height: inherit;
@@ -18,6 +17,22 @@
     background: $background-color-green-black-fallback;
     background: $background-color-green-black-webkit;
     background: $background-color-green-black;
+    
+    .rs-title-left {
+      position: absolute;
+      left:5%;
+      top: 75%;
+      @include neon-effect-green;
+      color: $silver;
+    }
+
+    .rs-title-right {
+      position: absolute;
+      right: 5%;
+      top: 25%;
+      @include neon-effect-white;
+      color: $flashy-green-deep;
+    }
 
     svg {
       max-height: 100%;
