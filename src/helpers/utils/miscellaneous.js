@@ -23,6 +23,10 @@ export const recomputeViewportSize = () => {
   // Slide property: height: calc(var(--vh, 1vh) * 100);
   document.documentElement.style.setProperty('--vh', `${vh}px`)
   document.documentElement.style.setProperty('--vw', `${vw}px`)
+
+  console.log("New Viewport size DOM Style: ", document.documentElement.style)
+  console.log("vh: ", vh)
+  console.log("vw: ", vw)
 }
 
 export const addEventListener = (type, fn) => {

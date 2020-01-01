@@ -18,7 +18,6 @@ const Matrix = React.memo(({ list = [], limit = 75, className }) => {
         arr.push(<p key={count} anim='_opa_tra'>{item}</p>)
     })
   }
-  console.log(arr)
   return <div className={classNames}>{arr}</div>
 })
 

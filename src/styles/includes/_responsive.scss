@@ -1,3 +1,8 @@
+
+// This mixin will automatically current device being running the script by checking its width and height
+// before applying the @Content declared in the @include responsive(){ ... }
+// This help to apply specific style to specific device
+
 @mixin responsive($point: full) {
   @if $point == full {
     @media only screen and (min-width: 1280px) and (min-height: 420px) { @content ; }

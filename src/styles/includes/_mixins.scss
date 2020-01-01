@@ -1,3 +1,5 @@
+@import "./includes/_colors";
+
 @mixin ellipsis() {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -45,11 +47,11 @@
   $grid-gap,
   $grid-template-areas
 ) {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    grid-gap: $grid-gap;
-    grid-template-areas: $grid-template-areas;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-gap: $grid-gap;
+  grid-template-areas: $grid-template-areas;
 }
 
 /**
@@ -82,4 +84,13 @@
   .js-will-change * {
     will-change: opacity, transform;
   }
+}
+
+@mixin background-green() {
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+  background: $background-color-green-black-fallback;
+  background: $background-color-green-black-webkit;
+  background: $background-color-green-black;
 }

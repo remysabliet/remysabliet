@@ -26,8 +26,8 @@ const Home = props => {
     </div>} */}
 
       <Matrix limit={matrixLimit} list={__('ITTerminology', locale)} />
-      <h1 className="rs-title-left">Rémy SABLIET</h1>
-      <h1 className="rs-title-right">Front-end Dev.</h1>
+      <h1 className="rs-js-animated-element rs-title-left">Rémy SABLIET</h1>
+      <h1 className="rs-js-animated-element rs-title-right">Front-end</h1>
       <SVGAnimator setting={portraitAnimSetting} />
     </Fragment>
   )

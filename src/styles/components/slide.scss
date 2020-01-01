@@ -7,31 +7,39 @@
 
   .rs-home {
     @include pausing-anim();
+    // @include background-green(); integrer directement avec l'element HTml
     position: relative;
     z-index: 0;
     height: inherit;
     width: inherit;
-    background-size: cover; /* <------ */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background: $background-color-green-black-fallback;
-    background: $background-color-green-black-webkit;
-    background: $background-color-green-black;
     
     .rs-title-left {
       position: absolute;
       left:5%;
       top: 75%;
-      @include neon-effect-green;
       color: $silver;
+      will-change: text-shadow;
+      @include responsive(desktop){
+        @include neon-effect-green;
+      }
+      @include responsive(tablet){
+        @include neon-effect-green;
+      }
     }
 
     .rs-title-right {
       position: absolute;
       right: 5%;
       top: 25%;
-      @include neon-effect-white;
+      @include responsive(desktop){
+         @include neon-effect-white;
+      }
+      @include responsive(tablet){
+        @include neon-effect-white;
+      }
+
       color: $flashy-green-deep;
+      will-change: text-shadow;
     }
 
     svg {
@@ -64,15 +72,9 @@
     position: relative;
     height: inherit;
     width: inherit;
-    z-index: 100; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
+    z-index: 0; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     // background-image: url('../assets/img/background-trees.jpg');
-
-    background-size: cover; /* <------ */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background: $background-color-green-black-fallback;
-    background: $background-color-green-black-webkit;
-    background: $background-color-green-black;
+    // @include background-green(); integrer directement avec l'element HTml
 
     .rs-calligraphy-container {
       @include flexbox();
@@ -107,16 +109,12 @@
   .rs-experience {
     height: inherit;
     width: inherit;
-    background: $background-color-green-black-fallback;
-    background: $background-color-green-black-webkit;
-    background: $background-color-green-black;
+    // @include background-green(); integrer directement avec l'element HTml
   }
 
   .rs-contact {
     height: inherit;
     width: inherit;
-    background: $background-color-earthly-fallback;
-    background: $background-color-earthly-webkit;
-    background: $background-color-earthly;
+    // @include background-green(); integrer directement avec l'element HTml
   }
 }

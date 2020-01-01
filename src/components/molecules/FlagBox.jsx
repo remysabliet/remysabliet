@@ -24,7 +24,7 @@ const FlagBox = React.memo(props => {
   }, [locale])
 
   // FireFox catch the <svg> element as target of the onClick event whereas other browser catch the <use> element
-  // Asan ID should be unique, we must assign specific ID to both svg and use tags but still must be able
+  // As an ID should be unique, we must assign specific ID to both svg and use tags but still must be able
   // to figure out which language has been selected.
   // Hence, we will concatenate the language as the last charaters of the ID
   const settings = {}
