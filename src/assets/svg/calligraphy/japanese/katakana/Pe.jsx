@@ -8,5 +8,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   <g clipPath="url(#pe-kata-clip-path)">
     <polyline class={classNames('siblings', firstStrokeClassName)} stroke-width="28px" points="8.47 116.85 34.27 124.17 73.44 77.97 87.28 78.29 185.35 152.52" />
     <path class="siblings" d="M140.28,40.27c4.57-2,11.79-2.69,16.16,1.42,6.24,5.86,4.73,19.67-4,24.94-7.56,4.58-19.27,1.92-22.68-5.95S132.9,43.51,140.28,40.27Z" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>

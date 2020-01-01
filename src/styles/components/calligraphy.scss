@@ -154,10 +154,22 @@ svg.calligraphy {
   }
 
   .siblings {
-    //will-change: opacity;
+    // will-change: opacity;
     animation: svg-stroke-move-anim 0.3s ease-in forwards;
+
+    // Webkit workaround, for SAFARI animations are run before
+    // javascript update the DOM style. Meaning that no delay set
+    // from JS will be visible on SAFARI because
+    // animation would have already been started as soon as the page is loaded.
+    // => In order to fix that, we set up an initial animationDelay very long, to stop
+    // the animation until the real animationDelay Get updated by Javascript
+    animation-delay: 1000s;
+
     &.alphabet {
       animation: svg-stroke-move-anim 0.7s ease-in forwards;
+      
+      // Webkit workaround above
+      animation-delay: 1000s;
     }
 
     &.faded-out {

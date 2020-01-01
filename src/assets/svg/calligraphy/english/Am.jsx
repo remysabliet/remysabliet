@@ -10,5 +10,8 @@ export default ({ className, firstStrokeClassName }) =>
     <g clip-path="url(#am-clip-path)">
       <polyline class={classNames('siblings alphabet', firstStrokeClassName)} stroke-width="7" points="26 66 35 46 19.5 58.5 12.5 65.5 8.5 72.5 6.5 76.5 5.5 82.5 5.5 88.5 6.5 92.5 5.5 96.16 11.5 94.5 18.5 91.5 27.5 79.5 37.5 53.5 39.5 52.5 39.5 57.5 30.5 87.5 32.5 91.5 36.5 92.5 38.5 89.5 39.5 84.5" />
       <polyline class="siblings alphabet" stroke-width="10" points="52.5 47.5 55.5 55.5 53.5 64.5 49.5 79.5 45.5 88.5 42.5 91.5 47.5 93.5 55.5 82.5 85.5 53.5 90.5 52.5 92.5 55.5 89.5 64.5 85.5 84.5 82.5 91.5 89.5 88.5 97.5 77.5 115.5 59.5 124.5 52.5 129.5 50.5 127.5 58.5 120.5 79.5 118.5 87.5 118.5 97.5 122.5 103.5" />
+
+      {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+      <polyline class="siblings alphabet additionalDelayEndOfCharacters" />
     </g>
   </svg>

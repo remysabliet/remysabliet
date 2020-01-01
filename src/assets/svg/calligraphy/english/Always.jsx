@@ -15,5 +15,8 @@ export default ({ className, firstStrokeClassName }) =>
       <polyline class='siblings alphabet' stroke-width="10" points="196 48 200 69 206 85 215 91" />
       <polyline class='siblings alphabet' stroke-width="10" points="236 51 222 83 213 106 197 132 182 144" />
       <polyline class='siblings alphabet' stroke-width="10" points="274 50 258 58 244 66 241 70 249 74 266 83 266 87 261 91 246 95 236 95 233 90" />
+
+      {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+      <polyline class="siblings alphabet additionalDelayEndOfCharacters" />
     </g>
   </svg>

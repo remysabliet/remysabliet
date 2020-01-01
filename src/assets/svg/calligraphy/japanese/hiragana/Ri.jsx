@@ -9,5 +9,8 @@ export default ({ className, firstStrokeClassName }) => (<svg class={classNames(
   <g clipPath="url(#ri-hira-clip-path)">
     <polyline class={classNames('siblings', firstStrokeClassName)} stroke-width="18px" points="63.36 20.38 75.5 38.29 68.27 66.77 66.99 94.18 76.09 135.99" />
     <polyline class="siblings" stroke-width="20px" points="77.22 115.51 85.5 80.57 93.62 60.93 105.37 46.64 113.26 40.49 126.46 41.34 133.7 57.1 138.23 78.86 133.39 123.31 122.21 146.56 83.67 181.85" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>)

@@ -12,5 +12,8 @@ export default ({ className, firstStrokeClassName }) =>
       <path class="siblings alphabet" stroke-width="10" d="M43.31,61c-9,6.77-12.52,14.11-14,18s-3.28,8.63-1,12c3.23,4.79,12.3,3.31,14,3,9.58-1.78,16.86-9.82,20-18s4-21.19-2-24c-4.91-2.3-13.42,1.17-14,5-.21,1.39.86,2.93,3,6a45.64,45.64,0,0,0,5,6" />
       <polyline class="siblings alphabet" stroke-width="10" points="85.31 48 77.31 73 74.31 89 78.31 97 87.31 91 101.31 75 107.31 53 118.31 57 133.31 53" />
       <polyline class="siblings alphabet" stroke-width="10" points="138.31 76 156.31 61 159.31 51 150.31 51 141.31 61 129.31 80 129.31 91 138 94.46 159.31 91 163.31 83" />
+
+      {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+      <polyline class="siblings alphabet additionalDelayEndOfCharacters" />
     </g>
   </svg>

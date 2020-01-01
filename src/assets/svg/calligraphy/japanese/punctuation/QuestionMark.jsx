@@ -10,5 +10,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   <g clipPath="url(#question-mark-clip-path)">
     <path class={classNames('siblings', firstStrokeClassName)} stroke-width="23px" d="M76.39,74.53a41.45,41.45,0,0,1-3.64-21c.37-4,1.39-14.78,9.44-22.1,11-10.06,32-10.49,42.92,1.29,10.78,11.61,6.07,28.85,5.79,29.83C128.54,70.69,122,77.12,108.8,90c-10.75,10.51-12.73,10.63-15.24,15.23-4,7.32-5.52,19,3,38.41" />
     <line class="siblings" stroke-width="23px" x1="108.15" y1="150.45" x2="79.18" y2="174.11" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>

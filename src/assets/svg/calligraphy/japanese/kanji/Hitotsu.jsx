@@ -8,5 +8,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   </clipPath>
   <g clipPath="url(#hitotsu-hira-clip-path)">
     <line class={classNames('siblings', firstStrokeClassName)} stroke-width="23px" x1="9.76" y1="99.07" x2="188.91" y2="97.87" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>

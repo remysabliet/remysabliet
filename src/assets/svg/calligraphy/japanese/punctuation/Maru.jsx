@@ -9,5 +9,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   </clipPath>
   <g clipPath="url(#maru-clip-path)">
     <path class={classNames('siblings', firstStrokeClassName)} d="M153,18.74a21.66,21.66,0,0,1,15-1.07c2.06.62,7.77,2.35,10.73,7.72,4.49,8.18-1.37,17.63-2.15,18.89S170,54.84,159.39,55c-7.72.12-15.81-4.56-18.45-12.24C137.47,32.71,145.09,22.5,153,18.74Z" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>

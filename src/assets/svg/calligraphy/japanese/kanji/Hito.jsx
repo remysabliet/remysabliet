@@ -12,5 +12,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   <g clip-path="url(#hito-1-mask)">
     <path class={classNames('siblings', firstStrokeClassName)} stroke-width="31px" d="M99.18,1.92a161,161,0,0,1-2.57,20.56,170.29,170.29,0,0,1-9,30.41,521.31,521.31,0,0,1-22.06,49.25c-4.3,8.54-13.08,25.62-25.69,47.11-10.06,17.13-19.35,31.62-27,43" />
     <path class="siblings" stroke-width="31px" d="M80.13,82.79A194.31,194.31,0,0,0,92.55,107a160,160,0,0,0,14.34,20.56A164.31,164.31,0,0,0,128.74,149c23.26,18.6,50.09,26.5,61.24,29.34" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>

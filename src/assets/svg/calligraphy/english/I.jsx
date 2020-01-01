@@ -9,5 +9,8 @@ export default ({ className, firstStrokeClassName }) =>
     </clipPath>
     <g clip-path="url(#i-clip-path)">
       <line class={classNames('siblings alphabet', firstStrokeClassName)} stroke-width="16" x1="25.82" y1="18.5" x2="7.82" y2="101.5" />
+    
+     {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+     <polyline class="siblings alphabet additionalDelayEndOfCharacters"/>
     </g>
   </svg>

@@ -114,7 +114,7 @@
 */
 @keyframes svg-stroke-move-anim {
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0; //setting to 1000 inverse the movement
   }
 }
 

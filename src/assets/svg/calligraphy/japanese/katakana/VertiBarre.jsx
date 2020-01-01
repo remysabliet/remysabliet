@@ -7,5 +7,8 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   </clipPath>
   <g clipPath="url(#verti-barre-kata-clip-path)">
     <line class={classNames('siblings', className)} x1="96.34" y1="26.28" x2="96.34" y2="176.9" />
+
+    {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
+    <polyline class="siblings additionalDelayEndOfCharacters" />
   </g>
 </svg>
