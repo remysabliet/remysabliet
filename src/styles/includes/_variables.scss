@@ -11,10 +11,16 @@
 
 // By default, a grid item cannot be smaller than the size of its content.
 // Grid items have an initial size of min-width: auto and min-height: auto.
-// You can override this behavior by setting grid items to min-width: 0, min-height: 0 or overflow with any value other than visible.
+// You can override this behavior by setting grid items to min-width: 0, min-height: 0 
+// or overflow with any value other than visible.
 %grid-item-size {
   min-width: 0;
   min-height: 0;
+
+  // FIX SAFARI where SVG is overflowing its content, by setting container to position: relative 
+  // and svg to position absolute, it wont overflow container.
+  
+  position:relative;
 }
 // Gutter spacing
 $gutter: 16px !default;
