@@ -3,6 +3,18 @@
   &.rs-js-slide-up {
     animation: slide-up-anim 3s forwards;
   }
+
+  &.rs-js-slide-left {
+    animation: slide-left-anim 3s forwards;
+  }
+
+  &.rs-js-slide-right {
+    animation: slide-right-anim 3s forwards;
+  }
+
+  &.rs-js-slide-down {
+    animation: slide-down-anim 3s forwards;
+  }
 }
 
 .rs-matrix {
@@ -15,7 +27,7 @@
     p {
       &:nth-child(#{$i}) {
         position: absolute;
-        //will-change: opacity, transform;
+        // will-change: opacity, transform;
         left: calc(
           var(--vw, 1vw) * #{$x}
         ); // Will replace p element on the X according to viewport resize
@@ -56,7 +68,7 @@
 }
 
 /**
- * Sliding 10 vh towards up and making opacity from 0 to 1
+ * Sliding 10 vh towards top and making opacity from 0 to 1
  */
 @keyframes slide-up-anim {
   0% {
@@ -68,6 +80,54 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/**
+ * Sliding 10 vh towards bottom and making opacity from 0 to 1
+ */
+ @keyframes slide-down-anim {
+  0% {
+    opacity: 0;
+    transform: translateY(
+      calc(var(--vh, 1vh) * -10)
+    );
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * Sliding 10 vh towards left and making opacity from 0 to 1
+ */
+ @keyframes slide-left-anim {
+  0% {
+    opacity: 0;
+    transform: translateX(
+      calc(var(--vw, 1vw) * 10)
+    );
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/**
+ * Sliding 10 vh towards right and making opacity from 0 to 1
+ */
+ @keyframes slide-right-anim {
+  0% {
+    opacity: 0;
+    transform: translateX(
+      calc(var(--vw, 1vw) * -10)
+    );
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

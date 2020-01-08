@@ -6,7 +6,7 @@ import React, {
 
 import CalligraphyWritter from 'components/molecules/CalligraphyWriter'
 
-import { symbols } from 'helpers/constants/homePage'
+import { symbols } from 'helpers/constants/homepage'
 
 const AboutMe = props => {
   const {
@@ -30,6 +30,7 @@ const AboutMe = props => {
     let svgElem = document.querySelectorAll(
       '.calligraphy'
     )
+    
     let strokeElem = document.querySelectorAll(
       '.rs-js-animated-element.rs-js-slide-up .calligraphy .siblings'
     )

@@ -55,7 +55,7 @@ const CalligraphyWriter = React.memo((props) => {
               {symbol['element']}
             </div>
           ) :
-          [...new Set(symbols.map(x => x.class))]
+          [...new Set(symbols.map(x => x.class))] // Retrieve the number of line to display 
             .map(row => {
               return (
                 <div className="rs-calligraphy-container-en-row"> {symbols.filter(symb => symb.class === row)

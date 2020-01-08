@@ -10,7 +10,7 @@ export default ({ className, firstStrokeClassName }) =>
     <g clip-path="url(#to-clip-path)">
       <path class={classNames('siblings alphabet', firstStrokeClassName)} stroke-width="9" d="M2.56,59.5l6-5,12-2s7-2,8-2,17,3,17,3" />
       <polyline class="siblings alphabet" stroke-width="9" points="33.56 16.5 29.56 32.5 16.56 62.5 11.56 77.5 10.56 86.5 13.56 95.5 20.56 96.5 33.56 85.5" />
-      <path class="siblings alphabet" stroke-width="12" d="M66.56,63.5c-10-3.64-12.2-5.73-12-7,.13-.81,1.78-1.48,5-3a20.71,20.71,0,0,1,6-2c1.93-.3,3.53-.54,5,0,3.88,1.44,4.8,7.62,5,9,1.11,7.48-2.66,13.69-6,19-4.17,6.65-12,19.42-21,18-1.76-.28-5.84-1.46-8-5-1.66-2.73-1.39-5.55-1-9a34.88,34.88,0,0,1,5-14,39.54,39.54,0,0,1,10-11" />
+      <path  class="siblings alphabet" stroke-width="12" d="M55.56,57.5a47.22,47.22,0,0,0-11,12,34.88,34.88,0,0,0-5,14c-.39,3.45-.66,6.27,1,9,2.16,3.54,6.24,4.72,8,5,9,1.42,16.83-11.35,21-18,3.34-5.31,7.11-11.52,6-19-.2-1.38-1.12-7.56-5-9-1.47-.54-3.07-.3-5,0a20.71,20.71,0,0,0-6,2c-3.22,1.52-4.87,2.19-5,3-.2,1.27,2,3.36,12,7"/>
 
       {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
       <polyline class="siblings alphabet additionalDelayEndOfCharacters" />

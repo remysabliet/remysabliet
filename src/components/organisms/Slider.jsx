@@ -18,10 +18,6 @@ class Slider extends React.PureComponent {
     this.refs = slides.map(() => React.createRef())
   }
 
-   
-
-
-
   /**
    * Invoked just before render, it returns the state to update
    * 
@@ -30,7 +26,7 @@ class Slider extends React.PureComponent {
    */
   static getDerivedStateFromProps(props, state) {
     const { currentSlide } = props
-    console.log("Slide change :", currentSlide)
+    console.log("NOTIF Slide change :", currentSlide)
     if (props.currentSlide !== state.currentSlide) {
       return {
         currentSlide: currentSlide
@@ -60,8 +56,8 @@ class Slider extends React.PureComponent {
   }
 
   /**
-   * Pause a slide animation and remove CSS will-change properties
-   * to moving DOM element
+   * - Pause animation at the slide level 
+   * - remove CSS will-change properties from moving DOM element
    * @param {*} slideRef 
    */
   pauseAnimation(slideRef) {
@@ -70,6 +66,8 @@ class Slider extends React.PureComponent {
     elem.classList.add('js-pausing')
     elem.classList.remove('js-will-change')
 
+    // EXPL: return an array of elements containing class .rs-${slideRef} and data attribute anim='_opa_tra' 
+    // ( [] is a convention to refers data-attribute in querySelector)
     const elemOpaTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa_tra']`)
     // console.log("Slider-Elem found with attributes [anim='_opa']", elemOpaTraWillChange)
     elemOpaTraWillChange.forEach(e => e.classList.remove('js-will-change-opa-tra'))
@@ -90,8 +88,8 @@ class Slider extends React.PureComponent {
   }
 
   /**
-   * Resume a slide animation and apply CSS will-change properties
-   * to moving DOM element
+   * - Start animation at the slide level 
+   * - add CSS will-change properties to moving DOM element
    * @param {*} slideRef 
    */
   resumeAnimation(slideRef) {
@@ -99,19 +97,17 @@ class Slider extends React.PureComponent {
     const elem = document.querySelector(`.rs-${slideRef}`)
     elem.classList.remove('js-pausing')
 
+    const elemOPaTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa_tra']`)
+    // console.log("Slider-Elem found with attributes", elemOPaTraWillChange)
+    elemOPaTraWillChange.forEach(e => e.classList.add('js-will-change-opa-tra'))
 
-    // const elemOPaTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa_tra']`)
-    // // console.log("Slider-Elem found with attributes", elemOPaTraWillChange)
-    // elemOPaTraWillChange.forEach(e => e.classList.add('js-will-change-opa-tra'))
+    const elemOpaWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa']`)
+    // console.log("Slider-Elem found with attributes", elemOpaWillChange)
+    elemOpaWillChange.forEach(e => e.classList.add('js-will-change-opa'))
 
-    // const elemOpaWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_opa']`)
-    // // console.log("Slider-Elem found with attributes", elemOpaWillChange)
-    // elemOpaWillChange.forEach(e => e.classList.add('js-will-change-opa'))
-
-    // const elemTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_tra']`)
-    // // console.log("Slider-Elem found with attributes", elemTraWillChange)
-    // elemTraWillChange.forEach(e => e.classList.add('js-will-change-tra'))
-
+    const elemTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_tra']`)
+    // console.log("Slider-Elem found with attributes", elemTraWillChange)
+    elemTraWillChange.forEach(e => e.classList.add('js-will-change-tra'))
 
     /** Special Case
      * We will add will Change to every SVG element having .sibling class 

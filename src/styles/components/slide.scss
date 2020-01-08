@@ -7,6 +7,7 @@
 
   .rs-home {
     @include pausing-anim();
+    @include background-green();
     // @include background-green(); integrer directement avec l'element HTml
     position: relative;
     z-index: 0;
@@ -47,6 +48,10 @@
       &.rs-full-view-port {
         height: 100vh;
         width: 100vw;
+
+        .rs-portrait-color{
+          fill:  $black
+        }
       }
 
       &.icon {
@@ -72,9 +77,10 @@
     position: relative;
     height: inherit;
     width: inherit;
-    z-index: 0; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
+    z-index: 1; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
     // background-image: url('../assets/img/background-trees.jpg');
     // @include background-green(); integrer directement avec l'element HTml
+    @include background-green();
 
     .rs-calligraphy-container {
       @include flexbox();
@@ -109,12 +115,16 @@
   .rs-experience {
     height: inherit;
     width: inherit;
+    z-index: 2;
+    @include background-green();
     // @include background-green(); integrer directement avec l'element HTml
   }
 
   .rs-contact {
     height: inherit;
     width: inherit;
+    z-index: 3;
+    @include background-green();
     // @include background-green(); integrer directement avec l'element HTml
   }
 }
