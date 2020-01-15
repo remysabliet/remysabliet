@@ -43,8 +43,9 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const fileLoader = {
   loader: require.resolve("file-loader"),
-  test: /.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
+  test: /.(mp4|ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
   exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
+  // use: 'file-loader?name=videos/[name].[ext]',
   options: {
     name: "static/media/[name].[hash:8].[ext]"
   }
@@ -325,6 +326,7 @@ const createConfig = () => {
             babelLoader,
             scssLoader,
             cssLoader,
+            // videoLoader,
             fileLoader
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.

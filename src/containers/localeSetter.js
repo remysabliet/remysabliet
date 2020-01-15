@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { updateLocales } from 'actions/global'
+import { Component } from 'react'
 
 /**
  * the locale code is located at the last 2 character of returned event.target id
@@ -9,7 +10,9 @@ import { updateLocales } from 'actions/global'
 function mapDispatchToProps(dispatch) {
   const updateLocale = event => {
     const targetID = event.target.id
-    const locale = targetID ? targetID.substr(targetID.length - 2) : 'en'
+    const locale = targetID
+      ? targetID.substr(targetID.length - 2)
+      : 'en'
     dispatch(updateLocales(locale))
   }
 
@@ -24,5 +27,5 @@ const localeSetter = Component =>
     null,
     mapDispatchToProps
   )(Component)
-
+  
 export default localeSetter

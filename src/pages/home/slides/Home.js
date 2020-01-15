@@ -23,6 +23,7 @@ const Home = props => {
    * those elements via separate interval update color based on shared variable r g b 
   */
   useEffect(() => {
+    // console.log("USE EFFECT HOME PAGE")
     const elems = document.querySelectorAll(
       'svg.rs-full-view-port .rs-portrait-color'
     )
@@ -60,7 +61,7 @@ const Home = props => {
         50
       )
     })
-  })
+  }, [1]) // using a constant make the useEffect run only one time
 
   const debugMode = false
   return (

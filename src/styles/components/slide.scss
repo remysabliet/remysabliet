@@ -126,5 +126,10 @@
     z-index: 3;
     @include background-green();
     // @include background-green(); integrer directement avec l'element HTml
+    .rs-movie-back{
+      width:100%;
+      height: auto;
+      z-index:-3;
+    }
   }
 }
