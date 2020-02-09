@@ -1,21 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="theme-color" content="#000000">
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Rémy SABLIET - Front-End dev. | Web design | Full stack</title>
-    <meta name="description" content="Rémy SABLIET is a front-end engineer/web designer (freelance) and can help you developping an outstanding website for your business.">
-    <meta name="keywords" content="Rémy SABLIET, remy sabliet, remy, sabliet, remysab, front-end,front end, web designer, developer, freelance, back-end, full stack engineer ">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#000000">
+  <meta name="viewport" content="width=device-width, initial-scale=0.86, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>Rémy SABLIET - Front-End dev. | Web design | Full stack</title>
+  <meta name="description"
+    content="Rémy SABLIET is a front-end engineer/web designer (freelance) and can help you developing outstanding websites for your business.">
+  <meta name="keywords"
+    content="Rémy SABLIET, remy sabliet, remy, sabliet, remysab, front-end,front end, web designer, developer, freelance, back-end, full stack engineer ">
 
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-  </body>
+  <style>
+    /* Hide scrollBar but allow scrolling */
+    body,
+    html {
+      position: relative;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      /*Important: BUG Safari fixed: relative position on the body allow the 
+  foreground div to get the whole place of its parent container (originally bottom:0 didn't worked and foreground take the viewport view only  */
+      width: 100%;
+      overflow: hidden;
+      background-color: black;
+      font-family: "Franklin Gothic Medium";
+    }
+
+    /* Integrate HTML CSS inline of the index.html for a quicker initial rendering speed  */
+    @keyframes run {
+      0% {
+        left: -40px;
+        color: #eee;
+      }
+
+      50% {
+        color: #666;
+      }
+
+      100% {
+        left: 40px;
+        color: #eee;
+      }
+    }
+
+    .rs-splash-screen-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .rs-splash-screen-container .rs-splash-screen {
+      position: absolute;
+      width: 100%;
+      height: 10vh;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .rs-splash-screen .rs-loading-dot {
+      font-size: 100px;
+       margin-top: -40px; 
+      position: relative;
+      animation: ease-in-out infinite alternate;
+      animation-name: run;
+      animation-duration: 1.2s;
+    }
+  </style>
+</head>
+
+<script>
+  function afterAssetLoaded() {
+    document.getElementsByClassName('rs-splash-screen-container')[0].style.display = "none";
+    document.getElementById('root').style.display = "block";
+  }
+</script>
+
+<!-- <body onload="afterAssetLoaded()"> -->
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+  <script>
+    try {
+      document.addEventListener("readystatechange", event => {
+
+        if (event.target.readyState === "complete") {
+          setTimeout(function () {
+            afterAssetLoaded()
+          }, 1500);
+        }
+
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  </script>
+  <div class="rs-splash-screen-container">
+    <div class="rs-splash-screen">
+      <p>Wait a moment while we load the page.  </p>
+      <div class="rs-loading-dot">.</div>
+    </div>
+  </div>
+
+  <div id="root" style="display:none;"></div>
+
+</body>
 
 </html>

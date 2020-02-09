@@ -11,8 +11,8 @@ html {
     font-size: 20px;
   }
 
-  overscroll-behavior: none;
-  scrollbar-width: none; // workaround Firefox scrollbar keep appearing. set width to 0;
+  overscroll-behavior: none; 
+  scrollbar-width: none; // workaround Firefox,from version 74 (not released on windows as of january 15th, this version will come up on march 10th 2020) 
   ::-webkit-scrollbar {
     display: none; /*Safari and Chrome*/
   }
@@ -27,7 +27,8 @@ html {
   position: relative; /*Important: BUG Safari fixed: relative position on the body allow the 
   foreground div to get the whole place of its parent container (originally bottom:0 didn't worked and foreground take the viewport view only  */
   width: 100%;
-  overflow: hidden;   
+  overflow: hidden;  
+  background-color:black;
 }
 
 head {

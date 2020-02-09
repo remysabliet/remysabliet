@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import withGlobalInfo from 'containers/withGlobalInfo'
 
 import Slider from 'components/organisms/Slider'
@@ -9,31 +9,33 @@ import SVGLoader from 'assets/svg/SVGLoader'
 import Layout from './Layout'
 
 const HomePage = props => {
+  // const slides = ['home', 'about-me', 'contact']
   const slides = ['home', 'about-me', 'contact']
-
-  useEffect(() => {
-    // console.log("HomePage", props.deviceInfo)
-  }, [props.locale])
+  // useEffect(() => {
+  //   // console.log("HomePage", props.deviceInfo)
+  // }, [props.locale])
 
   return (
-    <Fragment>
-        <SVGLoader />
-        <Layout {...props} slides={slides} />
-        <Slider {...props} slides={slides}>
-          <Slide>
-            <Home />
-          </Slide>
-          <Slide>
-            <AboutMe />
-          </Slide>
-          {/* </Slide>
-        <Experience />
-       </Slide>*/}
-          <Slide>
-            <Contact />
-          </Slide>
-        </Slider>
-    </Fragment>
+    <>
+      <SVGLoader />
+      {/* <Layout {...props} slides={slides} /> */}
+      <Slider {...props} slides={slides}>
+
+        <Slide>
+          <Home />
+        </Slide>
+        <Slide>
+          <AboutMe />
+        </Slide>
+        {/* <Slide>
+          <Experience />
+        </Slide> */}
+        <Slide>
+          <Contact />
+        </Slide>
+
+      </Slider >
+    </>
   )
 }
 

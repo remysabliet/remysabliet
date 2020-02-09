@@ -1,20 +1,10 @@
 import React, { Fragment } from 'react'
+import MainCanvas from 'components/organisms/drawer/canvas/MainCanvas'
 
-// import {video} from "./video.mp4"
-import video from 'assets/video/contactCodingBackground.mp4'
-
-const Contact = () => (
+const Experience = () => (
   <Fragment>
-    <video
-      // controls="controls"
-      autoplay="autoplay"
-      width="100%"
-      height="100%"
-    >
-      <source src={video} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-
+    <p>Oneself in classical and humanistic studies, Latin was a must.</p>
+    
     <p>
       {' '}
       <ul>
@@ -49,6 +39,7 @@ const Contact = () => (
         </li>
       </ul>
     </p>
+    <MainCanvas width={300} height={400} />
   </Fragment>
 )
-export default Contact
+export default Experience

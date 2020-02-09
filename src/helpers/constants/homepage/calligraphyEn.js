@@ -135,11 +135,11 @@ export default [
   },
   { class: 'C', weight: 0.5, element: '' },
   {
-    class: 'C',
+    class: 'D',
     weight: 5,
     element: <TryingEn className="faded-out" />
   },
-  { class: 'C', weight: 0.5, element: '' },
+  { class: 'D', weight: 0.5, element: '' },
   {
     class: 'D',
     weight: 1.75,

@@ -128,9 +128,10 @@ class Slider extends React.PureComponent {
    */
   render() {
     const { children, slides, currentSlide, ...others } = this.props
+    const childrenArr = children && children.length ? children : [children]
     return (
       <div className="rs-slider-container">
-        {children.map((child, i) => {
+        {childrenArr.map((child, i) => {
           const slide = slides[i]
           const additionalProps = {
             title: slide,
@@ -142,7 +143,8 @@ class Slider extends React.PureComponent {
             ...others
           }
           return React.cloneElement(child, additionalProps)
-        })}
+        })
+        }
       </div>
     )
   }

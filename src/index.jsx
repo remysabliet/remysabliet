@@ -13,9 +13,12 @@ const locale = getLocale()
 
 const store = configureStore({ global: { deviceInfo, locale } })
 
-render(
+const RoutedAppWithStore = () => (
   <Router>
     <App store={store} />
-  </Router>,
+  </Router>);
+
+render(
+  <RoutedAppWithStore/>,
   document.getElementById('root')
 )

@@ -1,8 +1,15 @@
+
 .rs-slide {
   width: 100vw;
   height: calc(
     var(--vh, 1vh) * 100
   ); //prevent height problem on mobile because of url bar
+  max-height: calc(
+    var(--vh, 1vh) * 100
+  ); //prevent height problem on mobile because of url barc
+  min-height: calc(
+    var(--vh, 1vh) * 100
+  ); //prevent height problem on mobile because of url barc
   margin: 0;
 
   .rs-home {
@@ -13,17 +20,17 @@
     z-index: 0;
     height: inherit;
     width: inherit;
-    
+
     .rs-title-left {
       position: absolute;
-      left:5%;
+      left: 5%;
       top: 75%;
       color: $silver;
       will-change: text-shadow;
-      @include responsive(desktop){
+      @include responsive(desktop) {
         @include neon-effect-green;
       }
-      @include responsive(tablet){
+      @include responsive(tablet) {
         @include neon-effect-green;
       }
     }
@@ -32,10 +39,10 @@
       position: absolute;
       right: 5%;
       top: 25%;
-      @include responsive(desktop){
-         @include neon-effect-white;
+      @include responsive(desktop) {
+        @include neon-effect-white;
       }
-      @include responsive(tablet){
+      @include responsive(tablet) {
         @include neon-effect-white;
       }
 
@@ -49,8 +56,8 @@
         height: 100vh;
         width: 100vw;
 
-        .rs-portrait-color{
-          fill:  $black
+        .rs-portrait-color {
+          fill: $black;
         }
       }
 
@@ -81,6 +88,7 @@
     // background-image: url('../assets/img/background-trees.jpg');
     // @include background-green(); integrer directement avec l'element HTml
     @include background-green();
+
 
     .rs-calligraphy-container {
       @include flexbox();
@@ -125,11 +133,66 @@
     width: inherit;
     z-index: 3;
     @include background-green();
+    @include flexbox();
+    @include flex-direction(column);
+    align-items: center;
+
     // @include background-green(); integrer directement avec l'element HTml
-    .rs-movie-back{
-      width:100%;
-      height: auto;
-      z-index:-3;
+    .rs-content {
+      position: relative;
+      height:80vh;
+      width: 85vw;
+      margin: auto;
+      // @include background-green();
+      @include flexbox();
+      @include flex-direction(row);
+      @include border-image-marbre;
+      border-radius: 50%;
+      // padding: 50px;
+      // border: $gutter double $silver;
+      // border-image: url('assets/img/marbre-frame.png') 16% 16% 16% 16% repeat;
+      // border-width: 16px;
+      // border-image: url('assets/img/test.png') 16 repeat;
+    
+      // border-image-slice: 42 42 42 42;
+      // border-image-width: 42px 42px 42px 42px;
+      // border-image-outset: 0px 0px 0px 0px;
+      // border-image-repeat: round round;
+      // border-image-source: url("https://mdn.mozillademos.org/files/6017/border-image-6.svg");
+
+      .rs-movie-back {
+        height: 100%;
+        // // width: auto;
+        // display: flex;
+        // flex-direction: row;
+      }
+
+      .rs-content-overlay {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        @include flexbox();
+        @include flex-direction(row);
+        top: 0;
+
+        .rs-blank {
+          flex-grow: 0.33;
+        }
+
+        .rs-profil-image {
+          background-color: red;
+          flex-grow: 0.5;
+          z-index: 2;
+          opacity: 0.5;
+        }
+
+        .rs-social {
+          flex-grow: 0.33;
+          background-color: blue;
+          z-index: 1;
+        }
+      }
     }
   }
 }
+
