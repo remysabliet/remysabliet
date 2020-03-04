@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 import video from 'assets/video/codingBackgroundMovie.mp4'
 
 const Contact = () => (
-  <div className="rs-content">
+  <div className="rs-content rs-js-animated-element">
       <video
         className="rs-movie-back"
         autoplay="autoplay" //autoplay only is not supported, but autoplay + muted is supported by chrome
