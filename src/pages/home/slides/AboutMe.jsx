@@ -50,7 +50,7 @@ const AboutMe = props => {
           ? 1
           : locale === 'ja'
           ? 0.12
-          : 0.3 // elapse time between character letter
+          : 0.3 // elapsed time between character letter
         counter = counter + additionalTime
 
         element.style.animationDelay = `${counter}s`

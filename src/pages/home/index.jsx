@@ -18,7 +18,7 @@ const HomePage = props => {
   return (
     <>
       <SVGLoader />
-      {/* <Layout {...props} slides={slides} /> */}
+      <Layout {...props} slides={slides} />
       <Slider {...props} slides={slides}>
 
         <Slide>

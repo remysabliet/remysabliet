@@ -37,7 +37,7 @@ const MagicSlider = WrappedComponent => {
 
       this.viewportHeight = 0
       this.currentPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
-      this.slideChangeHardnessCoeff = 0.03 // Bigger the coef is, harder it is to change of slide. norm: 0.03
+      this.slideChangeHardnessCoeff = 0.02 // Bigger the coef is, harder it is to change of slide. norm: 0.03
       this.slideChangeSpeedCoeff = 0.8 // Speed du changement de slide   norm= 0.8
       // 1= we keep changing slide as soon as we move the wheel
       // 0.3 => Harder to change of slide
@@ -115,7 +115,6 @@ const MagicSlider = WrappedComponent => {
     }
 
     touchStartHandler(event) {
-      console.log("touchStartHandler", event)
       var touches = event.changedTouches;
       for (var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */

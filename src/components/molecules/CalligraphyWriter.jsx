@@ -10,7 +10,7 @@ const CalligraphyWriter = React.memo((props) => {
   // For alphabet board, number of rows to display
   const [alphabetRowCount, setAlphabetRowCount] = useState(0);
 
-  // With for an alphabet Item
+  // Width for an alphabet Item
   const [alphabetItemWidth, setAlphabetItemWidth] = useState(0);
 
   /** This hooks is used in Alphabet language only
@@ -31,14 +31,16 @@ const CalligraphyWriter = React.memo((props) => {
   useEffect(() => {
     // Phones width being much smaller than screen, SVG size ends to be much as well
     // We must afford smaller MaxElement to phones so that width is getting larger
-    const maxElementsiInARow = ["android", "ios"].includes(deviceInfo) ? 30 : 40;
+    const maxElementsiInARow = ["android", "ios"].includes(deviceInfo) ? 33 : 50;
 
     // Width of an alphabet element based on a pre-defined maxElementsiInARow
     const containerElement = document.querySelector('.rs-calligraphy-container');
 
     if (containerElement) {
       const calliGraphyBoardWidth = getComputedStyle(containerElement).width;
-      setAlphabetItemWidth(parseInt(calliGraphyBoardWidth.replace('px', '')) / maxElementsiInARow);
+      // divide the width of a row / nb of element previously defined (higher element are)
+      // higher the nb of element are, smaller will be the size of an element (320px /40)
+      setAlphabetItemWidth(parseInt(calliGraphyBoardWidth.replace('px', '')) / maxElementsiInARow); 
     }
 
     // Height of an alphabet row
