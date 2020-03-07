@@ -7,7 +7,7 @@ import innerHeight from 'ios-inner-height';
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
  * Event Type leveraged: 
  *   All Device: resize
- *   Mobile: touchstart/touchend
+ *   Mobile: touchstart/touchmove
  *   Browser: wheel + keyup/keydown
  *  */
 
@@ -47,13 +47,17 @@ const MagicSlider = WrappedComponent => {
       this.startTime = 0
       this.now = 0
       this.then = 0
-      this.elapse = 0
+      this.elapse =
+        this.animationFrequency = 200; // Hz
+      this.isLoopActive = false; // control the recursive loop to adjust the screen position (call to magicSlider)
 
       /* Mobile Variable*/
       this.touchesInAction = {}
 
       this.keyCode = undefined
       this.keyTimestamp = undefined
+
+
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
       this.state = {
@@ -65,7 +69,7 @@ const MagicSlider = WrappedComponent => {
     handleResize() {
       const { deviceInfo } = this.props;
       // console.log(deviceInfo)
-      // Resize event doesnt work on ios, and vwHeight looks to be windo.outerheight;
+      // Resize event doesnt work on ios, and vHeight looks to be windo.outerheight;
       this.viewportHeight = deviceInfo === "ios" ? innerHeight() : window.innerHeight;
     }
 
@@ -75,12 +79,12 @@ const MagicSlider = WrappedComponent => {
      */
     componentDidMount() {
       const { deviceInfo } = this.props
-      
+
       // Initialize vh property
       window.scrollTo(0, 10)
       this.handleResize()
       // console.log(deviceInfo)
-      if (['ios','android'].includes(deviceInfo)) {
+      if (['ios', 'android'].includes(deviceInfo)) {
         window.addEventListener('touchstart', this.touchStartHandler, false)
         // window.addEventListener('touchend', this.touchEndHandler, false)
         window.addEventListener('touchmove', this.onTouchMoveHandler, false)
@@ -94,8 +98,6 @@ const MagicSlider = WrappedComponent => {
       // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
       // below function will be called in order to update our Slide's height accordingly
       window.addEventListener('resize', this.handleResize)
-
-      this.startAnimating(60) // By default maximum (screen's default 60hz)
     }
 
     componentWillUnmount() {
@@ -114,7 +116,16 @@ const MagicSlider = WrappedComponent => {
       this.magicSlider()
     }
 
+    /**
+     * Mobile touch handler when start touching screen
+     * @param {*} event 
+     */
     touchStartHandler(event) {
+      // Activate the scrolling animation loop
+      this.isLoopActive = true;
+      this.startAnimating(this.animationFrequency)
+
+      this.isLoopActive = true;
       var touches = event.changedTouches;
       for (var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */
@@ -126,6 +137,10 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
+    /**
+     * Mobile touch handler when continuing touching screen while moving finger
+     * @param {*} event 
+     */
     onTouchMoveHandler(event) {
       var touches = event.changedTouches;
       for (var j = 0; j < touches.length; j++) {
@@ -135,23 +150,18 @@ const MagicSlider = WrappedComponent => {
         theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
       }
       // this.velocityComputation(theTouchInfo.dy);
-      this.velocityComputationMobile(theTouchInfo.dy*0.0001);
+      this.velocityComputationMobile(theTouchInfo.dy * 0.0002);
     }
 
-    // touchOnMoveHandler and touchEndHandler together doesn't works well. It is better to keep only onMove
-    // touchEndHandler(event) {
-    //   console.log("touchEndHandler", event)
-    //   var touches = event.changedTouches;
-    //   for (var j = 0; j < touches.length; j++) {
-    //     /* access stored touch info on touchend */
-    //     var theTouchInfo = this.touchesInAction["$" + touches[j].identifier];
-    //     theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
-    //     theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
-    //   }
-    //   //this.velocityComputation(theTouchInfo.dy);
-    // }
-
+    /**
+     * Desktop keyboard handler when pressing key
+     * @param {*} event 
+     */
     keyDownHandler(event) {
+      // Activate the scrolling animation loop
+      this.isLoopActive = true;
+      this.startAnimating(this.animationFrequency)
+
       //38 UpArrow 40 DownArrow
       if ((event.keyCode === 38 || event.keyCode === 40) && !event.repeat) {
         this.keyCode = event.keyCode,
@@ -159,12 +169,41 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
+    /**
+     * Desktop keyboard handler when releasing key
+     * @param {*} event 
+     */
     keyUpHandler(event) {
       const elapsedTime = event.keyCode === this.keyCode ? event.timeStamp - this.keyTimestamp : 0;
       if (elapsedTime) {
         const deltaY = this.keyCode === 38 ? -1 : 1;
         this.speed += deltaY * elapsedTime / 1000;
       }
+    }
+
+    /**
+     * Mouse wheel handler
+     * @param {*} event 
+     */
+    handleOnWheel(event) {
+      const deltaY = event.deltaY;
+     // console.log("This.props.slides", event.deltaY, this.props.slides, this.state.currentSlide, this.props.slides.findIndex(x => x === this.state.currentSlide), this.props.slides.length - 1)
+
+        this.isLoopActive = true;
+        this.startAnimating(this.animationFrequency)
+
+        const { deviceInfo } = this.props
+        switch (deviceInfo) {
+          case 'firefox':
+            this.speed += deltaY * 0.006 // 0.006 Firefox
+            break
+          case 'edge':
+            this.speed += deltaY * 0.0006 // 0.006 Firefox
+            break
+          default:
+            this.speed += deltaY * 0.0003 // 0.0003 Chrome, Opera, Safari
+        }
+      // }
     }
 
     velocityComputation(deltaY) {
@@ -175,66 +214,74 @@ const MagicSlider = WrappedComponent => {
       this.speed += -1 * deltaY // -1 allow to inverse touch scrolling orientation on mobile
     }
 
+    /**
+     * Looping function in charge of doing the sliding effect
+     * When not moving much anymore between 2 loop, will deactivate the loop by turning the flag
+     * this.isLoopActive to false
+     */
     magicSlider() {
-      this.now = Date.now()
-      this.elapsed = this.now - this.then
-      // if enough time has elapsed, draw the next frame
-      if (this.elapsed > this.fpsInterval) {
-        // Get ready for next frame by setting then=now, but...
-        // Also, adjust for fpsInterval not being multiple of 16.67
-        this.then = this.now - (this.elapsed % this.fpsInterval)
+      // console.log("this.currentPosition", this.currentPosition, "this.props.slides", this.props.slides )
+      // Security to avoid sliding out of boundaries
+      if (this.currentPosition < 0) {
+        this.currentPosition = 0
+      } else if ( this.currentPosition >  this.props.slides.length - 1 ){
+        this.currentPosition = this.props.slides.length - 1
+      } else {
+        this.now = Date.now()
+        this.elapsed = this.now - this.then
+        // if enough time has elapsed, draw the next frame
+        if (this.elapsed > this.fpsInterval) {
+          // Get ready for next frame by setting then=now, but...
+          // Also, adjust for fpsInterval not being multiple of 16.67
+          this.then = this.now - (this.elapsed % this.fpsInterval)
 
-        this.speed *= this.slideChangeSpeedCoeff
-        this.currentPosition += this.speed
-        
-        const slideBoundary = Math.round(this.currentPosition);
-        const dif = slideBoundary - this.currentPosition
+          this.speed *= this.slideChangeSpeedCoeff
+          this.currentPosition += this.speed
 
-        this.currentPosition += dif * this.slideChangeHardnessCoeff
+          const slideBoundary = Math.round(this.currentPosition);
+          const dif = slideBoundary - this.currentPosition
 
-        if (Math.abs(slideBoundary - this.currentPosition) < 0.001) {
-          // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
-          // to avoid an infinite division
-          this.currentPosition = slideBoundary
+          this.currentPosition += dif * this.slideChangeHardnessCoeff
+
+          if (this.currentPosition < 0) {
+            this.currentPosition = 0
+          } else if ( this.currentPosition >  this.props.slides.length - 1 ){
+            this.currentPosition = this.props.slides.length - 1
+          }
+
+          //console.log("slideBoundary", slideBoundary, "this.currentPosition", this.currentPosition, Math.abs(slideBoundary - this.currentPosition))
+          if (Math.abs(slideBoundary - this.currentPosition) < 0.001) {
+            // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
+            // to avoid an infinite division
+            this.currentPosition = slideBoundary
+            this.isLoopActive = false;
+            // console.log("TURNING THE LOOP OFF")
+          }
+
+          // console.log("window.scrollTo",  window.innerHeight, this.currentPosition * this.viewportHeight)
+          window.scrollTo(0, this.currentPosition * this.viewportHeight)
+
+          // We reajust the BoundaryIndex as it can goes to -1 as well as be superior to array.length will makes crash all
+          // the logic behind currentSlide
+          const adjustedSlideIndex = slideBoundary < 0 ? 0 : slideBoundary > this.props.slides.length - 1 ? this.props.slides.length - 1 : slideBoundary;
+          const curSlide = this.props.slides[adjustedSlideIndex]
+
+          // Will trigger a render every loop if we don't add this condition.
+          // Purpose is to save performance
+          if (curSlide && curSlide !== this.state.currentSlide) {
+            this.setState({
+              currentSlide: curSlide
+            })
+          }
+
+          // Statistics purpose
+          // const sinceStart = this.now - this.startTime
+          // this.statisticLogs(
+          //   this.elapsedTime(sinceStart),
+          //   this.currentFps(sinceStart, this.frameCount)
+          // )
         }
-
-        //console.log("window.scrollTo", this.currentPosition * this.viewportHeight)
-        window.scrollTo(0, this.currentPosition * this.viewportHeight)
-
-        // We reajust the BoundaryIndex as it can goes to -1 as well as be superior to array.length will makes crash all
-        // the logic behind currentSlide
-        const adjustedSlideIndex = slideBoundary < 0 ? 0 : slideBoundary > this.props.slides.length - 1 ? this.props.slides.length - 1 : slideBoundary;
-        const curSlide = this.props.slides[adjustedSlideIndex]
-
-        // Will trigger a render every loop if we don't add this condition.
-        // Purpose is to save performance
-        if (curSlide && curSlide !== this.state.currentSlide) {
-          this.setState({
-            currentSlide: curSlide
-          })
-        }
-
-        // Statistics purpose
-        // const sinceStart = this.now - this.startTime
-        // this.statisticLogs(
-        //   this.elapsedTime(sinceStart),
-        //   this.currentFps(sinceStart, this.frameCount)
-        // )
-      }
-      window.requestAnimationFrame(this.magicSlider)
-    }
-
-    handleOnWheel(event) {
-      const { deviceInfo } = this.props
-      switch (deviceInfo) {
-        case 'firefox':
-          this.speed += event.deltaY * 0.006 // 0.006 Firefox
-          break
-        case 'edge':
-          this.speed += event.deltaY * 0.0006 // 0.006 Firefox
-          break
-        default:
-          this.speed += event.deltaY * 0.0002 // 0.0003 Chrome, Opera, Safari
+        this.isLoopActive && window.requestAnimationFrame(this.magicSlider)
       }
     }
 

@@ -1,9 +1,11 @@
 
 .rs-slide {
   width: 100vw;
-  height: calc(
+  height: calc(calc(
     var(--vh) * 100
-  ); //prevent height problem on mobile because of url bar
+  ) + 1px) ; // we add +1 pixel because there were 1 pixel gap after doing calculation of --vh for phone, this leads of a wrong slide height, and
+  // as a consequence we would see a 1 pixel of the background (black) between slides.
+  // prevent height problem on mobile because of url bar
   max-height: calc(
     var(--vh) * 100
   ); //prevent height problem on mobile because of url barc

@@ -36,14 +36,15 @@ export const currentFps = (
  *     if outside the viewport, remove the animation class previously added from the div element
  */
 export const animateIfInView = className => {
+  const errorMarginPx =2; // We will allow an error Margin of 2 pixel to define whether an element is in view or not
   const windowTopPos = 0
   const windowBottomPos =
     windowTopPos + window.innerHeight
 
   const elementToAnimate = document.getElementsByClassName(
     'rs-js-animated-element'
-  )
-  // console.log("animatedElement #1 ", elementToAnimate.className)
+  ) //rs-js-animated-element'
+  //  console.log("animatedElement #1 ", elementToAnimate)
   Array.prototype.forEach.call(
     elementToAnimate,
     elem => {
@@ -65,18 +66,19 @@ export const animateIfInView = className => {
         'rs-js-slide-up'
       let activate = false
 
-      // console.log("DEBUG animatedElement #3 elemTopPos:", elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "elemBottomPos:", windowBottomPos)
+      // console.log("DEBUG animatedElement #3 elemTopPos:", elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "windowBottomPos:", windowBottomPos)
       if (
-        (elemTopPos >= windowTopPos &&
+        (elemTopPos+errorMarginPx >= windowTopPos &&
           elemTopPos <= windowBottomPos) ||
-        (elemBottomPos >= windowTopPos &&
+        (elemBottomPos-errorMarginPx >= windowTopPos &&
           elemBottomPos <= windowBottomPos)
       ) {
         activate = true
       }
 
       if (activate) {
-        //  console.log("DEBUG animatedElement #4 activate start IN VIEW", document.getElementsByClassName(".js-slide-up .siblings"))
+        
+        //  console.log("DEBUG animatedElement #4 activate start IN VIEW", document.getElementsByClassName(".js-slide-up .siblings"), elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "windowBottomPos:", windowBottomPos)
         // Cross-browser solution
         const arr = elem.className.split(' ')
         if (arr.indexOf(classNameEffect) == -1) {
@@ -85,7 +87,7 @@ export const animateIfInView = className => {
         }
       } else {
         // Not in view anymore
-        //  console.log("DEBUG animatedElement #6 activate start NOT IN VIEW",  document.getElementsByClassName(".js-slide-up .siblings"))
+        //  console.log("DEBUG animatedElement #6 activate start NOT IN VIEW",  document.getElementsByClassName(".js-slide-up .siblings"), "elementTopPos:", elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "windowBottomPos:", windowBottomPos)
 
         const regExp = new RegExp(
           `\\b ${classNameEffect}\\b`

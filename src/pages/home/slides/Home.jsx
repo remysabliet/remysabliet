@@ -9,11 +9,11 @@ import __ from 'helpers/i18n'
 const Home = props => {
   const { locale, deviceInfo } = props
   // console.log(" Home", locale)
-  // For mobile, we reduce the number of div to be displayed in order to save cpu
+  // For mobile, we reduce the number of floating div to be displayed in order to limit freeze
   const matrixLimit = ['ios', 'android'].includes(
     deviceInfo
   )
-    ? 15
+    ? 10
     : undefined
   // // console.log('matrixLimit', matrixLimit)
 
