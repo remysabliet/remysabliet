@@ -22,7 +22,7 @@
       @content;
     }
   } @else if $point == phone {
-    @media only screen and (media-width: 479px) {
+    @media only screen and (max-width: 479px) {
       @content;
     }
   } @else {

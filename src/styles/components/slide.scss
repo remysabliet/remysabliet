@@ -2,13 +2,13 @@
 .rs-slide {
   width: 100vw;
   height: calc(
-    var(--vh, 1vh) * 100
+    var(--vh) * 100
   ); //prevent height problem on mobile because of url bar
   max-height: calc(
-    var(--vh, 1vh) * 100
+    var(--vh) * 100
   ); //prevent height problem on mobile because of url barc
   min-height: calc(
-    var(--vh, 1vh) * 100
+    var(--vh) * 100
   ); //prevent height problem on mobile because of url barc
   margin: 0;
 
@@ -112,7 +112,7 @@
       .rs-middle {
         @include flex-grow(0.6);
         height: calc(
-          var(--vh, 1vh) *
+          var(--vh) *
             var(--calligraphy-container-height)
         ); // We can't simply concatenate unit string to value, we must perform a calculation
         padding: 1rem;

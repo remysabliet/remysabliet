@@ -23,10 +23,14 @@ export const recomputeViewportSize = () => {
   // Slide property: height: calc(var(--vh, 1vh) * 100);
   document.documentElement.style.setProperty('--vh', `${vh}px`)
   document.documentElement.style.setProperty('--vw', `${vw}px`)
+  
+  var styles = getComputedStyle(document.documentElement);
+  console.log("New Viewport size DOM Style: ", document.documentElement.style)
+  console.log("vh: ", styles.getPropertyValue('--vh'))
+  console.log("vw: ", styles.getPropertyValue('--vw'))
+  console.log("--calligraphy-container-height", styles.getPropertyValue('--calligraphy-container-height'))
+  console.log("--calligraphy-row-height", styles.getPropertyValue('--calligraphy-row-height'))
 
-  // console.log("New Viewport size DOM Style: ", document.documentElement.style)
-  // console.log("vh: ", vh)
-  // console.log("vw: ", vw)
 }
 
 export const addEventListener = (type, fn) => {
