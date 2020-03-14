@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import withGlobalInfo from 'containers/withGlobalInfo'
 
 import Slider from 'components/organisms/Slider'
-import Slide from 'components/layout/Slide'
+import Slide from 'layout/Slide'
 import { Home, AboutMe, Contact, Experience } from 'pages/home/slides'
 import SVGLoader from 'assets/svg/SVGLoader'
 
-import Layout from './Layout'
+import ForegroundUI from 'pages/home/ForegroundUI'
 
 const HomePage = props => {
   // const slides = ['home', 'about-me', 'contact']
@@ -18,7 +18,7 @@ const HomePage = props => {
   return (
     <>
       <SVGLoader />
-      <Layout {...props} slides={slides} />
+      <ForegroundUI {...props} slides={slides} />
       <Slider {...props} slides={slides}>
 
         <Slide>

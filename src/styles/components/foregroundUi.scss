@@ -10,15 +10,6 @@
   .rs-header {
     position: fixed;
     height: 5vh;
-
-    // @media screen and (min-width: 900px) {
-    //   height: 10vh;
-    // }
-
-    // @media screen and (min-width: 1200px) {
-    //   height: 7.5vh;
-    // }
-
     width: 100vw;
     will-change: transform; //Because it is fixed we should add will-change to this element as it require much repaints
 
@@ -36,7 +27,7 @@
         margin-right: 1vw;
 
         button {
-          height:24.5px;
+          height: 24.5px;
           width: 32.5px;
           padding: 0;
           margin: 0 10px 0 10px;
@@ -56,6 +47,125 @@
           }
         }
       }
+    }
+  }
+
+  @mixin arrow-color-black {
+    stroke: $black;
+    fill: $black;
+  }
+
+  @mixin arrow-color-green-flashy {
+    fill: $flashy-green;
+    stroke: $flashy-green;
+  }
+
+  .rs-footer {
+    position: fixed;
+    bottom: 15%;
+    height: 5vh;
+    .rs-footer-content {
+      @include flexbox();
+      @include justify-content(center);
+      width: 100vw;
+
+      svg.rs-arrow-dir-bottom {
+        display: none;
+        height: 15vh;
+        transform: translateX(
+          1.25vw
+        ); // align SVG on image
+
+        &.is-active {
+          display: block;
+        
+
+        // &:hover .arrow,
+        // &:hover .arrow-fixed,
+        // &:hover .arrow-base {
+        //   // , &:hover path
+        //   transition: all 1s $ease;
+        //   animation: arrow-color-anim 2.5s $ease
+        //     infinite;
+        // }
+
+        // &:hover .arrow {
+        //   animation: arrow-anim 2.5s $ease
+        //     infinite;
+        // }
+        // &:hover .arrow-fixed {
+        //   animation: arrow-fixed-anim 2.5s $ease
+        //     infinite;
+        // }
+
+        .arrow,
+        .arrow-fixed,
+        .arrow-base {
+          // , &:hover path
+          transition: all 1s $ease;
+          animation: arrow-color-anim 2.5s $ease
+            infinite;
+        }
+
+         .arrow {
+          animation: arrow-anim 2.5s $ease
+            infinite;
+        }
+         .arrow-fixed {
+          animation: arrow-fixed-anim 2.5s $ease
+            infinite;
+        }
+      }
+
+        path,
+        polygon {
+          @include arrow-color-black();
+          transition: all 0.5s $ease;
+          stroke-width: 0.5px;
+        }
+      }
+    }
+  }
+
+  @keyframes arrow-anim {
+    5% {
+      @include arrow-color-black();
+      opacity: 1;
+      transform: translateY(0);
+    }
+    5% {
+      transform: translateY(-0.1rem);
+    }
+    100% {
+      transform: translateY(1rem);
+      opacity: 0;
+      @include arrow-color-green-flashy();
+    }
+  }
+
+  @keyframes arrow-fixed-anim {
+    5% {
+      @include arrow-color-black();
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+      fill: $flashy-green;
+      stroke: $flashy-green;
+    }
+  }
+
+  @keyframes arrow-color-anim {
+    5% {
+      stroke: black;
+      fill: black;
+    }
+    100% {
+      fill: $flashy-green;
+      stroke: $flashy-green;
     }
   }
 

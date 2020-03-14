@@ -1,6 +1,7 @@
 import React from 'react'
 
 import MagicSlider from 'helpers/HOC/MagicSlider'
+import AnimationContainer from 'containers/AnimationContainer'
 
 /**
  * Component representing the slider and its different states
@@ -12,8 +13,10 @@ class Slider extends React.PureComponent {
   constructor(props) {
     super(props)
     const { slides } = props
+
     this.state = {
-      currentSlide: slides[0]
+      currentSlide: slides[0],
+      foregroundArrayHasBeenDeactivatedOnce: false
     }
     this.refs = slides.map(() => React.createRef())
   }
@@ -27,6 +30,8 @@ class Slider extends React.PureComponent {
   static getDerivedStateFromProps(props, state) {
     const { currentSlide } = props
     console.log("NOTIF Slide change :", currentSlide)
+    
+    
     if (props.currentSlide !== state.currentSlide) {
       return {
         currentSlide: currentSlide
@@ -41,10 +46,12 @@ class Slider extends React.PureComponent {
    */
   componentDidMount() {
     this.resumeAnimation(this.state.currentSlide)
+    this.activateForegroundDirectionalArrowOnHome(true);
   }
 
   /**
    * Will be called anytime the slide will change
+   * invoked right before the most recently rendered output is committed to e.g. the DOM
    * @param {*} prevProps 
    * @param {*} prevState 
    */
@@ -52,6 +59,11 @@ class Slider extends React.PureComponent {
     if (prevState.currentSlide !== this.state.currentSlide) {
       this.resumeAnimation(this.state.currentSlide)
       this.pauseAnimation(prevState.currentSlide)
+
+      if(!this.state.foregroundArrayHasBeenDeactivatedOnce){
+        this.activateForegroundDirectionalArrowOnHome(false);
+        this.setState({foregroundArrayHasBeenDeactivatedOnce: true})
+      }
     }
   }
 
@@ -108,16 +120,26 @@ class Slider extends React.PureComponent {
     const elemTraWillChange = document.querySelectorAll(`.rs-${slideRef} [anim='_tra']`)
     // console.log("Slider-Elem found with attributes", elemTraWillChange)
     elemTraWillChange.forEach(e => e.classList.add('js-will-change-tra'))
+  }
 
-    /** Special Case
-     * We will add will Change to every SVG element having .sibling class 
-     */
-
-    // let svgSiblingsElem = document.querySelectorAll(
-    //   '.siblings'
-    // )
-
-    // svgSiblingsElem.forEach(e => e.classList.add('js-will-change-opa'));
+  /**
+   * This function will dispatch an action to the store in order to advise Foreground Ui to activate the 
+   * footer directional arrow. Purpose being to indicate the user where to go next. 
+   * We setup a timer of 10s before showing up the arrow
+   */
+  activateForegroundDirectionalArrowOnHome(isActive) {
+    // console.log("activateForegroundDirectionalArrowOnHome");
+    const { setFgndArrowActive, slides } = this.props;
+    const { currentSlide } = this.state;
+    if (currentSlide === slides[0]) {
+      setTimeout((currentSlide, targetSlide) => {
+        if (currentSlide === targetSlide) {
+          setFgndArrowActive(isActive);
+        }
+      }, 10000, currentSlide, slides[0])
+    }else{
+      setFgndArrowActive(isActive);
+    }
   }
 
   /**
@@ -150,4 +172,4 @@ class Slider extends React.PureComponent {
   }
 }
 
-export default MagicSlider(Slider)
+export default MagicSlider(AnimationContainer(Slider))

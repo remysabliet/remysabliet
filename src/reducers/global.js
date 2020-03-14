@@ -1,7 +1,8 @@
 const defaultState = {
   deviceInfo: '',
-  locale: ''
+  locale: '',
 }
+
 // At the beginning, state = [] is empty, it's just an initialization. As soon as the application lives, items will be added to state
 export default function global(state = defaultState, action) {
   switch (action.type) {

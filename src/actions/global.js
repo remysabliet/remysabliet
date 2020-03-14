@@ -7,3 +7,8 @@ export const updateLocales = locale => ({
   type: 'UPDATE_LOCALE',
   payload: locale
 })
+
+export const updateFgndDirArrow = isFgndArrowActive => ({
+  type: 'UPDATE_IS_FGND_ARW_ACTIVE',
+  payload: isFgndArrowActive
+})

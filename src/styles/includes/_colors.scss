@@ -1,18 +1,3 @@
-// $background-color-silver-fallback: #ada996; /* fallback for old browsers */
-// $background-color-silver-webkit: -webkit-linear-gradient(
-//   to right,
-//   #eaeaea,
-//   #dbdbdb,
-//   #f2f2f2,
-//   #ada996
-// ); /* Chrome 10-25, Safari 5.1-6 */
-// $background-color-silver: linear-gradient(
-//   to right,
-//   #eaeaea,
-//   #dbdbdb,
-//   #f2f2f2,
-//   #ada996
-// ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 //Green background
 $background-color-green-black-fallback: #52c234; /* fallback for old browsers */
@@ -39,7 +24,8 @@ $background-color-earthly: linear-gradient(
 
 $silver: #c0c0c0;
 $flashy-green: #49FF18;
+$yellow-green: #D2FF2A;
 $flashy-green-deep: #186103;
-$black: #0000;
-$white: #FFFF;
+$black: #222; // black raisin as black base
+$white: #CDD7D6; // light grey as white base
 $cyan: #00FFFF;

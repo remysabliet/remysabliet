@@ -1,3 +1,5 @@
+$ease: cubic-bezier(.2,1,.3,1);
+
 .rs-js-animated-element {
   opacity: 0;
   &.rs-js-slide-up {

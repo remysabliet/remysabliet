@@ -1,9 +1,8 @@
-
 .rs-slide {
   width: 100vw;
-  height: calc(calc(
-    var(--vh) * 100
-  ) + 1px) ; // we add +1 pixel because there were 1 pixel gap after doing calculation of --vh for phone, this leads of a wrong slide height, and
+  height: calc(
+    calc(var(--vh) * 100) + 1px
+  ); // we add +1 pixel because there were 1 pixel gap after doing calculation of --vh for phone, this leads of a wrong slide height, and
   // as a consequence we would see a 1 pixel of the background (black) between slides.
   // prevent height problem on mobile because of url bar
   max-height: calc(
@@ -91,7 +90,6 @@
     // @include background-green(); integrer directement avec l'element HTml
     @include background-green();
 
-
     .rs-calligraphy-container {
       @include flexbox();
       @include flex-direction(column);
@@ -131,12 +129,12 @@
   }
 
   .rs-contact {
-    height: inherit;
-    width: inherit;
-    z-index: 3;
     @include background-green();
     @include flexbox();
     @include flex-direction(column);
+    height: inherit;
+    width: inherit;
+    z-index: 3;
     align-items: center;
 
     // @include background-green(); integrer directement avec l'element HTml
@@ -145,7 +143,7 @@
       object-fit: fill;
       // height:80vh;
       // width: 85vw;
-      min-height:100%;
+      min-height: 100%;
       min-width: 100%;
       right: 0;
       bottom: 0;
@@ -156,40 +154,124 @@
 
       .rs-movie-back {
         // height: 100vh; // Makes the video takes all the wide of the screen
-        // min-height: 100vh;
-        min-width: 100vw;
+        // max-width:  calc(var(--vw) * 100);
         object-fit: cover; //The replaced content is sized to maintain its aspect ratio while filling the element's entire content box. The object will be clipped to fit
         // // width: auto;
         // display: flex;
         // flex-direction: row;
+        min-width: calc(var(--vw) * 100);
+        max-width: calc(var(--vw) * 100);
       }
 
       .rs-content-overlay {
         position: absolute;
-        height: 100%;
-        width: 100%;
         @include flexbox();
         @include flex-direction(row);
         top: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 300;
 
         .rs-blank {
-          flex-grow: 0.33;
+          flex-grow: 0.7;
         }
 
-        .rs-profil-image {
-          // background-color: red;
-          flex-grow: 0.33;
-          z-index: 2;
-          opacity: 0.5;
-        }
+        // .rs-profil-image {
+        //   min-width: calc(var(--vw) * 30);
+        //   flex-grow: 0.7;
+        //   background-color: red;
+        //   z-index: 310;
+        //   opacity: 0.5;
+        //   margin: auto;
+        // }
 
         .rs-social {
-          flex-grow: 0.34;
-          // background-color: blue;
-          z-index: 1;
+          position: relative;
+          @include flexbox();
+          @include flex-direction(column);
+          @include justify-content(center);
+          flex-grow: 0.3;
+
+          z-index: 300;
+          .rs-social-panel {
+            color: white;
+            text-align: center;
+            min-width: calc(var(--vw) * 30);
+            max-width: calc(var(--vw) * 30);
+            width: calc(var(--vw) * 30);
+            margin: auto;
+
+            .rs-logo {
+              display: inline-block;
+              margin: $gutter * 2 0;
+              img {
+                max-height: 3rem;
+                //width: 1rem;
+              }
+            }
+          }
+        }
+
+        .rs-social-shadow-overlay {
+          position: absolute;
+          min-width: calc(var(--vw) * 50);
+          min-height: calc(var(--vh) * 100);
+          // background-color: black;
+          opacity: 0.7;
+          z-index: 310;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-image: linear-gradient(
+            to right,
+            rgba(255, 0, 0, 0),
+            $background-color-green-black-fallback
+          ); /* Standard syntax (must be last) */
+          // background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
+        }
+      }
+
+      @include responsive(phone) {
+
+          .rs-content-overlay {
+            @include flex-direction(column);
+            .rs-blank {
+              flex-grow: 0.7;
+            }
+
+            .rs-social {
+              flex-grow: 0.3 !important;
+              .rs-social-panel {
+                h1 {
+                  font-size: 3rem;
+                  white-space: nowrap;
+                }
+                min-width: calc(var(--vw) * 100);
+              }
+            }
+
+            .rs-social-shadow-overlay {
+              position: absolute;
+              min-width: calc(var(--vw) * 100);
+              max-height: calc(var(--vh) * 50);
+              // background-color: black;
+              opacity: 1;
+              z-index: 310;
+              top: calc(var(--vh) * 50);
+              right: 0;
+              left: 0;
+              bottom: 0;
+              background-image: linear-gradient(
+                to bottom,
+                rgba(255, 0, 0, 0),
+                $background-color-green-black-fallback
+              ); /* Standard syntax (must be last) */
+            }
+          }
         }
       }
     }
-  }
+  
 }
-

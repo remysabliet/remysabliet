@@ -11,7 +11,7 @@ import 'styles/main.scss'
 const deviceInfo = getDeviceInfo()
 const locale = getLocale()
 
-const store = configureStore({ global: { deviceInfo, locale } })
+const store = configureStore({ global: { deviceInfo, locale} })
 
 const RoutedAppWithStore = () => (
   <Router>
