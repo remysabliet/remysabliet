@@ -1,3 +1,9 @@
+export const delay = (t, v) => {
+  return new Promise(function(resolve) { 
+      setTimeout(resolve.bind(null, v), t)
+  });
+}
+
 export const statisticLogs = (
   elapsedTime,
   currentFps

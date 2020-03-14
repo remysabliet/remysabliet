@@ -3,6 +3,8 @@ import React from 'react'
 import MagicSlider from 'helpers/HOC/MagicSlider'
 import AnimationContainer from 'containers/AnimationContainer'
 
+import { delay } from "helpers/utils/animation"
+
 /**
  * Component representing the slider and its different states
  * Enhanced by MagicSlider(in-house) HOC for scrolling/touch effect;
@@ -30,8 +32,8 @@ class Slider extends React.PureComponent {
   static getDerivedStateFromProps(props, state) {
     const { currentSlide } = props
     console.log("NOTIF Slide change :", currentSlide)
-    
-    
+
+
     if (props.currentSlide !== state.currentSlide) {
       return {
         currentSlide: currentSlide
@@ -57,13 +59,9 @@ class Slider extends React.PureComponent {
    */
   componentDidUpdate(prevProps, prevState) {
     if (prevState.currentSlide !== this.state.currentSlide) {
-      this.resumeAnimation(this.state.currentSlide)
-      this.pauseAnimation(prevState.currentSlide)
-
-      if(!this.state.foregroundArrayHasBeenDeactivatedOnce){
-        this.activateForegroundDirectionalArrowOnHome(false);
-        this.setState({foregroundArrayHasBeenDeactivatedOnce: true})
-      }
+      this.resumeAnimation(this.state.currentSlide);
+      this.pauseAnimation(prevState.currentSlide);
+      this.activateForegroundDirectionalArrowOnHome(false);
     }
   }
 
@@ -125,20 +123,24 @@ class Slider extends React.PureComponent {
   /**
    * This function will dispatch an action to the store in order to advise Foreground Ui to activate the 
    * footer directional arrow. Purpose being to indicate the user where to go next. 
-   * We setup a timer of 10s before showing up the arrow
+   * We setup a timer of 7s before showing up the arrow
    */
-  activateForegroundDirectionalArrowOnHome(isActive) {
-    // console.log("activateForegroundDirectionalArrowOnHome");
+  async activateForegroundDirectionalArrowOnHome(isActive) {
+    console.log("activateForegroundDirectionalArrowOnHome", isActive)
     const { setFgndArrowActive, slides } = this.props;
-    const { currentSlide } = this.state;
-    if (currentSlide === slides[0]) {
-      setTimeout((currentSlide, targetSlide) => {
-        if (currentSlide === targetSlide) {
+    const { currentSlide, foregroundArrayHasBeenDeactivatedOnce } = this.state;
+    if (currentSlide === slides[0] && !foregroundArrayHasBeenDeactivatedOnce) {
+      await delay(7000).then(() => {
+        if (currentSlide === slides[0] && !this.state.foregroundArrayHasBeenDeactivatedOnce) {
           setFgndArrowActive(isActive);
         }
-      }, 10000, currentSlide, slides[0])
-    }else{
+      }
+      )
+    } else {
       setFgndArrowActive(isActive);
+
+      this.setState({ foregroundArrayHasBeenDeactivatedOnce: true })
+      console.log("else set State")
     }
   }
 
