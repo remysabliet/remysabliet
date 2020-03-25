@@ -31,15 +31,25 @@ class Slider extends React.PureComponent {
    */
   static getDerivedStateFromProps(props, state) {
     const { currentSlide } = props
-    console.log("NOTIF Slide change :", currentSlide)
+    console.log("NOTIF Slide change :", currentSlide, props)
 
 
     if (props.currentSlide !== state.currentSlide) {
       return {
         currentSlide: currentSlide
       }
+    } else if (props.foregroundArrayHasBeenDeactivatedOnce)
+      return currentSlide; // return null if the state hasn't changed
+  }
+
+  /** lever to prevent or not Full re-rendering of the page**/
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent rerendering if isForegroundDirArrowActive changed (Array Direction on HomeSlide)
+    if (nextProps.isForegroundDirArrowActive != this.props.isForegroundDirArrowActive) {
+      return false;
+    } else {
+      return true;
     }
-    return currentSlide; // return null if the state hasn't changed
   }
 
   /**
@@ -126,7 +136,7 @@ class Slider extends React.PureComponent {
    * We setup a timer of 7s before showing up the arrow
    */
   async activateForegroundDirectionalArrowOnHome(isActive) {
-    console.log("activateForegroundDirectionalArrowOnHome", isActive)
+    // console.log("activateForegroundDirectionalArrowOnHome", isActive)
     const { setFgndArrowActive, slides } = this.props;
     const { currentSlide, foregroundArrayHasBeenDeactivatedOnce } = this.state;
     if (currentSlide === slides[0] && !foregroundArrayHasBeenDeactivatedOnce) {
@@ -140,7 +150,6 @@ class Slider extends React.PureComponent {
       setFgndArrowActive(isActive);
 
       this.setState({ foregroundArrayHasBeenDeactivatedOnce: true })
-      console.log("else set State")
     }
   }
 
@@ -153,6 +162,8 @@ class Slider extends React.PureComponent {
   render() {
     const { children, slides, currentSlide, ...others } = this.props
     const childrenArr = children && children.length ? children : [children]
+
+    // console.log("Slider RERENDER", this.props, this.state)
     return (
       <div className="rs-slider-container">
         {childrenArr.map((child, i) => {

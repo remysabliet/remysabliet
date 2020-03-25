@@ -1,5 +1,5 @@
 .rs-foreground-ui {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -78,44 +78,25 @@
 
         &.is-active {
           display: block;
-        
 
-        // &:hover .arrow,
-        // &:hover .arrow-fixed,
-        // &:hover .arrow-base {
-        //   // , &:hover path
-        //   transition: all 1s $ease;
-        //   animation: arrow-color-anim 2.5s $ease
-        //     infinite;
-        // }
+          .arrow,
+          .arrow-fixed,
+          .arrow-base {
+            // , &:hover path
+            transition: all 1s $ease;
+            animation: arrow-color-anim 2.5s $ease
+              infinite;
+          }
 
-        // &:hover .arrow {
-        //   animation: arrow-anim 2.5s $ease
-        //     infinite;
-        // }
-        // &:hover .arrow-fixed {
-        //   animation: arrow-fixed-anim 2.5s $ease
-        //     infinite;
-        // }
-
-        .arrow,
-        .arrow-fixed,
-        .arrow-base {
-          // , &:hover path
-          transition: all 1s $ease;
-          animation: arrow-color-anim 2.5s $ease
-            infinite;
+          .arrow {
+            animation: arrow-anim 2.5s $ease
+              infinite;
+          }
+          .arrow-fixed {
+            animation: arrow-fixed-anim 2.5s $ease
+              infinite;
+          }
         }
-
-         .arrow {
-          animation: arrow-anim 2.5s $ease
-            infinite;
-        }
-         .arrow-fixed {
-          animation: arrow-fixed-anim 2.5s $ease
-            infinite;
-        }
-      }
 
         path,
         polygon {
@@ -169,38 +150,107 @@
     }
   }
 
+  .svg-filters {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+  }
+
   .rs-nav {
-    display: inline-block;
-    // position: -webkit-sticky; /*Bug with Webkit which is not able to calculate correctly the bottom of the whole page using (bottom:0)
-    // it stop at 100vh. */
-    // position: -moz-sticky;
-    // position: -ms-sticky;
-    // position: -o-sticky;
-    position: sticky;
-    width: 5vw;
-    top: 50%;
-    left: 0%;
-    z-index: 4;
-    color: white;
-    background-color: $flashy-green;
-    transition: all 10s ease-in-out;
-    animation: NavBarAnim infinite 3s linear;
-
-    a {
-      line-height: 2; /*Create space between lines*/
-      font-size: small;
-      display: block;
-      margin: 0;
-      text-align: center;
-
-      &:hover {
-        font-size: large;
-        color: white;
+    list-style: none;
+    .rs-li {
+      margin-top: 5px;
+      &.active {
+        .link-container {
+          width: 60px;
+          transition: 0.5s ease-in-out;
+        }
       }
+      .link-container {
+        display: inline-block;
+        position: relative;
+        height: 5px !important;
+        width: 25px;
+        border-radius: 50%;
+        border: 1px;
+        background-color: #c0c0c0;
+        z-index: 0;
+        transition: 0.3s ease-in-out;
 
-      &:visited {
-        color: white;
+        &:hover {
+          background-color: transparent;
+
+          &:before,
+          span {
+            background-color: #2cd892;
+          }
+        }
+        .appended-particle-right {
+          position: absolute;
+          width: 8px;
+          height: 10px;
+
+          // margin-top will be able to position the
+          // appended particule along the Y axes
+          // margin-top: -3.6px;
+          margin-top: -2.4px;
+          border-radius: 50%;
+          background: #c0c0c0;
+          transition: background 0.1s ease-out;
+          z-index: -2;
+          right: 0px;
+        }
+
+        .span__bg {
+          position: absolute;
+          border-radius: 30%;
+          // border: 1px;
+          // Make the Span take all the size of its container
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: -1;
+          background: #c0c0c0;
+          transition: background 0.1s ease-out;
+        }
       }
     }
   }
 }
+
+// .rs-nav {
+//   display: inline-block;
+//   // position: -webkit-sticky; /*Bug with Webkit which is not able to calculate correctly the bottom of the whole page using (bottom:0)
+//   // it stop at 100vh. */
+//   // position: -moz-sticky;
+//   // position: -ms-sticky;
+//   // position: -o-sticky;
+//   position: sticky;
+//   width: 5vw;
+//   top: 50%;
+//   left: 0%;
+//   z-index: 4;
+//   color: white;
+//   background-color: $flashy-green;
+//   transition: all 10s ease-in-out;
+//   animation: NavBarAnim infinite 3s linear;
+
+//   a {
+//     line-height: 2; /*Create space between lines*/
+//     font-size: small;
+//     display: block;
+//     margin: 0;
+//     text-align: center;
+
+//     &:hover {
+//       font-size: large;
+//       color: white;
+//     }
+
+//     &:visited {
+//       color: white;
+//     }
+//   }
+// }

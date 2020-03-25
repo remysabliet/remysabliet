@@ -3,6 +3,8 @@ import React, { Fragment, useEffect } from 'react'
 import Portrait from 'assets/svg/Portrait'
 import Matrix from 'components/molecules/effects/Matrix'
 import __ from 'helpers/i18n'
+import { animateIfInView } from 'helpers/utils/animation'
+
 /**
  * Home page
  */
@@ -27,7 +29,10 @@ const Home = props => {
    * So this function will be called 4 times in parallel
   */
   useEffect(() => {
-    // console.log("USE EFFECT HOME PAGE")
+
+    // Initial firing of animated element (There is no eventListener fired when page are successfully mounted)
+    animateIfInView();
+
     const elems = document.querySelectorAll(
       'svg.rs-full-view-port .rs-portrait-color'
     )

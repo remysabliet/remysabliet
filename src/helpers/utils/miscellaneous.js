@@ -2,6 +2,15 @@ import is from 'is_js'
 import { locales } from "helpers/constants/global"
 
 /**
+ * Return random number between min and max
+ * @param {*} min 
+ * @param {*} max 
+ */
+export const getRandom = (min, max) => {
+  return Math.random() * (max - min) + min;
+}
+
+/**
  * Shuffle an array of items (*)
  * @param {*} array
  */

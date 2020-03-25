@@ -3,8 +3,8 @@
 This project was bootstrapped with React, Redux, React Router, Webpack
 
 # Introduction
-This homepage is a simple presentation of Rémy SABLIET and has been developed using 
-several animation techniques including JS CSS3 and SVG.
+This homepage is a simple presentation of Software engineer Rémy SABLIET and has been developed using 
+several animation techniques including JS CSS3 and SVG and a little bit of GSAP.
 
 # Installation & run cmds
 - Clone the repo

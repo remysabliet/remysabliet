@@ -6,72 +6,15 @@ import { withRouter } from 'react-router-dom'
 import __ from 'helpers/i18n'
 import Routes from 'routes'
 
+import 'helpers/utils/TweenMax.min.js'
+import { initAnimation } from 'helpers/window'
 
-const LoadingMessage = () => {
-  return (
-    <div className="rs-splash-screen">
-      Wait a moment while we load your app.
-      <div className="rs-loading-dot">.</div>
-    </div>
-  );
-}
-
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoading: true
-    }
-  }
-
-  componentDidMount() {
-    try {
-      // window.addEventListener('load', (event) => {
-      //   //alert('Loading is over');
-      //   this.setState({
-      //     isLoading: false,
-      //   });
-      // });
-      document.addEventListener("readystatechange", event => {
-
-        if (event.target.readyState === "interactive") {      //same as:  document.addEventListener("DOMContentLoaded"...   // same as  jQuery.ready
-          // alert("All HTML DOM elements are accessible");
-        }
-
-        if (event.target.readyState === "complete") {
-          // alert("Now external resources are loaded too, like css,src etc... ");
-          this.setState({
-            isLoading: false
-          });
-        }
-
-      });
-
-
-    } catch (err) {
-      console.log(err);
-      // this.setState({
-      //   isLoading: false,
-      // });
-    }
-  }
-
-  render() {
-    const { store } = this.props;
-    const { isLoading } = this.state;
-    return (
-      <>
-        {
-          // isLoading ?
-          //   <LoadingMessage /> :
-            (<Provider store={store}>
-              <Routes {...this.props} />
-            </Provider>)
-        }
-      </>
-    )
-  }
+const App = (props) => {
+  // Initialization of all eventListener for animated element
+  initAnimation();
+  return (<Provider store={props.store}>
+    <Routes {...props} />
+  </Provider>)
 }
 
 export default withRouter(App)

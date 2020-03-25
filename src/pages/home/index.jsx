@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import withGlobalInfo from 'containers/withGlobalInfo'
+import localSetter from 'containers/localeSetter'
 
 import Slider from 'components/organisms/Slider'
 import Slide from 'layout/Slide'
@@ -9,7 +10,7 @@ import SVGLoader from 'assets/svg/SVGLoader'
 import ForegroundUI from 'pages/home/ForegroundUI'
 
 const HomePage = props => {
-  // const slides = ['home', 'about-me', 'contact']
+  console.log("HomeProps")
   const slides = ['home', 'about-me', 'contact']
   // useEffect(() => {
   //   // console.log("HomePage", props.deviceInfo)
@@ -39,6 +40,6 @@ const HomePage = props => {
   )
 }
 
-export default withGlobalInfo(HomePage)
+export default localSetter(withGlobalInfo(HomePage))
 
 
