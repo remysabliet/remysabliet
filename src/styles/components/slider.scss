@@ -1,4 +1,17 @@
+
+$slide-count: 3; // Number of slide inside the slider
+
+// Slide transition animation
+@for $i from 1 to $slide-count {
+  .rs-move-#{$i}-slide-down {
+    transform: translateY(calc(#{$i} * -100 * var(--vh)));
+    transition: calc(var(--slideTransitionDelay) * 1s)
+      ease-in-out;
+  }
+}
+
 .rs-slider-container {
+  @include background-green();
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,8 +21,287 @@
   left: 0;
   margin: 0;
 
-  &::after {
-    // will-change: scroll-position;
-    // will-change: transform, position, opacity; /* Prepare Browser to slide using transform CCS*/
+  // &::after {
+  //   will-change: scroll-position;
+  //   will-change: transform, position, opacity; /* Prepare Browser to slide using transform CCS*/
+  // }
+
+  .rs-slide {
+    width: 100vw;
+    height: calc(calc(var(--vh) * 100));
+    // prevent height problem on mobile because of url bar
+    max-height: calc(
+      var(--vh) * 100
+    ); //prevent height problem on mobile because of url bar
+    min-height: calc(
+      var(--vh) * 100
+    ); //prevent height problem on mobile because of url bar
+    margin: 0;
+
+    transition: calc(
+        var(--slideTransitionDelay) * 1s
+      )
+      ease-in-out; // This transition will helps to come back to the first slide smoothly from the second slide
+
+    .rs-home {
+      @include pausing-anim();
+      @include background-green();
+      // @include background-green(); integrer directement avec l'element HTml
+      position: relative;
+      z-index: 0;
+      height: inherit;
+      width: inherit;
+
+      .rs-title-left {
+        position: absolute;
+        left: 5%;
+        top: 75%;
+        color: $silver;
+        will-change: text-shadow;
+        @include responsive(desktop) {
+          @include neon-effect-green;
+        }
+        @include responsive(tablet) {
+          @include neon-effect-green;
+        }
+      }
+
+      .rs-title-right {
+        position: absolute;
+        right: 5%;
+        top: 25%;
+        @include responsive(desktop) {
+          @include neon-effect-white;
+        }
+        @include responsive(tablet) {
+          @include neon-effect-white;
+        }
+
+        color: $flashy-green-deep;
+        will-change: text-shadow;
+      }
+
+      svg {
+        max-height: 100%;
+        &.rs-full-view-port {
+          height: 100vh;
+          width: 100vw;
+
+          .rs-portrait-color {
+            fill: $black;
+          }
+        }
+
+        &.icon {
+          height: 100%;
+          width: 100%;
+          position: relative;
+
+          .flag {
+            &:hover {
+              opacity: 0.5;
+              transition: opacity 0.3s ease-in-out;
+            }
+          }
+        }
+      }
+    }
+
+    .rs-about-me {
+      @include pausing-anim();
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
+      position: relative;
+      height: inherit;
+      width: inherit;
+      z-index: 1; // Making slide 2 above slide 1, hiding matrix effect behind slide 2 when going dow
+      // background-image: url('../assets/img/background-trees.jpg');
+      // @include background-green(); integrer directement avec l'element HTml
+      @include background-green();
+
+      .rs-calligraphy-container {
+        @include flexbox();
+        @include flex-direction(column);
+        width: 70vw;
+        background: url('../assets/img/calligraphyPaper.jpg')
+          no-repeat center;
+        background-size: 100% 100%;
+        border-width: 3px;
+        border-style: outset;
+        -webkit-box-shadow: 5px 5px 20px 5px
+          #c4ff65;
+        -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
+        box-shadow: 5px 5px 20px 5px #c4ff65;
+
+        .rs-border {
+          @include flex-grow(0.05);
+          height: 3vh;
+          background: grey;
+          opacity: 0.4;
+        }
+        .rs-middle {
+          @include flex-grow(0.6);
+          height: calc(
+            var(--vh) *
+              var(--calligraphy-container-height)
+          ); // We can't simply concatenate unit string to value, we must perform a calculation
+          padding: 1rem;
+        }
+      }
+    }
+
+    .rs-experience {
+      height: inherit;
+      width: inherit;
+      z-index: 2;
+      @include background-green();
+      // @include background-green(); integrer directement avec l'element HTml
+    }
+
+    .rs-contact {
+      @include background-green();
+      @include flexbox();
+      @include flex-direction(column);
+      height: inherit;
+      width: inherit;
+      z-index: 3;
+      align-items: center;
+
+      // @include background-green(); integrer directement avec l'element HTml
+      .rs-content {
+        position: relative;
+        object-fit: fill;
+        // height:80vh;
+        // width: 85vw;
+        min-height: 100%;
+        min-width: 100%;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        // @include background-green();
+        @include flexbox();
+        @include flex-direction(row);
+
+        .rs-movie-back {
+          // height: 100vh; // Makes the video takes all the wide of the screen
+          // max-width:  calc(var(--vw) * 100);
+          object-fit: cover; //The replaced content is sized to maintain its aspect ratio while filling the element's entire content box. The object will be clipped to fit
+          // // width: auto;
+          // display: flex;
+          // flex-direction: row;
+          min-width: calc(var(--vw) * 100);
+          max-width: calc(var(--vw) * 100);
+        }
+
+        .rs-content-overlay {
+          position: absolute;
+          @include flexbox();
+          @include flex-direction(row);
+          top: 0;
+          bottom: 0;
+          right: 0;
+          height: 100%;
+          width: 100%;
+          z-index: 300;
+
+          .rs-blank {
+            flex-grow: 0.7;
+          }
+
+          // .rs-profil-image {
+          //   min-width: calc(var(--vw) * 30);
+          //   flex-grow: 0.7;
+          //   background-color: red;
+          //   z-index: 310;
+          //   opacity: 0.5;
+          //   margin: auto;
+          // }
+
+          .rs-social {
+            position: relative;
+            @include flexbox();
+            @include flex-direction(column);
+            @include justify-content(center);
+            flex-grow: 0.3;
+
+            z-index: 300;
+            .rs-social-panel {
+              color: white;
+              text-align: center;
+              min-width: calc(var(--vw) * 30);
+              max-width: calc(var(--vw) * 30);
+              width: calc(var(--vw) * 30);
+              margin: auto;
+
+              .rs-logo {
+                display: inline-block;
+                margin: $gutter * 2 0;
+                img {
+                  max-height: 3rem;
+                  //width: 1rem;
+                }
+              }
+            }
+          }
+
+          .rs-social-shadow-overlay {
+            position: absolute;
+            min-width: calc(var(--vw) * 50);
+            min-height: calc(var(--vh) * 100);
+            // background-color: black;
+            opacity: 0.7;
+            z-index: 310;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: linear-gradient(
+              to right,
+              rgba(255, 0, 0, 0),
+              $background-color-green-black-fallback
+            ); /* Standard syntax (must be last) */
+            // background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
+          }
+        }
+
+        @include responsive(phone) {
+          .rs-content-overlay {
+            @include flex-direction(column);
+            .rs-blank {
+              flex-grow: 0.7;
+            }
+
+            .rs-social {
+              flex-grow: 0.3 !important;
+              .rs-social-panel {
+                h1 {
+                  font-size: 3rem;
+                  white-space: nowrap;
+                }
+                min-width: calc(var(--vw) * 100);
+              }
+            }
+
+            .rs-social-shadow-overlay {
+              position: absolute;
+              min-width: calc(var(--vw) * 100);
+              max-height: calc(var(--vh) * 50);
+              // background-color: black;
+              opacity: 1;
+              z-index: 310;
+              top: calc(var(--vh) * 50);
+              right: 0;
+              left: 0;
+              bottom: 0;
+              background-image: linear-gradient(
+                to bottom,
+                rgba(255, 0, 0, 0),
+                $background-color-green-black-fallback
+              ); /* Standard syntax (must be last) */
+            }
+          }
+        }
+      }
+    }
   }
 }

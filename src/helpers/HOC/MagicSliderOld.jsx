@@ -3,8 +3,6 @@ import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
 
 import innerHeight from 'ios-inner-height';
 
-import _ from 'lodash'
-
 /**
  * This HOC ensure a sliding effect supporting desktop/smartphone browsers
  * Event Type leveraged: 
@@ -59,11 +57,6 @@ const MagicSlider = WrappedComponent => {
       this.keyCode = undefined
       this.keyTimestamp = undefined
 
-      // Slide displated to yuser
-      this.slidePositionIndex = 0;
-
-      // Purpose of this function is to limit the number of invokation per second
-      this.throttle = _.throttle(this.translateSlide, 3000)
 
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
@@ -128,10 +121,9 @@ const MagicSlider = WrappedComponent => {
      * @param {*} event 
      */
     touchStartHandler(event) {
-      // console.log("touchStartHandler")
       // Activate the scrolling animation loop
       this.isLoopActive = true;
-      // this.startAnimating(this.animationFrequency)
+      this.startAnimating(this.animationFrequency)
 
       this.isLoopActive = true;
       var touches = event.changedTouches;
@@ -157,61 +149,8 @@ const MagicSlider = WrappedComponent => {
         theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
         theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
       }
-
-      // We use  _.debounce() to prevent successful call in a specified period of time (here one sec)
-      const dir = theTouchInfo.dy > 0 ? "up" : "down";
-
-      // invoke the throttled function  (every3s)
-      // console.log(dir, this.slidePositionIndex)
-      //We make sure not going outside boundaries
-      if (!(this.slidePositionIndex === this.props.slides.length - 1 && dir === "down") && !(this.slidePositionIndex === 0 && dir === "up")) {
-        this.throttle(dir);
-        //delete all the pending call to the function
-        setTimeout(function (func) {func.cancel(); }, 2800, this.throttle)
-      }
-    }
-
-    /**
-     * Move Slide up or down based on direction
-     * @param {*} dir up / down
-     */
-    translateSlide(dir) {
-      // console.log("translateSlide CALLED dir:", dir)
-      let newPosition = this.slidePositionIndex;
-      if (dir === "down") { // add 1 except when we are at the lastSlide
-        newPosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1;
-      } else { // remove 1 except when we are at position 0 
-        newPosition += this.slidePositionIndex === 0 ? 0 : -1;
-      }
-
-      //Only if a slide change happened we go further
-      if (newPosition !== this.slidePositionIndex) {
-        this.slidePositionIndex = newPosition;
-
-        // Retrieve all the slides elements
-        const slides = document.getElementsByClassName(
-          `rs-slide`
-        )
-
-        Array.prototype.forEach.call(slides, (slide => {
-          this.updateSlideClass(slide);
-        }))
-        this.setState({
-          currentSlide: this.props.slides[this.slidePositionIndex]
-        })
-      }
-    }
-
-    updateSlideClass(slideNode) {
-      // console.log("updateSlideClass slideNode:", slideNode)
-      //Filter the list of class to be removed from the nodes
-      const classToRemove = Array.prototype.filter.call(slideNode.classList, (x => { return x !== "rs-slide" }))
-
-      // Then we add the class only if it is not the starting position (slide 0) because no transformation to apply
-      if (this.slidePositionIndex !== 0)
-        slideNode.classList.add(`rs-move-${this.slidePositionIndex}-slide-down`)
-
-      classToRemove.forEach(classN => slideNode.classList.remove(classN))     
+      // this.velocityComputation(theTouchInfo.dy);
+      this.velocityComputationMobile(theTouchInfo.dy * 0.0002);
     }
 
     /**
@@ -248,31 +187,23 @@ const MagicSlider = WrappedComponent => {
      */
     handleOnWheel(event) {
       const deltaY = event.deltaY;
+     // console.log("This.props.slides", event.deltaY, this.props.slides, this.state.currentSlide, this.props.slides.findIndex(x => x === this.state.currentSlide), this.props.slides.length - 1)
 
-      // /** CSS slider animation purpose , deactivated by default */
-      // const dir = deltaY > 0 ? "down" : "up";
-      // // invoke the throttled function  (every3s)
-      // this.throttle(dir);
-      // //delete all the pending call to the function
-      // setTimeout(function (func) { func.cancel() }, 2950, this.throttle)
-      // console.log("dir", dir)
+        this.isLoopActive = true;
+        this.startAnimating(this.animationFrequency)
 
-      /**Javascript sliding config */
-      this.isLoopActive = true;
-      this.startAnimating(this.animationFrequency)
-
-      const { deviceInfo } = this.props
-      switch (deviceInfo) {
-        case 'firefox':
-          this.speed += deltaY * 0.006 // 0.006 Firefox
-          break
-        case 'edge':
-          this.speed += deltaY * 0.0006 // 0.006 Firefox
-          break
-        default:
-          this.speed += deltaY * 0.0003 // 0.0003 Chrome, Opera, Safari
-      }
-
+        const { deviceInfo } = this.props
+        switch (deviceInfo) {
+          case 'firefox':
+            this.speed += deltaY * 0.006 // 0.006 Firefox
+            break
+          case 'edge':
+            this.speed += deltaY * 0.0006 // 0.006 Firefox
+            break
+          default:
+            this.speed += deltaY * 0.0003 // 0.0003 Chrome, Opera, Safari
+        }
+      // }
     }
 
     velocityComputation(deltaY) {
@@ -289,10 +220,11 @@ const MagicSlider = WrappedComponent => {
      * this.isLoopActive to false
      */
     magicSlider() {
+      // console.log("this.currentPosition", this.currentPosition, "this.props.slides", this.props.slides )
       // Security to avoid sliding out of boundaries
       if (this.currentPosition < 0) {
         this.currentPosition = 0
-      } else if (this.currentPosition > this.props.slides.length - 1) {
+      } else if ( this.currentPosition >  this.props.slides.length - 1 ){
         this.currentPosition = this.props.slides.length - 1
       } else {
         this.now = Date.now()
@@ -313,7 +245,7 @@ const MagicSlider = WrappedComponent => {
 
           if (this.currentPosition < 0) {
             this.currentPosition = 0
-          } else if (this.currentPosition > this.props.slides.length - 1) {
+          } else if ( this.currentPosition >  this.props.slides.length - 1 ){
             this.currentPosition = this.props.slides.length - 1
           }
 

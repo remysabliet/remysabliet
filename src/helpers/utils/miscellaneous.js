@@ -35,7 +35,7 @@ export const recomputeViewportSize = () => {
   
   var styles = getComputedStyle(document.documentElement);
   // console.log("New Viewport size DOM Style: ", document.documentElement.style)
-  // console.log("vh: ", styles.getPropertyValue('--vh'))
+  console.log("vh: ", styles.getPropertyValue('--vh'))
   console.log("vw: ", styles.getPropertyValue('--vw'))
   // console.log("--calligraphy-container-height", styles.getPropertyValue('--calligraphy-container-height'))
   // console.log("--calligraphy-row-height", styles.getPropertyValue('--calligraphy-row-height'))

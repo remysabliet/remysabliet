@@ -27,7 +27,7 @@ html {
   position: relative; /*Important: BUG Safari fixed: relative position on the body allow the 
   foreground div to get the whole place of its parent container (originally bottom:0 didn't worked and foreground take the viewport view only  */
   width: 100%;
-  overflow: hidden;  
+  // overflow: hidden;  doesnt work at all
   background-color:black;
 }
 
@@ -36,6 +36,6 @@ head {
 }
 
 #root{
-  overflow-x: hidden;
+  overflow: hidden;  // overflow hidden works only on something different than body/html
   position: relative;
 }

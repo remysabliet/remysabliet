@@ -6,6 +6,7 @@ import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
 import { animateIfInView } from 'helpers/utils/animation'
 import { disableBodyScroll } from 'body-scroll-lock'
 
+// Class name of node element to be animated
 const animatedClass = 'rs-js-animated-element'
 
 window.addEventListener(
@@ -24,20 +25,20 @@ export const initAnimation = () => {
   //   To be fix if such strategy is necessary (Animate on view)
   //
   const animateIfInViewEvenType = [
-    'onload',
-    'resize',
-    'scroll',
+    // 'resize', //activate on Smartphone
+    // 'scroll', activate on Smartphone
     'keydown',
     'keyup',
     'wheel',
-    'touchstart',
-    'touchend'
+    
+    // 'touchstart', remove smartphone event as we are going to manage things appearing on screen differently
+    // 'touchmove' remove smartphone event as we are going to manage things appearing on screen differently
   ]
   animateIfInViewEvenType.forEach(type =>
     window.addEventListener(
       type,
       function() {
-        // console.log("animateIfInView FIRED")
+        console.log("animateIfInView FIRED", type)
         animateIfInView(animatedClass)
       },
       false

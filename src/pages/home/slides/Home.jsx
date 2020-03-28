@@ -30,8 +30,11 @@ const Home = props => {
   */
   useEffect(() => {
 
-    // Initial firing of animated element (There is no eventListener fired when page are successfully mounted)
-    animateIfInView();
+    // Desktop version - we must do the Initial firing of animated element (There is no eventListener fired when page are successfully mounted)
+    if(!['ios', 'android'].includes(deviceInfo)){
+      console.log("home device info", deviceInfo)
+      animateIfInView();
+    }
 
     const elems = document.querySelectorAll(
       'svg.rs-full-view-port .rs-portrait-color'

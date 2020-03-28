@@ -1,4 +1,4 @@
-@import "./includes/_colors";
+@import './includes/_colors';
 
 @mixin ellipsis() {
   overflow: hidden;
@@ -99,10 +99,10 @@
 * Border created from image
 */
 @mixin border-image-marbre {
-  border-style: outset; // We want the stile outside the div 
+  border-style: outset; // We want the stile outside the div
   border-image-slice: 32; //with for the image we are slicing - must be written without px
-  border-image-width: 32px;//width for the div we decorate, must be written along px or %
+  border-image-width: 32px; //width for the div we decorate, must be written along px or %
   border-image-repeat: stretch round;
   border-image-outset: 25px; // make the border outside an element
-  border-image-source: url("assets/img/marbe-small-inner-shadow.png");
+  border-image-source: url('assets/img/marbe-small-inner-shadow.png');
 }

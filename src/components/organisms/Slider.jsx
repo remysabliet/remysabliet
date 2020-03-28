@@ -31,19 +31,21 @@ class Slider extends React.PureComponent {
    */
   static getDerivedStateFromProps(props, state) {
     const { currentSlide } = props
-    console.log("NOTIF Slide change :", currentSlide, props)
-
 
     if (props.currentSlide !== state.currentSlide) {
+      console.log("NOTIF Slide change :", currentSlide, props)
       return {
-        currentSlide: currentSlide
+        currentSlide: currentSlide,
+        foregroundArrayHasBeenDeactivatedOnce: true
       }
     } else if (props.foregroundArrayHasBeenDeactivatedOnce)
-      return currentSlide; // return null if the state hasn't changed
+      return null; // return null if the state hasn't changed
   }
 
   /** lever to prevent or not Full re-rendering of the page**/
   shouldComponentUpdate(nextProps, nextState) {
+    // console.log("Slider shouldComponentUpdate", nextProps)
+
     // Prevent rerendering if isForegroundDirArrowActive changed (Array Direction on HomeSlide)
     if (nextProps.isForegroundDirArrowActive != this.props.isForegroundDirArrowActive) {
       return false;
@@ -59,22 +61,85 @@ class Slider extends React.PureComponent {
   componentDidMount() {
     this.resumeAnimation(this.state.currentSlide)
     this.activateForegroundDirectionalArrowOnHome(true);
+    if (["ios", "android"].includes(this.props.deviceInfo)) {
+      // console.log("mounted Slider IOS/android");
+      this.manageSmartphoneAnimation(undefined, this.state.currentSlide)
+    }
   }
 
   /**
-   * Will be called anytime the slide will change
+   * Will be called anytime the slide did change
    * invoked right before the most recently rendered output is committed to e.g. the DOM
    * @param {*} prevProps 
    * @param {*} prevState 
    */
   componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate")
+    //In case of slide change
     if (prevState.currentSlide !== this.state.currentSlide) {
       this.resumeAnimation(this.state.currentSlide);
       this.pauseAnimation(prevState.currentSlide);
-      this.activateForegroundDirectionalArrowOnHome(false);
+      
+      if (["ios", "android"].includes(this.props.deviceInfo)) {
+        // console.log("componentDidUpdate IOS/android");
+        this.manageSmartphoneAnimation(prevState.currentSlide, this.state.currentSlide)
+      }
     }
   }
 
+  /**
+   * Makes element animated and visible based on the current slide change
+   * @param {*} prevSlide 
+   * @param {*} newSlide 
+   */
+  manageSmartphoneAnimation(prevSlide, newSlide) {
+    const defaultAnimationClass = 'rs-js-slide-up-css-config' //specic class to add a delay transition to make it smoother with css slider config
+    const prefixCssConfig = "-css-config"
+    /** Anim the new slide node */
+    const newSlideNode = document.getElementsByClassName(
+      `rs-${newSlide}`);
+
+    const elementToAnimate = newSlideNode[0].getElementsByClassName(
+      `rs-js-animated-element`
+    )
+    // console.log("elementToAnimate", elementToAnimate)
+
+    Array.prototype.forEach.call(elementToAnimate, elem => {
+      // Retrieve the CSS class animation on the element dataset if specified and add the prefix for css-config otherwise we add default classname
+      let classNameEffect = elem.dataset.animInView ? elem.dataset.animInView + prefixCssConfig : defaultAnimationClass;
+      // console.log("Class to be added:", classNameEffect);
+      elem.classList.add(classNameEffect)
+      // console.log("elementToAnimate after adding",  elem.classList.value)
+    })
+ 
+
+    /** Remove Animation class to the previous slide node */
+    /*  As it make them invisible by default we must add timeout to prevent them disappearing right away*/
+
+    const slideTransitionDelay = getComputedStyle(document.documentElement).getPropertyValue('--slideTransitionDelay') //in Sec
+    // slideTransitionDelay.styles.getPropertyValue('--slideTransitionDelay');
+    if (prevSlide !== undefined) {
+      // console.log("slideTransitionDelay", slideTransitionDelay)
+      setTimeout(() => {
+        const prevSlideNode = document.getElementsByClassName(
+          `rs-${prevSlide}`);
+
+        const elementToFreeze = prevSlideNode[0].getElementsByClassName(
+          `rs-js-animated-element`
+        )
+
+        Array.prototype.forEach.call(elementToFreeze, elem => {
+          // Retrieve the CSS class animation on the element dataset if specified and add the prefix for css-config otherwise we add default classname
+          let classNameEffect = elem.dataset.animInView ? elem.dataset.animInView + prefixCssConfig : defaultAnimationClass;
+          // console.log("Class to freeze:", classNameEffect);
+          elem.classList.remove(classNameEffect)
+          // console.log("Element to Freeze",  elem.classList.value)
+        })
+        // console.log("Element to Freeze",
+
+      }, slideTransitionDelay * 1000)
+    }
+  }
   /**
    * - Pause animation at the slide level 
    * - remove CSS will-change properties from moving DOM element
@@ -163,7 +228,7 @@ class Slider extends React.PureComponent {
     const { children, slides, currentSlide, ...others } = this.props
     const childrenArr = children && children.length ? children : [children]
 
-    // console.log("Slider RERENDER", this.props, this.state)
+    console.log("Slider RERENDER", this.props, this.state)
     return (
       <div className="rs-slider-container">
         {childrenArr.map((child, i) => {

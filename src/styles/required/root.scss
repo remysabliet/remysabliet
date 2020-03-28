@@ -4,6 +4,6 @@
 :root {
   --vh: 1vh; // initialization, will be replaced automatically by the number of pixel for 1vh whenever the window is resized
   --vw: 1vw;
-  --calligraphy-container-height: 61;
-  // --calligraphy-row-height: 1; // Not used anymore
+  --calligraphy-container-height: 61; // vh 
+  --slideTransitionDelay: 2; //in second
  }

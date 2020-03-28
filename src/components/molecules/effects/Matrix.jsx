@@ -6,7 +6,7 @@ import { shuffle } from 'helpers/utils/miscellaneous'
  * every items of those with random size and opacity.
  */
 const Matrix = React.memo(({ list = [], limit = 75, className }) => {
-  console.log("Matrix refreshed", className)
+  // console.log("Matrix refreshed", className)
   const classNames = className || 'rs-matrix'
   let count = limit
   const arr = []

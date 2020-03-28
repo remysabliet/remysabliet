@@ -31,8 +31,9 @@ const AboutMe = props => {
       '.calligraphy'
     )
     
+    //.rs-js-slide-up
     let strokeElem = document.querySelectorAll(
-      '.rs-js-animated-element.rs-js-slide-up .calligraphy .siblings'
+      '.rs-js-animated-element .calligraphy .siblings'
     )
     if (
       isCurrentSlide &&
@@ -41,7 +42,7 @@ const AboutMe = props => {
       setIsAlreadyActivated(true)
       let counter = 1 // initial delay
       strokeElem.forEach(element => {
-        //console.log(element.style.animationDelay)
+        // console.log(element.style.animationDelay)
         // We check whether the class punctuation-delay is associated to the element of the SVG or not
         // This give birth to extra temporization yes to respect reading experience related to punctuation
         const additionalTime = element.className.baseVal.includes(
@@ -58,6 +59,7 @@ const AboutMe = props => {
         // By default the opacity of a SVG element is having opacity: 0
         // to avoid appearing on the screen when user come and leave
         element.style.opacity = 1
+        // console.log(element.style.animationDelay,element.style.opacity)
       })
 
       // Once we have et opacity on the stroke-element we can remove the opacity=0 on the SVG parent element

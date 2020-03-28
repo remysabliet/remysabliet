@@ -34,6 +34,7 @@
         "ios-inner-height": "^1.1.1",
         "is_js": "^0.9.0",
         "jest": "^23.6.0",
+        "lodash": "^4.17.15",
         "moment": "^2.24.0",
         "node-sass": "^4.12.0",
         "object-assign": "^4.1.1",
