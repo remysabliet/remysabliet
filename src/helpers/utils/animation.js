@@ -62,10 +62,10 @@ export const animateIfInView = className => {
   Array.prototype.forEach.call(
     elementToAnimate,
     elem => {
-      console.log(
-        'animatedElement #2 ',
-        elem.className
-      )
+      // console.log(
+      //   'animatedElement #2 ',
+      //   elem.className
+      // )
 
       const elementBounds = elem.getBoundingClientRect()
       const elemTopPos = elementBounds.y

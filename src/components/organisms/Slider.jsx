@@ -34,9 +34,9 @@ class Slider extends React.PureComponent {
 
     if (props.currentSlide !== state.currentSlide) {
       console.log("NOTIF Slide change :", currentSlide, props)
+
       return {
-        currentSlide: currentSlide,
-        foregroundArrayHasBeenDeactivatedOnce: true
+        currentSlide: currentSlide
       }
     } else if (props.foregroundArrayHasBeenDeactivatedOnce)
       return null; // return null if the state hasn't changed
@@ -79,7 +79,13 @@ class Slider extends React.PureComponent {
     if (prevState.currentSlide !== this.state.currentSlide) {
       this.resumeAnimation(this.state.currentSlide);
       this.pauseAnimation(prevState.currentSlide);
-      
+
+      /** deactivate the directional arrow in foregroundUI if it has not been done yet */
+      if (!this.state.foregroundArrayHasBeenDeactivatedOnce) {
+        this.setState({foregroundArrayHasBeenDeactivatedOnce: true})
+        prevProps.setFgndArrowActive(false);
+      }
+
       if (["ios", "android"].includes(this.props.deviceInfo)) {
         // console.log("componentDidUpdate IOS/android");
         this.manageSmartphoneAnimation(prevState.currentSlide, this.state.currentSlide)
@@ -111,7 +117,7 @@ class Slider extends React.PureComponent {
       elem.classList.add(classNameEffect)
       // console.log("elementToAnimate after adding",  elem.classList.value)
     })
- 
+
 
     /** Remove Animation class to the previous slide node */
     /*  As it make them invisible by default we must add timeout to prevent them disappearing right away*/
@@ -207,6 +213,7 @@ class Slider extends React.PureComponent {
     if (currentSlide === slides[0] && !foregroundArrayHasBeenDeactivatedOnce) {
       await delay(7000).then(() => {
         if (currentSlide === slides[0] && !this.state.foregroundArrayHasBeenDeactivatedOnce) {
+          console.log("foregroundArrayHasBeenDeactivatedOnce", this.state.foregroundArrayHasBeenDeactivatedOnce)
           setFgndArrowActive(isActive);
         }
       }

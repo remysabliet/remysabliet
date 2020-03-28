@@ -19,6 +19,7 @@ const MagicSlider = WrappedComponent => {
   class HOC extends React.PureComponent {
     constructor(props) {
       super(props)
+      console.log("props MagicSlider", props)
       this.handleOnWheel = this.handleOnWheel.bind(this)
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
