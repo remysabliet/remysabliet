@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
   const { deviceInfo, locale } = state.global
-  console.log('withGlobalInfo', deviceInfo, locale)
+  // console.log('withGlobalInfo', deviceInfo, locale)
   return {
     deviceInfo,
     locale

@@ -5,7 +5,7 @@ import AnimationContainer from 'containers/AnimationContainer'
 
 
 const ForegroundUI = React.memo(props => {
-  console.log("ForegroundUI", props)
+  // console.log("ForegroundUI", props)
   return (
     <>
       <ForegroundLayout  {...props}>

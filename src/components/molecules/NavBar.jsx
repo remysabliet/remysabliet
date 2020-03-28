@@ -1,9 +1,9 @@
 import React from 'react'
-import { HashLink as Link } from 'react-router-hash-link'
+// import { HashLink as Link } from 'react-router-hash-link'
 import { addExplosionEffectOnClick } from 'helpers/utils/animation'
+import classNames from "classnames";
 
-const NavBar = React.memo(({ slides }) => {
-
+const NavBar = React.memo(({ setCurrentSlideIndex, slides }) => {
   // Verify if the item clicked is not already active, if not, deactivate other item and active the current one
   // Also appends an effect to the current li's span 
   const toggleStyle = (id) => {
@@ -41,20 +41,14 @@ const NavBar = React.memo(({ slides }) => {
 
       <div className="rs-navbar-container" >
         <ul className="rs-nav">
-          <li id="link1" className="rs-li active">
-            <a className="link-container" style={{ filter: 'url(#filter-goo-2)' }} onClick={() => toggleStyle('link1')}>
+          {slides.map( (slide, index) => {return (
+            <li id={`link${index+1}`} className={classNames("rs-li", index === 0 ? "active": "")}>
+            <a className="link-container" style={{ filter: `url(#filter-goo-${index+1})` }} onClick={() => {toggleStyle(`link${index+1}`); setCurrentSlideIndex(index);}}>
               <span className="span__bg">
               </span>
             </a>
           </li>
-
-          <li id="link2" className="rs-li">
-            <a className="link-container" style={{ filter: 'url(#filter-goo-2)' }} onClick={() => toggleStyle('link2')}>
-              <span className="span__bg">
-              </span>
-            </a>
-          </li>
-
+          )})}
         </ul>
       </div>
     </React.Fragment>

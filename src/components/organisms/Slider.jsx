@@ -3,7 +3,7 @@ import React from 'react'
 import MagicSlider from 'helpers/HOC/MagicSlider'
 import AnimationContainer from 'containers/AnimationContainer'
 
-import { delay } from "helpers/utils/animation"
+import { animateIfInView, delay } from "helpers/utils/animation"
 
 /**
  * Component representing the slider and its different states
@@ -15,6 +15,8 @@ class Slider extends React.PureComponent {
   constructor(props) {
     super(props)
     const { slides } = props
+
+    this.intervalAnimDesktop = undefined;
 
     this.state = {
       currentSlide: slides[0],
@@ -65,6 +67,16 @@ class Slider extends React.PureComponent {
       // console.log("mounted Slider IOS/android");
       this.manageSmartphoneAnimation(undefined, this.state.currentSlide)
     }
+
+    // For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
+    // when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
+    // Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
+    // to prevent that we fire this function at least one time/sec
+    this.intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
+  }
+
+  componentWillUnmount(){
+    window.clearInterval(this.this.intervalAnimDesktop)
   }
 
   /**
@@ -74,7 +86,7 @@ class Slider extends React.PureComponent {
    * @param {*} prevState 
    */
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate")
+    // console.log("componentDidUpdate")
     //In case of slide change
     if (prevState.currentSlide !== this.state.currentSlide) {
       this.resumeAnimation(this.state.currentSlide);
@@ -82,7 +94,7 @@ class Slider extends React.PureComponent {
 
       /** deactivate the directional arrow in foregroundUI if it has not been done yet */
       if (!this.state.foregroundArrayHasBeenDeactivatedOnce) {
-        this.setState({foregroundArrayHasBeenDeactivatedOnce: true})
+        this.setState({ foregroundArrayHasBeenDeactivatedOnce: true })
         prevProps.setFgndArrowActive(false);
       }
 
@@ -235,7 +247,7 @@ class Slider extends React.PureComponent {
     const { children, slides, currentSlide, ...others } = this.props
     const childrenArr = children && children.length ? children : [children]
 
-    console.log("Slider RERENDER", this.props, this.state)
+    // console.log("Slider Render", this.props, this.state)
     return (
       <div className="rs-slider-container">
         {childrenArr.map((child, i) => {

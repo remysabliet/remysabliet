@@ -2,6 +2,55 @@ import { gsap } from 'gsap'
 
 import { getRandom } from 'helpers/utils/miscellaneous'
 
+/**
+ * Linear interpolation, to find corresponding values of a range [start, end] for an indicator t (ratio or time)
+ * @param {*} start of a range
+ * @param {*} end of a range
+ * @param {*} ratio value between 1 and 0 to define the progress in a range 
+ * lerp(20,80,05) => 50
+ */
+export const lerp = (start, end, progress) => start + progress * (end - start);
+
+// https://gist.github.com/gre/1650294
+/*
+ * Easing Functions - inspired from http://gizma.com/easing/
+ * only considering the t value for the range [0, 1] => [0, 1]
+ */
+export const EasingFunctions = {
+  // no easing, no acceleration
+  linear: t=> t,
+  // accelerating from zero velocity
+  easeInQuad: t=> t*t ,
+  // decelerating to zero velocity
+  easeOutQuad: t=> t*(2-t),
+  // acceleration until halfway, then deceleration
+  easeInOutQuad: t=> t<.5 ? 2*t*t : -1+(4-2*t)*t ,
+  // accelerating from zero velocity 
+  easeInCubic: t=> t*t*t,
+  // decelerating to zero velocity 
+  easeOutCubic: t=> (--t)*t*t+1,
+  // acceleration until halfway, then deceleration 
+  easeInOutCubic: t=> t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
+  // accelerating from zero velocity 
+  easeInQuart: t=> t*t*t*t ,
+  // decelerating to zero velocity 
+  easeOutQuart: t=> 1-(--t)*t*t*t,
+  // acceleration until halfway, then deceleration
+  easeInOutQuart: t=> t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
+  // accelerating from zero velocity
+  easeInQuint: t =>  t*t*t*t*t ,
+  // decelerating to zero velocity
+  easeOutQuint: t=> 1+(--t)*t*t*t*t,
+  // acceleration until halfway, then deceleration 
+  easeInOutQuint: t=> t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t,
+  // elastic bounce effect at the beginning
+  easeInElastic: t => (.04 - .04 / t) * Math.sin(25 * t) + 1,
+  // elastic bounce effect at the end
+  easeOutElastic: t=> .04 * t / (--t) * Math.sin(25 * t),
+  // elastic bounce effect at the beginning and end
+  easeInOutElastic: t=> (t -= .5) < 0 ? (.01 + .01 / t) * Math.sin(50 * t) : (.02 - .01 / t) * Math.sin(50 * t) + 1 
+}
+
 export const delay = (t, v) => {
   return new Promise(function(resolve) {
     setTimeout(resolve.bind(this, v), t) //We simply bind the v parameter so that it will be accessible once timeout is resolved .then((v) => ..
@@ -37,6 +86,8 @@ export const currentFps = (
   )
 
 /**
+ * This function activate animation on DOM element inside the viewport
+ * 
  *  1) Retrieve all elements owning "rs-js-animated-element" class inside the DOM
  *  2) For any of the element, retrieve a data attribute "animInView" whose contains className to apply
  *    if the element come into the viewport
@@ -248,4 +299,79 @@ export const addExplosionEffectOnClick = originNode => {
   }
   // });
   // });
+}
+
+/**
+ * Codesource From @xerxesnoble on CodePen https://codepen.io/xerxesnoble/pen/JNgmJR?editors=0010
+* @desc Basic linear value animation that can accept simple easing functions and provides update & complete callbacks
+* @param  {Object} values - Object with numerical values. eg. { value1: 0, value2: 20, someKey: 55 }
+* @param  {Number} duration - How long (in milliseconds) the animation will be
+* @param  {Object} options - target values, update callback & complete callback
+* @param  {Function} [options.onComplete=(values) => values] - Callback that fires once animation is complete
+* @param  {Function} [options.onUpdate=(values) => values] - Callback that fires when animation frame updates
+* @param  {Function} [options.ease=(t) => t] - easing method eg. https://gist.github.com/gre/1650294
+* @example
+ const a = document.getElementById('a')
+ animateValues({ a: 0 }, 800, {
+    a: 500,
+    onUpdate: v => a.style.transform = 'scaleX('+ v.a +')',
+    onComplete: v => alert('Done!'),
+    ease: t => t<.5 ? 2*t*t : -1+(4-2*t)*t, // From: https://gist.github.com/gre/1650294 
+  })
+*/
+export const animateValues = (values, duration, options) => {
+  // Linear interpolation (already present in the same file)
+  // const lerp = (source, target, amount) => source + amount * (target - source)
+  
+  // Validation methods
+  const checkNum = n => typeof n === 'number' ? n : null
+  const checkFunc = f => typeof f === 'function' ? f : _ => _
+  
+  // Ensure methods. 
+  const onComplete = checkFunc(options.onComplete)
+  const onUpdate = checkFunc(options.onUpdate)
+  const ease = checkFunc(options.ease)
+  
+  // Animation start time
+  const start = Date.now()
+  
+  // Create a map <key: [from, to]>
+  const animationMap = Object.keys(values).reduce((map, key) => {
+    const _from = checkNum(values[key])
+    const _to = checkNum(options[key])
+    if (_from !== null && _to !== null) map[key] = [_from, _to]
+    return map
+  }, {})
+  
+  // List of animating values
+  const keys = Object.keys(animationMap)
+  
+  // Create & run animation function
+  const animation = () => {
+    const now = Date.now()
+    let t = duration > 0 ? (now - start) / duration : 1
+    
+    // Update all values using 't'
+    keys.forEach(key => {
+      // If both 'from' and 'to' are numbers: animate!
+      const [_from, _to] = animationMap[key]
+      const progress = ease(t, _from, _to, duration)
+      // console.log(progress)
+      // Update value
+      values[key] = lerp(_from, _to, progress)
+    })
+    
+    // If complete..
+    if (t >= 1) {
+      // Final update for all keys
+      keys.forEach(key => (values[key] = options[key]))
+      onUpdate(values)
+      onComplete(values)
+    } else {
+      // Run update callback and loop until finished
+      onUpdate(values)
+      requestAnimationFrame(animation)
+    }
+  }
+  animation()
 }

@@ -12,3 +12,8 @@ export const updateFgndDirArrow = isFgndArrowActive => ({
   type: 'UPDATE_IS_FGND_ARW_ACTIVE',
   payload: isFgndArrowActive
 })
+
+export const updateCurrentSlideIndex = slideIndex => ({
+  type: 'UPDATE_CURRENT_SLIDE_INDEX',
+  payload: slideIndex
+})

@@ -25,7 +25,7 @@ export const initAnimation = () => {
   //   To be fix if such strategy is necessary (Animate on view)
   //
   const animateIfInViewEvenType = [
-    // 'resize', //activate on Smartphone
+    // 'resize', //active on smartPhone and bug CSS setting BUG
     // 'scroll', activate on Smartphone
     'keydown',
     'keyup',
@@ -38,10 +38,12 @@ export const initAnimation = () => {
     window.addEventListener(
       type,
       function() {
-        console.log("animateIfInView FIRED", type)
+        // console.log("animateIfInView FIRED", type)
         animateIfInView(animatedClass)
       },
       false
     )
   )
 }
+
+
