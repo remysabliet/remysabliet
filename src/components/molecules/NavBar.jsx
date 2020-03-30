@@ -3,8 +3,8 @@ import React from 'react'
 import { addExplosionEffectOnClick } from 'helpers/utils/animation'
 import classNames from "classnames";
 
-const NavBar = React.memo(({ currentSlideIndex, isSlideControlActivated, setCurrentSlideIndex, setSlideControllerDeactivated, slides }) => {
-
+const NavBar = React.memo(({ currentSlideIndex, deviceInfo, isSlideControlActivated, setCurrentSlideIndex, setSlideControllerDeactivated, slides }) => {
+  console.log(deviceInfo)
   // Verify if the item clicked is not already active, if not, deactivate other item and active the current one
   // Also appends an effect to the current li's span 
   const toggleStyle = (id) => {
@@ -57,7 +57,7 @@ const NavBar = React.memo(({ currentSlideIndex, isSlideControlActivated, setCurr
           {slides.map((slide, index) => {
             return (
               <li id={`link${index + 1}`} className={classNames("rs-li", index === currentSlideIndex ? "active" : "")}>
-                <a className="link-container" style={{ filter: `url(#filter-goo-${index + 1})` }} onClick={() => onLinkClick(index)}>
+                <a className={classNames("link-container",  deviceInfo === "safari" ? "safari" : "")} style={{ filter: `url(#filter-goo-2)` }} onClick={() => onLinkClick(index)}>
                 <span className="span__bg">
                 </span>
             </a>
