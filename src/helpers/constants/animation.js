@@ -2,6 +2,8 @@ export const squareConf = {
   MAX_AMPL: 600
 }
 
+export const CONST_SLIDE_TRANSITION_DURATION = 3000; //ms
+
 export const portraitAnimSetting = [
   {
     msTime: 0,

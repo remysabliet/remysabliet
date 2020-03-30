@@ -1,15 +1,14 @@
-import { gsap } from 'gsap'
-
 import { getRandom } from 'helpers/utils/miscellaneous'
 
 /**
  * Linear interpolation, to find corresponding values of a range [start, end] for an indicator t (ratio or time)
  * @param {*} start of a range
  * @param {*} end of a range
- * @param {*} ratio value between 1 and 0 to define the progress in a range 
+ * @param {*} ratio value between 1 and 0 to define the progress in a range
  * lerp(20,80,05) => 50
  */
-export const lerp = (start, end, progress) => start + progress * (end - start);
+export const lerp = (start, end, progress) =>
+  start + progress * (end - start)
 
 // https://gist.github.com/gre/1650294
 /*
@@ -18,37 +17,52 @@ export const lerp = (start, end, progress) => start + progress * (end - start);
  */
 export const EasingFunctions = {
   // no easing, no acceleration
-  linear: t=> t,
+  linear: t => t,
   // accelerating from zero velocity
-  easeInQuad: t=> t*t ,
+  easeInQuad: t => t * t,
   // decelerating to zero velocity
-  easeOutQuad: t=> t*(2-t),
+  easeOutQuad: t => t * (2 - t),
   // acceleration until halfway, then deceleration
-  easeInOutQuad: t=> t<.5 ? 2*t*t : -1+(4-2*t)*t ,
-  // accelerating from zero velocity 
-  easeInCubic: t=> t*t*t,
-  // decelerating to zero velocity 
-  easeOutCubic: t=> (--t)*t*t+1,
-  // acceleration until halfway, then deceleration 
-  easeInOutCubic: t=> t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
-  // accelerating from zero velocity 
-  easeInQuart: t=> t*t*t*t ,
-  // decelerating to zero velocity 
-  easeOutQuart: t=> 1-(--t)*t*t*t,
-  // acceleration until halfway, then deceleration
-  easeInOutQuart: t=> t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
+  easeInOutQuad: t =>
+    t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
   // accelerating from zero velocity
-  easeInQuint: t =>  t*t*t*t*t ,
+  easeInCubic: t => t * t * t,
   // decelerating to zero velocity
-  easeOutQuint: t=> 1+(--t)*t*t*t*t,
-  // acceleration until halfway, then deceleration 
-  easeInOutQuint: t=> t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t,
+  easeOutCubic: t => --t * t * t + 1,
+  // acceleration until halfway, then deceleration
+  easeInOutCubic: t =>
+    t < 0.5
+      ? 4 * t * t * t
+      : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+  // accelerating from zero velocity
+  easeInQuart: t => t * t * t * t,
+  // decelerating to zero velocity
+  easeOutQuart: t => 1 - --t * t * t * t,
+  // acceleration until halfway, then deceleration
+  easeInOutQuart: t =>
+    t < 0.5
+      ? 8 * t * t * t * t
+      : 1 - 8 * --t * t * t * t,
+  // accelerating from zero velocity
+  easeInQuint: t => t * t * t * t * t,
+  // decelerating to zero velocity
+  easeOutQuint: t => 1 + --t * t * t * t * t,
+  // acceleration until halfway, then deceleration
+  easeInOutQuint: t =>
+    t < 0.5
+      ? 16 * t * t * t * t * t
+      : 1 + 16 * --t * t * t * t * t,
   // elastic bounce effect at the beginning
-  easeInElastic: t => (.04 - .04 / t) * Math.sin(25 * t) + 1,
+  easeInElastic: t =>
+    (0.04 - 0.04 / t) * Math.sin(25 * t) + 1,
   // elastic bounce effect at the end
-  easeOutElastic: t=> .04 * t / (--t) * Math.sin(25 * t),
+  easeOutElastic: t =>
+    ((0.04 * t) / --t) * Math.sin(25 * t),
   // elastic bounce effect at the beginning and end
-  easeInOutElastic: t=> (t -= .5) < 0 ? (.01 + .01 / t) * Math.sin(50 * t) : (.02 - .01 / t) * Math.sin(50 * t) + 1 
+  easeInOutElastic: t =>
+    (t -= 0.5) < 0
+      ? (0.01 + 0.01 / t) * Math.sin(50 * t)
+      : (0.02 - 0.01 / t) * Math.sin(50 * t) + 1
 }
 
 export const delay = (t, v) => {
@@ -87,21 +101,21 @@ export const currentFps = (
 
 /**
  * This function activate animation on DOM element inside the viewport
- * 
+ *
  *  1) Retrieve all elements owning "rs-js-animated-element" class inside the DOM
  *  2) For any of the element, retrieve a data attribute "animInView" whose contains className to apply
  *    if the element come into the viewport
  *  3) Check wether those elements inner boundaries are in view, that is to say
  *   whether their top boundary is equal or above viewport's top boundary and bottom boundary is above window bottom boundary
- * 
- *   When running the function for the first time, all the element will have boundaries = 0 (because hidden) and so will be considered as IN VIEW, 
+ *
+ *   When running the function for the first time, all the element will have boundaries = 0 (because hidden) and so will be considered as IN VIEW,
  *   at the second call of the function, their boundaries would have been initialized and so will disappeared if not in view
- * 
+ *
  *  4) if inside the viewport, add an animation class = dataset.animInView to the div element in order to trigger animation
  *     if outside the viewport, remove the animation class previously added from the div element
  */
 export const animateIfInView = className => {
-  const errorMarginPx = 10 // We will allow an error Margin of 2 pixel to define whether an element is in view or not
+  const errorMarginPx = 200 // We will allow an error Margin of 2 pixel to define whether an element is in view or not
   const windowTopPos = 0
   const windowBottomPos =
     windowTopPos + window.innerHeight
@@ -141,15 +155,15 @@ export const animateIfInView = className => {
         'rs-js-slide-up'
       let activate = false
 
-      // console.log("DEBUG animatedElement #3 elemTopPos:", elemTopPos, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos, "windowBottomPos:", windowBottomPos)
+      // console.log("DEBUG animatedElement #3 elemTopPos:", elemTopPos + errorMarginPx, "windowTopPos:", windowTopPos, "elemBottonPos:", elemBottomPos - errorMarginPx, "windowBottomPos:", windowBottomPos)
       if (
-        ((elemTopPos + errorMarginPx >=
+        (elemTopPos + errorMarginPx >=
           windowTopPos &&
           elemTopPos <= windowBottomPos) ||
-          (elemBottomPos - errorMarginPx >=
-            windowTopPos &&
-            elemBottomPos <= windowBottomPos))
-         //  && elemTopPos + elemBottomPos !== 0 // object which doesnt appears on screens happens to have all boundaries = 0
+        (elemBottomPos - errorMarginPx >=
+          windowTopPos &&
+          elemBottomPos <= windowBottomPos)
+        //  && elemTopPos + elemBottomPos !== 0 // object which doesnt appears on screens happens to have all boundaries = 0
       ) {
         activate = true
       }
@@ -160,11 +174,11 @@ export const animateIfInView = className => {
         //   document.getElementsByClassName(
         //     '.js-slide-up .siblings'
         //   ),
-        //   elemTopPos,
+        //   elemTopPos + errorMarginPx,
         //   'windowTopPos:',
         //   windowTopPos,
         //   'elemBottonPos:',
-        //   elemBottomPos,
+        //   elemBottomPos - errorMarginPx,
         //   'windowBottomPos:',
         //   windowBottomPos
         // )
@@ -319,52 +333,73 @@ export const addExplosionEffectOnClick = originNode => {
     ease: t => t<.5 ? 2*t*t : -1+(4-2*t)*t, // From: https://gist.github.com/gre/1650294 
   })
 */
-export const animateValues = (values, duration, options) => {
+export const animateValues = (
+  values,
+  targets,
+  duration,
+  options
+) => {
   // Linear interpolation (already present in the same file)
   // const lerp = (source, target, amount) => source + amount * (target - source)
-  
+
   // Validation methods
-  const checkNum = n => typeof n === 'number' ? n : null
-  const checkFunc = f => typeof f === 'function' ? f : _ => _
-  
-  // Ensure methods. 
+  const checkNum = n =>
+    typeof n === 'number' ? n : null
+  const checkFunc = f =>
+    typeof f === 'function' ? f : _ => _
+
+  // Ensure methods.
   const onComplete = checkFunc(options.onComplete)
   const onUpdate = checkFunc(options.onUpdate)
   const ease = checkFunc(options.ease)
-  
+
   // Animation start time
   const start = Date.now()
-  
-  // Create a map <key: [from, to]>
-  const animationMap = Object.keys(values).reduce((map, key) => {
-    const _from = checkNum(values[key])
-    const _to = checkNum(options[key])
-    if (_from !== null && _to !== null) map[key] = [_from, _to]
-    return map
-  }, {})
-  
-  // List of animating values
-  const keys = Object.keys(animationMap)
-  
+
   // Create & run animation function
   const animation = () => {
     const now = Date.now()
-    let t = duration > 0 ? (now - start) / duration : 1
+    let t =
+      duration > 0 ? (now - start) / duration : 1
     
+    /** Targets values can potentially be updated on the fly, so we need to incorporate those possible changes */
+    // Create a map <key: [from, to]>
+    const animationMap = Object.keys(
+      values
+    ).reduce((map, key) => {
+      const _from = checkNum(values[key])
+      const _to = checkNum(targets[key])
+      if (_from !== null && _to !== null)
+        map[key] = [_from, _to]
+      return map
+    }, {})
+
+
+
+    // List of animating values
+    const keys = Object.keys(animationMap)
+
     // Update all values using 't'
     keys.forEach(key => {
       // If both 'from' and 'to' are numbers: animate!
       const [_from, _to] = animationMap[key]
-      const progress = ease(t, _from, _to, duration)
+      const progress = ease(
+        t,
+        _from,
+        _to,
+        duration
+      )
       // console.log(progress)
       // Update value
       values[key] = lerp(_from, _to, progress)
     })
-    
+
     // If complete..
     if (t >= 1) {
       // Final update for all keys
-      keys.forEach(key => (values[key] = options[key]))
+      keys.forEach(
+        key => (values[key] = targets[key])
+      )
       onUpdate(values)
       onComplete(values)
     } else {

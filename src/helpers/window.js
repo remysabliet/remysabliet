@@ -46,4 +46,9 @@ export const initAnimation = () => {
   )
 }
 
-
+// For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
+//     when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
+//     Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
+//     to prevent that we fire this function at least one time/sec
+// const intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
+// window.clearInterval(this.intervalAnimDesktop)

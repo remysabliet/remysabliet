@@ -3,7 +3,8 @@ import React from 'react'
 import { addExplosionEffectOnClick } from 'helpers/utils/animation'
 import classNames from "classnames";
 
-const NavBar = React.memo(({ setCurrentSlideIndex, slides }) => {
+const NavBar = React.memo(({ currentSlideIndex, isSlideControlActivated, setCurrentSlideIndex, setSlideControllerDeactivated, slides }) => {
+
   // Verify if the item clicked is not already active, if not, deactivate other item and active the current one
   // Also appends an effect to the current li's span 
   const toggleStyle = (id) => {
@@ -27,6 +28,18 @@ const NavBar = React.memo(({ setCurrentSlideIndex, slides }) => {
     }
   }
 
+  const onLinkClick = ((index) => {
+    // console.log("OnLinkClick", index)
+
+    //deactivate possibility to slide during the CSS transition
+    setSlideControllerDeactivated();
+
+    if (isSlideControlActivated) {
+      toggleStyle(`link${index + 1}`)
+      setCurrentSlideIndex(index)
+    }
+  })
+
   return (
     <React.Fragment>
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
@@ -41,60 +54,19 @@ const NavBar = React.memo(({ setCurrentSlideIndex, slides }) => {
 
       <div className="rs-navbar-container" >
         <ul className="rs-nav">
-          {slides.map( (slide, index) => {return (
-            <li id={`link${index+1}`} className={classNames("rs-li", index === 0 ? "active": "")}>
-            <a className="link-container" style={{ filter: `url(#filter-goo-${index+1})` }} onClick={() => {toggleStyle(`link${index+1}`); setCurrentSlideIndex(index);}}>
-              <span className="span__bg">
-              </span>
+          {slides.map((slide, index) => {
+            return (
+              <li id={`link${index + 1}`} className={classNames("rs-li", index === currentSlideIndex ? "active" : "")}>
+                <a className="link-container" style={{ filter: `url(#filter-goo-${index + 1})` }} onClick={() => onLinkClick(index)}>
+                <span className="span__bg">
+                </span>
             </a>
           </li>
           )})}
         </ul>
       </div>
-    </React.Fragment>
+    </React.Fragment >
   )
 });
 
 export default NavBar
-
-
-{/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
-		 <defs>
-			<filter id="filter-goo-2">
-			<feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
-			<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-			<feComposite in="SourceGraphic" in2="goo" />
-			</filter>
-		</defs>
-	</svg> */}
-
-
-{/* <div  class="rs-navbar-container" >
-<ul class="rs-nav">
-  <li id="link1" class="rs-li active">
-    <a class="link-container" style="filter: url('#filter-goo-2')" onclick="toggleStyle('link1')">
-      <span  class="span__bg">
-      </span>
-    </a>
-  </li>
-  <li id="link2" class="rs-li">
-    <a  class="link-container" onclick="toggleStyle('link2')" style="filter: url('#filter-goo-2')"><span  class="span__bg"></span></a>
-  </li>
-  
-    <li id="link3" class="rs-li">
-    <a  class="link-container" onclick="toggleStyle('link3')" style="filter: url('#filter-goo-2')"><span  class="span__bg"></span></a>
-  </li>
-  
-    <li id="link4" class="rs-li">
-    <a  class="link-container" onclick="toggleStyle('link4')" style="filter: url('#filter-goo-2')"><span  class="span__bg"></span></a>
-  </li>
-</ul> */}
-
-
-{/* <nav className='rs-nav'>
-{slides.map(slide => (
-  <Link smooth to={`/#${slide}`}>
-    {slide}
-  </Link>
-))}
-</nav> */}

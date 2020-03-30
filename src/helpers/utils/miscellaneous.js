@@ -90,6 +90,6 @@ export function getLocale() {
     || navigator.userLanguage // IE <= 10
 
   const browserCountryCode = locale && locale.length > 2 ? locale.substr(0, 2) : locale
-  console.log(browserCountryCode, locales, locales.indexOf(browserCountryCode))
+  console.log("Language: ", browserCountryCode)
   return locales.filter(element => element.locale === browserCountryCode).length > 0 ? browserCountryCode : 'en'
 }

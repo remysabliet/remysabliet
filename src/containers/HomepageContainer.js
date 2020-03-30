@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
-import { updateCurrentSlideIndex } from 'actions/global'
+import { updateCurrentSlideIndex,  } from 'actions/global'
+
 
 /**
  * Return isForegroundDirArrowActive store property (will be available as props of the component inheritating this function)
@@ -19,7 +20,8 @@ const mapStateToProps = state => {
  */
 function mapDispatchToProps(dispatch) {
   const updateCurrentSlide = slideIndex => {
-    dispatch(updateCurrentSlideIndex(slideIndex))
+    // console.log("NEW SLIDE INDEX", slideIndex)
+    dispatch(updateCurrentSlideIndex(slideIndex));
   }
 
   // Other method related to homepage to be added

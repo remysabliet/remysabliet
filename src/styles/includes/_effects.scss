@@ -44,15 +44,12 @@ we must add some additional time to animatedElement to make it more natural
     animation: slide-right-anim 3s forwards;
   }
 
-  
   &.rs-js-slide-right-css-config {
     animation: slide-right-anim 3s forwards
       calc(
         calc(var(--slideTransitionDelay) * 1s) / 2
       ); // We add a delay of half the time of a transition between slide
   }
-
-
 }
 
 .rs-matrix {

@@ -1,6 +1,11 @@
 import { connect } from 'react-redux'
 
-import { updateFgndDirArrow } from 'actions/global'
+import {
+  updateFgndDirArrow,
+  updateIsSlideControlActivated
+} from 'actions/global'
+
+import { CONST_SLIDE_TRANSITION_DURATION } from 'helpers/constants/animation'
 
 /**
  * Return isForegroundDirArrowActive store property (will be available as props of the component inheritating this function)
@@ -9,7 +14,9 @@ import { updateFgndDirArrow } from 'actions/global'
 const mapStateToProps = state => {
   return {
     isForegroundDirArrowActive:
-      state.animation.isForegroundDirArrowActive
+      state.animation.isForegroundDirArrowActive,
+    isSlideControlActivated:
+      state.animation.isSlideControlActivated
   }
 }
 
@@ -22,10 +29,22 @@ function mapDispatchToProps(dispatch) {
     dispatch(updateFgndDirArrow(isActive))
   }
 
+  // Deactivate and then reactivate control over slide change (navigation)
+  const updateSlideMoveController = () => {
+    dispatch(updateIsSlideControlActivated(false))
+    setTimeout(
+      () =>
+        dispatch(
+          updateIsSlideControlActivated(true)
+        ),
+      CONST_SLIDE_TRANSITION_DURATION
+    )
+  }
   // Other animation related method update to be added
 
   return {
-    setFgndArrowActive: updateFgndArrowActive
+    setFgndArrowActive: updateFgndArrowActive,
+    setSlideControllerDeactivated: updateSlideMoveController
     // other setter to be added
   }
 }

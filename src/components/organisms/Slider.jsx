@@ -3,7 +3,8 @@ import React from 'react'
 import MagicSlider from 'helpers/HOC/MagicSlider'
 import AnimationContainer from 'containers/AnimationContainer'
 
-import { animateIfInView, delay } from "helpers/utils/animation"
+import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
+import { animateIfInView, delay,  } from "helpers/utils/animation"
 
 /**
  * Component representing the slider and its different states
@@ -15,8 +16,8 @@ class Slider extends React.PureComponent {
   constructor(props) {
     super(props)
     const { slides } = props
-
-    this.intervalAnimDesktop = undefined;
+     
+    this.intervalAnimDesktop = -1;
 
     this.state = {
       currentSlide: slides[0],
@@ -61,22 +62,24 @@ class Slider extends React.PureComponent {
    * componentDidUpdate (in charge of pausing or starting slide animation) won't be called if we don't state doesn't change
    */
   componentDidMount() {
+    //We initialize viewport SCSS variable --vh/--vw
+    recomputeViewportSize()
     this.resumeAnimation(this.state.currentSlide)
     this.activateForegroundDirectionalArrowOnHome(true);
     if (["ios", "android"].includes(this.props.deviceInfo)) {
       // console.log("mounted Slider IOS/android");
       this.manageSmartphoneAnimation(undefined, this.state.currentSlide)
+    } else {
+      // For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
+      //  when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
+      //  Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
+      //  to prevent that we fire this function at least one time/sec
+      this.intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
     }
-
-    // For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
-    // when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
-    // Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
-    // to prevent that we fire this function at least one time/sec
-    this.intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
   }
 
-  componentWillUnmount(){
-    window.clearInterval(this.this.intervalAnimDesktop)
+  componentDidUnmount() {
+    window.clearInterval(this.intervalAnimDesktop)
   }
 
   /**
@@ -225,7 +228,7 @@ class Slider extends React.PureComponent {
     if (currentSlide === slides[0] && !foregroundArrayHasBeenDeactivatedOnce) {
       await delay(7000).then(() => {
         if (currentSlide === slides[0] && !this.state.foregroundArrayHasBeenDeactivatedOnce) {
-          console.log("foregroundArrayHasBeenDeactivatedOnce", this.state.foregroundArrayHasBeenDeactivatedOnce)
+          // console.log("foregroundArrayHasBeenDeactivatedOnce", this.state.foregroundArrayHasBeenDeactivatedOnce)
           setFgndArrowActive(isActive);
         }
       }
@@ -269,4 +272,4 @@ class Slider extends React.PureComponent {
   }
 }
 
-export default MagicSlider(AnimationContainer(Slider))
+export default AnimationContainer(MagicSlider((Slider)))
