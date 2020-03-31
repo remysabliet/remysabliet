@@ -1,12 +1,10 @@
-
 $slide-count: 3; // Number of slide inside the slider
 
 // Slide transition animation
 @for $i from 1 to $slide-count {
   .rs-move-#{$i}-slide-down {
     transform: translateY(calc(#{$i} * -100 * var(--vh)));
-    transition: calc(var(--slideTransitionDelay) * 1s)
-      ease-in-out;
+    transition: calc(var(--slideTransitionDelay) * 1s) ease-in-out;
   }
 }
 
@@ -30,18 +28,11 @@ $slide-count: 3; // Number of slide inside the slider
     width: 100vw;
     height: calc(calc(var(--vh) * 100));
     // prevent height problem on mobile because of url bar
-    max-height: calc(
-      var(--vh) * 100
-    ); //prevent height problem on mobile because of url bar
-    min-height: calc(
-      var(--vh) * 100
-    ); //prevent height problem on mobile because of url bar
+    max-height: calc(var(--vh) * 100); //prevent height problem on mobile because of url bar
+    min-height: calc(var(--vh) * 100); //prevent height problem on mobile because of url bar
     margin: 0;
 
-    transition: calc(
-        var(--slideTransitionDelay) * 1s
-      )
-      ease-in-out; // This transition will helps to come back to the first slide smoothly from the second slide
+    transition: calc(var(--slideTransitionDelay) * 1s) ease-in-out; // This transition will helps to come back to the first slide smoothly from the second slide
 
     .rs-home {
       @include pausing-anim();
@@ -124,17 +115,15 @@ $slide-count: 3; // Number of slide inside the slider
         @include flexbox();
         @include flex-direction(column);
         width: 70vw;
-        background: url('../assets/img/calligraphyPaper.jpg')
-          no-repeat center;
+        background: url("../assets/img/calligraphyPaper.jpg") no-repeat center;
         background-size: 100% 100%;
         border-width: 3px;
         border-style: outset;
-        -webkit-box-shadow: 5px 5px 20px 5px
-          #c4ff65;
+        -webkit-box-shadow: 5px 5px 20px 5px #c4ff65;
         -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
         box-shadow: 5px 5px 20px 5px #c4ff65;
 
-        @include responsive(phone){
+        @include responsive(phone) {
           max-height: 50vh;
         }
 
@@ -147,8 +136,7 @@ $slide-count: 3; // Number of slide inside the slider
         .rs-middle {
           @include flex-grow(0.6);
           height: calc(
-            var(--vh) *
-              var(--calligraphy-container-height)
+            var(--vh) * var(--calligraphy-container-height)
           ); // We can't simply concatenate unit string to value, we must perform a calculation
           padding: 1rem;
         }
@@ -241,9 +229,12 @@ $slide-count: 3; // Number of slide inside the slider
               .rs-logo {
                 display: inline-block;
                 margin: $gutter * 2 0;
-                img {
-                  max-height: 3rem;
-                  //width: 1rem;
+                  a {
+                    height: 100% !important;
+                    img {
+                      max-height: 3rem;
+                    }
+
                 }
               }
             }
@@ -255,7 +246,7 @@ $slide-count: 3; // Number of slide inside the slider
             min-height: calc(var(--vh) * 100);
             // background-color: black;
             opacity: 0.7;
-            z-index: 310;
+            z-index: 299;
             right: 0;
             top: 0;
             bottom: 0;
@@ -292,7 +283,7 @@ $slide-count: 3; // Number of slide inside the slider
               max-height: calc(var(--vh) * 50);
               // background-color: black;
               opacity: 1;
-              z-index: 310;
+              z-index: 299;
               top: calc(var(--vh) * 50);
               right: 0;
               left: 0;

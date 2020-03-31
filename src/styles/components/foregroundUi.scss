@@ -7,6 +7,10 @@
   z-index: 1000;
   box-sizing: border-box;
 
+  &.top-30 {
+    max-height: 30vh;
+  }
+
   .rs-header {
     position: fixed;
     height: 5vh;
