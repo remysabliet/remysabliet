@@ -27,6 +27,16 @@ const AboutMe = props => {
   }, locale)
 
   useEffect(() => {
+    // setTimeout(() => {
+    //   const elem = document.querySelector(`.rs-about-me`)
+    //   elem.classList.add('js-pausing')
+    // },3000)
+
+    // // setTimeout(() => {
+    // //   const elem = document.querySelector(`.rs-about-me`)
+    // //   elem.classList.remove('js-pausing')
+    // // },4000)
+
     let svgElem = document.querySelectorAll(
       '.calligraphy'
     )

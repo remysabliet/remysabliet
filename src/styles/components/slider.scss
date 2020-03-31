@@ -134,6 +134,10 @@ $slide-count: 3; // Number of slide inside the slider
         -moz-box-shadow: 5px 5px 20px 5px #c4ff65;
         box-shadow: 5px 5px 20px 5px #c4ff65;
 
+        @include responsive(phone){
+          max-height: 50vh;
+        }
+
         .rs-border {
           @include flex-grow(0.05);
           height: 3vh;

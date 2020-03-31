@@ -1,5 +1,7 @@
 import React from 'react'
 
+import classNames from "classnames";
+
 import MagicSlider from 'helpers/HOC/MagicSlider'
 import AnimationContainer from 'containers/AnimationContainer'
 
@@ -10,7 +12,7 @@ import { animateIfInView, delay,  } from "helpers/utils/animation"
  * Component representing the slider and its different states
  * Enhanced by MagicSlider(in-house) HOC for scrolling/touch effect;
  * 
- * Also pause or resume slide animation depending on state.currentSlide update
+ * Pause or resume slide animation (except for Safari/ios) depending on state.currentSlide update
  */
 class Slider extends React.PureComponent {
   constructor(props) {
@@ -26,87 +28,9 @@ class Slider extends React.PureComponent {
     this.refs = slides.map(() => React.createRef())
   }
 
-  /**
-   * Invoked just before render, it returns the state to update
-   * 
-   * @param {*} props 
-   * @param {*} state 
-   */
-  static getDerivedStateFromProps(props, state) {
-    const { currentSlide } = props
-
-    if (props.currentSlide !== state.currentSlide) {
-      console.log("NOTIF Slide change :", currentSlide, props)
-
-      return {
-        currentSlide: currentSlide
-      }
-    } else if (props.foregroundArrayHasBeenDeactivatedOnce)
-      return null; // return null if the state hasn't changed
-  }
-
-  /** lever to prevent or not Full re-rendering of the page**/
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log("Slider shouldComponentUpdate", nextProps)
-
-    // Prevent rerendering if isForegroundDirArrowActive changed (Array Direction on HomeSlide)
-    if (nextProps.isForegroundDirArrowActive != this.props.isForegroundDirArrowActive) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   *  Called only at initial loading, we must activate the home page animation as
-   * componentDidUpdate (in charge of pausing or starting slide animation) won't be called if we don't state doesn't change
-   */
-  componentDidMount() {
-    //We initialize viewport SCSS variable --vh/--vw
-    recomputeViewportSize()
-    this.resumeAnimation(this.state.currentSlide)
-    this.activateForegroundDirectionalArrowOnHome(true);
-    if (["ios", "android"].includes(this.props.deviceInfo)) {
-      // console.log("mounted Slider IOS/android");
-      this.manageSmartphoneAnimation(undefined, this.state.currentSlide)
-    } else {
-      // For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
-      //  when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
-      //  Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
-      //  to prevent that we fire this function at least one time/sec
-      this.intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
-    }
-  }
-
-  componentDidUnmount() {
-    window.clearInterval(this.intervalAnimDesktop)
-  }
-
-  /**
-   * Will be called anytime the slide did change
-   * invoked right before the most recently rendered output is committed to e.g. the DOM
-   * @param {*} prevProps 
-   * @param {*} prevState 
-   */
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("componentDidUpdate")
-    //In case of slide change
-    if (prevState.currentSlide !== this.state.currentSlide) {
-      this.resumeAnimation(this.state.currentSlide);
-      this.pauseAnimation(prevState.currentSlide);
-
-      /** deactivate the directional arrow in foregroundUI if it has not been done yet */
-      if (!this.state.foregroundArrayHasBeenDeactivatedOnce) {
-        this.setState({ foregroundArrayHasBeenDeactivatedOnce: true })
-        prevProps.setFgndArrowActive(false);
-      }
-
-      if (["ios", "android"].includes(this.props.deviceInfo)) {
-        // console.log("componentDidUpdate IOS/android");
-        this.manageSmartphoneAnimation(prevState.currentSlide, this.state.currentSlide)
-      }
-    }
-  }
+  /***************************************************/
+  /****************     Methods    ******************/
+  /*************************************************/
 
   /**
    * Makes element animated and visible based on the current slide change
@@ -163,7 +87,7 @@ class Slider extends React.PureComponent {
   }
   /**
    * - Pause animation at the slide level 
-   * - remove CSS will-change properties from moving DOM element
+   * - remove CSS will-change properties from moving DOM element for performance
    * @param {*} slideRef 
    */
   pauseAnimation(slideRef) {
@@ -195,7 +119,7 @@ class Slider extends React.PureComponent {
 
   /**
    * - Start animation at the slide level 
-   * - add CSS will-change properties to moving DOM element
+   * - add CSS will-change properties to moving DOM element for performance
    * @param {*} slideRef 
    */
   resumeAnimation(slideRef) {
@@ -240,6 +164,95 @@ class Slider extends React.PureComponent {
     }
   }
 
+
+  /*******************************************************/
+  /****************     REACT HOOKS    ******************/
+  /*****************************************************/
+
+  /**
+   * Invoked just before render, it returns the state to update
+   * 
+   * @param {*} props 
+   * @param {*} state 
+   */
+  static getDerivedStateFromProps(props, state) {
+    const { currentSlide } = props
+
+    if (props.currentSlide !== state.currentSlide) {
+      console.log("NOTIF Slide change :", currentSlide, props)
+
+      return {
+        currentSlide: currentSlide
+      }
+    } else if (props.foregroundArrayHasBeenDeactivatedOnce)
+      return null; // return null if the state hasn't changed
+  }
+
+    /**
+   *  Called only at initial loading, we must activate the home page animation as
+   * componentDidUpdate (in charge of pausing or starting slide animation) won't be called if we don't state doesn't change
+   */
+  componentDidMount() {
+    //We initialize viewport SCSS variable --vh/--vw
+    recomputeViewportSize()
+    this.resumeAnimation(this.state.currentSlide)
+    this.activateForegroundDirectionalArrowOnHome(true);
+    if (["ios", "android"].includes(this.props.deviceInfo)) {
+      // console.log("mounted Slider IOS/android");
+      this.manageSmartphoneAnimation(undefined, this.state.currentSlide)
+    } else {
+      // For desktop device, the Slider effect is based on MagicSlider algorithm where screen move by itself 
+      //  when passing to an other slide and where animateIfInView() is called only with keyboard/mouse user interaction.
+      //  Because of the screen moving by itself, even if some element may appears in view they wont be visible because animateIfInView not fired, 
+      //  to prevent that we fire this function at least one time/sec
+      this.intervalAnimDesktop = setInterval(() => animateIfInView(), 1000);
+    }
+  }
+
+  /** lever to prevent or not Full re-rendering of the page**/
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log("Slider shouldComponentUpdate", nextProps)
+
+    // Prevent rerendering if isForegroundDirArrowActive changed (Array Direction on HomeSlide)
+    if (nextProps.isForegroundDirArrowActive != this.props.isForegroundDirArrowActive) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  componentDidUnmount() {
+    window.clearInterval(this.intervalAnimDesktop)
+  }
+
+  /**
+   * Will be called anytime the slide did change
+   * invoked right before the most recently rendered output is committed to e.g. the DOM
+   * @param {*} prevProps 
+   * @param {*} prevState 
+   */
+  componentDidUpdate(prevProps, prevState) {
+    //In case of slide change
+    if (prevState.currentSlide !== this.state.currentSlide) {
+      this.resumeAnimation(this.state.currentSlide);
+          // Safari animation-play-state is not working for years now
+      if(!(prevProps.deviceInfo==="safari" || prevProps.deviceInfo==="ios")){
+        this.pauseAnimation(prevState.currentSlide);
+      }
+
+      /** deactivate the directional arrow in foregroundUI if it has not been done yet */
+      if (!this.state.foregroundArrayHasBeenDeactivatedOnce) {
+        this.setState({ foregroundArrayHasBeenDeactivatedOnce: true })
+        prevProps.setFgndArrowActive(false);
+      }
+
+      if (["ios", "android"].includes(this.props.deviceInfo)) {
+        // console.log("componentDidUpdate IOS/android");
+        this.manageSmartphoneAnimation(prevState.currentSlide, this.state.currentSlide)
+      }
+    }
+  }
+  
   /**
    *
    *  Make a loop through children to add specific Slide properties
@@ -247,12 +260,12 @@ class Slider extends React.PureComponent {
    * because not an array
    */
   render() {
-    const { children, slides, currentSlide, ...others } = this.props
+    const { children, deviceInfo, slides, currentSlide, ...others } = this.props
     const childrenArr = children && children.length ? children : [children]
 
     // console.log("Slider Render", this.props, this.state)
     return (
-      <div className="rs-slider-container">
+      <div className={classNames(deviceInfo === "safari" ? "safari" : "", "rs-slider-container")}>
         {childrenArr.map((child, i) => {
           const slide = slides[i]
           const additionalProps = {

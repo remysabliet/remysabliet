@@ -21,9 +21,11 @@ const HomePage = props => {
       <SVGLoader />
       <ForegroundUI {...props} slides={slides} />
       <Slider {...props} slides={slides}>
+        
         <Slide>
           <Home />
         </Slide>
+
         <Slide>
           <AboutMe />
         </Slide>

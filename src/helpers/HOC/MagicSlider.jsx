@@ -1,17 +1,17 @@
 import React from 'react'
 // import { statisticLogs, elapsedTime, currentFps } from 'helpers/utils/animation'
 
-import { animateValues, EasingFunctions } from "helpers/utils/animation"
-import { CONST_SLIDE_TRANSITION_DURATION } from "helpers/constants/animation"
+import { animateValues, EasingFunctions } from 'helpers/utils/animation'
+import { CONST_SLIDE_TRANSITION_DURATION } from 'helpers/constants/animation'
 
-import innerHeight from 'ios-inner-height';
+import innerHeight from 'ios-inner-height'
 
 import _ from 'lodash'
 
 /**
  * This HOC ensure a sliding effect for both desktop browsers and smartphone
  * Desktop browser sliding effect is handled via vanillaJS whereas Smartphone is handled via CSS animation
- * Event Type leveraged: 
+ * Event Type leveraged:
  *   All Device: resize
  *   Mobile: touchstart/touchmove
  *   Browser: wheel + keyup/keydown
@@ -23,7 +23,7 @@ const MagicSlider = WrappedComponent => {
   class HOC extends React.PureComponent {
     constructor(props) {
       super(props)
-      console.log("props MagicSlider", props)
+      // console.log('props MagicSlider', props)
       this.handleOnWheel = this.handleOnWheel.bind(this)
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
@@ -39,7 +39,7 @@ const MagicSlider = WrappedComponent => {
       // We can't work with React State to manage this variable as the slider effect
       // algorithm require a recursivity call (high speed)
       // setState is asynchronous and quickly saturated (queue),
-      // setState doesn't update quickly enough to follow the natural speed of the slider effect 
+      // setState doesn't update quickly enough to follow the natural speed of the slider effect
       // to provide a smooth rendering.
 
       this.viewportHeight = 0
@@ -54,9 +54,8 @@ const MagicSlider = WrappedComponent => {
       this.startTime = 0
       this.now = 0
       this.then = 0
-      this.elapse =
-        this.animationFrequency = 60; // 60 => max possible using requestAnimationFrame(callback) Hz
-      this.isLoopActive = false; // control the recursive loop to adjust the screen position (call to magicSlider)
+      this.elapse = this.animationFrequency = 60 // 60 => max possible using requestAnimationFrame(callback) Hz
+      this.isLoopActive = false // control the recursive loop to adjust the screen position (call to magicSlider)
 
       /* Mobile Variable*/
       this.touchesInAction = {}
@@ -70,12 +69,15 @@ const MagicSlider = WrappedComponent => {
 
       // Purpose of throttle function is to limit the number of invokation of a function (here translateSlide) every period of time
       // this.throttleTranslateSlide = _.throttle(this.translateSlide, CONST_SLIDE_TRANSITION_DURATION)
-      this.throttleMoveViewport = _.throttle(this.moveViewportToSlide, CONST_SLIDE_TRANSITION_DURATION)
+      this.throttleMoveViewport = _.throttle(
+        this.moveViewportToSlide,
+        CONST_SLIDE_TRANSITION_DURATION
+      )
 
       //uSe as global variable to be leverage by handleResize() function
-      this.nextSlideIndex = 0;
+      this.nextSlideIndex = 0
       // Slide displayed to user
-      this.slidePositionIndex = 0; // Slide index position
+      this.slidePositionIndex = 0 // Slide index position
       this.currentSlideYPosition = 0 // represent the Y position of the viewport (to be multiply with viewportHeight to get pixel positon)
       // I keep React state Management for variables which either doesn'nt change often or which require to trigger a render
       // In order to pass updated props to the wrapped component
@@ -84,154 +86,52 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
-    /**---------------------------------  React Hooks  -------------------------------------
-     */
-
-
-    // /** 
-    //  * Invoked just before render, it returns the state to update
-    //  * 
-    //  * @param {*} props 
-    //  * @param {*} state 
-    //  */
-    // static getDerivedStateFromProps(props, state) {
-
-    //   if (props.currentSlideIndex !== props.slides.indexOf(state.currentSlide)) {
-    //     // console.log("Magic Slide getDerivedStateFromProps  new slideIndex:", props.currentSlideIndex, "previous slide", state.currentSlide)
-    //     // We shouldnt update State.currentSlide here because we also have to update this.slidePositionIndex , we cant as we are in a static function
-    //   }
-    //   return null; // return null if the state hasn't changed
-    // }
-
-    /**
-     * We apply a lower fps in order to reduce freezing effect
-     * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
-     */
-    componentDidMount() {
-      const { deviceInfo } = this.props
-
-      // Initialize vh property
-      window.scrollTo(0, 10)
-      this.handleResize()
-      // console.log(deviceInfo)
-      if (['ios', 'android'].includes(deviceInfo)) {
-        window.addEventListener('touchstart', this.touchStartHandler, false)
-        // window.addEventListener('touchend', this.touchEndHandler, false)
-        window.addEventListener('touchmove', this.onTouchMoveHandler, false)
-      } else {
-        // Browser
-        window.addEventListener('wheel', this.handleOnWheel, false)
-        window.addEventListener('keyup', this.keyUpHandler, false)
-        window.addEventListener('keydown', this.keyDownHandler, false)
-      }
-
-      // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
-      // below function will be called in order to update our Slide's height accordingly
-      window.addEventListener('resize', this.handleResize)
-    }
-
-    /**
-     * We trigger rerendering only if current slide change
-     * 
-     * @param {*} nextState 
-     */
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   const { currentSlide } = this.state;
-    //   console.log("ShouldComponentUpate", nextState.currentSlide, currentSlide)
-    //   if (nextState.currentSlide !== currentSlide)
-    //     return true
-    //   return false
-    // }
-
-    /**
-  * Will be called anytime the slide did change
-  * invoked right before the most recently rendered output is committed to e.g. the DOM
-  * @param {*} prevProps 
-  * @param {*} prevState 
-  */
-    componentDidUpdate(prevProps) {
-      // console.log("MagicSlider HOC componentDidUpdate")
-
-      // NAVBAR UPDATE
-      // Decide whether we start animation to switch of slide. 
-      // We must invoke this function only if the change has been coming from the store (and so updated by Navbar)
-      // Must prevent change if the store.homepage.currentSlideIndex has been updated by magicSlider() itself
-      if (prevProps.currentSlideIndex !== this.props.currentSlideIndex && this.props.currentSlideIndex != this.props.slides.indexOf(this.state.currentSlide)) {
-        console.log("componentDidUpdate indexChange ", "currentIndex", this.props.slides.indexOf(this.state.currentSlide), "moving to ", this.props.currentSlideIndex)
-        // this.setState({ currentSlide: this.props.slides[this.props.currentSlideIndex] });
-        // this.currentSlideYPosition = this.props.currentSlideIndex;
-        // this.slidePositionIndex = this.props.currentSlideIndex;
-
-        /**Remove Slide Transform related class if exists */
-        // const slides = this.getSlidesNodes();
-        // if (slides) {
-        //   Array.prototype.forEach.call(slides, (slideNode => {
-        //     const classToRemove = Array.prototype.filter.call(slideNode.classList, (x => { return x !== "rs-slide" }))
-        //     // Remove Slide Translation related class
-        //     classToRemove.forEach(classN => slideNode.classList.remove(classN))
-
-        //     console.log("NODE AFTER REMOVE ", slideNode.classList)
-        //   }))
-        // }
-
-        // Move viewport to the next class
-        this.moveViewportToSlide(this.props.currentSlideIndex);
-      }
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('touchstart', this.touchStartHandler, false)
-      // window.removeEventListener('touchend', this.touchEndHandler, false)
-      window.removeEventListener('wheel', this.handleOnWheel, false)
-      window.removeEventListener('resize', this.handleResize, false)
-      window.removeEventListener('keyup', this.keyUpHandler, false)
-      window.removeEventListener('keydown', this.keyDownHandler, false)
-    }
-
-    /**---------------------------------  Methods  -------------------------------------*/
+    /***************************************************/
+    /****************     Methods    ******************/
+    /*************************************************/
 
     /**
      * Move viewport to slide index provided in parameter
      * This function will be called only if its props.currentSlideIndex has been updated
      * Meaning that user updated the slideIndex by clicking on the navigation bar
-     * @param {*} slideIndex 
+     * @param {*} slideIndex
      */
     async moveViewportToSlide(nextSlideIndex) {
-      console.log("moveViewportToSlide", "nextSlideIndex", nextSlideIndex, "origin in Y", this.props.slides.indexOf(this.state.currentSlide) * this.viewportHeight, "target in Y", nextSlideIndex * this.viewportHeight)
+      this.nextSlideIndex = nextSlideIndex
 
-      this.nextSlideIndex = nextSlideIndex;
+      const animDuration = CONST_SLIDE_TRANSITION_DURATION
+      const easingFunction = EasingFunctions['easeInOutQuart']
 
-      const animDuration = CONST_SLIDE_TRANSITION_DURATION;
-      const easingFunction = EasingFunctions["easeInOutQuart"]
+      //Origin point of the animation
+      const moveViewportTo = {
+        a: this.props.slides.indexOf(this.state.currentSlide) * this.viewportHeight
+      }
 
-      //Origin point of the animation 
-      const moveViewportTo = { a: this.props.slides.indexOf(this.state.currentSlide) * this.viewportHeight }
-      
       //Target point of the animation, may be corrected if windows height being resized
-      this.moveViewportTarget['a'] = this.nextSlideIndex * this.viewportHeight; 
-      
+      this.moveViewportTarget['a'] = this.nextSlideIndex * this.viewportHeight
+
       const options = {
         onUpdate: () => {
           // console.log("currentPosition.a", currentPosition.a)
           window.scrollTo(0, moveViewportTo.a)
         },
-        onComplete: async (values) => {
-          console.log("OnComplete", values)
+        onComplete: async values => {
+          // console.log('OnComplete', values)
         },
         ease: easingFunction
       }
 
       /*Update Class variables/states*/
-      this.currentSlideYPosition = nextSlideIndex;
-      this.slidePositionIndex = nextSlideIndex;
+      this.currentSlideYPosition = nextSlideIndex
+      this.slidePositionIndex = nextSlideIndex
       await this.setState({
         currentSlide: this.props.slides[nextSlideIndex]
       })
-      this.props.setCurrentSlideIndex(this.slidePositionIndex);
-      console.log("moveViewportTarget", this.moveViewportTarget)
+      this.props.setCurrentSlideIndex(this.slidePositionIndex)
+      // console.log('moveViewportTarget (animated element final Y position):', this.moveViewportTarget)
+
       //Activate Sliding effects
       animateValues(moveViewportTo, this.moveViewportTarget, animDuration, options)
-
     }
 
     startAnimating(fps) {
@@ -241,75 +141,82 @@ const MagicSlider = WrappedComponent => {
       this.magicSlider()
     }
 
-    // Update the wh 
+    // Update the wh
     handleResize() {
-      const { deviceInfo } = this.props;
-      const vhString = getComputedStyle(document.documentElement).getPropertyValue('--vh');
+      const { deviceInfo } = this.props
+      const vhString = getComputedStyle(document.documentElement).getPropertyValue('--vh')
       const windowsHeight = Number.parseFloat(vhString) * 100
       // console.log("handleResize  windowsHeihgt: ", windowsHeight)
-      this.viewportHeight = deviceInfo === "ios" ? innerHeight() : windowsHeight;
+      this.viewportHeight = deviceInfo === 'ios' ? innerHeight() : windowsHeight
 
       // Update viewport translation Y whenever the screen is resize (Smartphone Top bar disappearing)
       // this.moveViewportFrom = { a: this.props.slides.indexOf(this.state.currentSlide) * this.viewportHeight }
-      this.moveViewportTarget['a'] = this.nextSlideIndex * this.viewportHeight;
-      
-      console.log("handleResize New moveViewportTo",this.moveViewportTarget, this.nextSlideIndex )
+      this.moveViewportTarget['a'] = this.nextSlideIndex * this.viewportHeight
+
+      // console.log('handleResize New moveViewportTo', this.moveViewportTarget, this.nextSlideIndex)
     }
 
     /**
      * Mobile touch handler when start touching screen
-     * @param {*} event 
+     * @param {*} event
      */
     touchStartHandler(event) {
-      // console.log("touchStartHandler")
       // Activate the scrolling animation loop
-      this.isLoopActive = true;
-      // this.startAnimating(this.animationFrequency)
-
-      this.isLoopActive = true;
-      var touches = event.changedTouches;
+      this.isLoopActive = true
+      var touches = event.changedTouches
       for (var j = 0; j < touches.length; j++) {
         /* store touch info on touchstart */
-        this.touchesInAction["$" + touches[j].identifier] = {
+        this.touchesInAction['$' + touches[j].identifier] = {
           identifier: touches[j].identifier,
           pageX: touches[j].pageX,
           pageY: touches[j].pageY
-        };
+        }
       }
     }
 
     /**
      * Mobile touch handler when continuing touching screen while moving finger
-     * @param {*} event 
+     * @param {*} event
      */
     onTouchMoveHandler(event) {
-      var touches = event.changedTouches;
+      var touches = event.changedTouches
       for (var j = 0; j < touches.length; j++) {
         /* access stored touch info on touchend */
-        var theTouchInfo = this.touchesInAction["$" + touches[j].identifier];
-        theTouchInfo.dx = touches[j].pageX - theTouchInfo.pageX;  /* x-distance moved since touchstart */
-        theTouchInfo.dy = touches[j].pageY - theTouchInfo.pageY;  /* y-distance moved since touchstart */
+        var theTouchInfo = this.touchesInAction['$' + touches[j].identifier]
+        theTouchInfo.dx =
+          touches[j].pageX - theTouchInfo.pageX /* x-distance moved since touchstart */
+        theTouchInfo.dy =
+          touches[j].pageY - theTouchInfo.pageY /* y-distance moved since touchstart */
       }
 
       // We use  _.debounce() to prevent successful call in a specified period of time (here one sec)
-      const dir = theTouchInfo.dy > 0 ? "up" : "down";
+      const dir = theTouchInfo.dy > 0 ? 'up' : 'down'
 
-      let newSlidePosition = this.slidePositionIndex;
-      if (dir === "down") { // add 1 except when we are at the lastSlide
-        newSlidePosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1;
-      } else { // remove 1 except when we are at position 0 
-        newSlidePosition += this.slidePositionIndex === 0 ? 0 : -1;
+      let newSlidePosition = this.slidePositionIndex
+      if (dir === 'down') {
+        // add 1 except when we are at the lastSlide
+        newSlidePosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1
+      } else {
+        // remove 1 except when we are at position 0
+        newSlidePosition += this.slidePositionIndex === 0 ? 0 : -1
       }
-      // console.log("NEW SLIDE POSITION", newSlidePosition)
-      // invoke the throttled function  (every3s)
-      // console.log(dir, this.slidePositionIndex)
-      //We make sure not going outside boundaries
-      console.log("Call ", this.slidePositionIndex, newSlidePosition, dir)
-      if (!(this.slidePositionIndex === this.props.slides.length - 1 && dir === "down") && !(this.slidePositionIndex === 0 && dir === "up")) {
 
-        this.throttleMoveViewport(newSlidePosition);
+      //We make sure not going outside boundaries
+      if (
+        !(this.slidePositionIndex === this.props.slides.length - 1 && dir === 'down') &&
+        !(this.slidePositionIndex === 0 && dir === 'up')
+      ) {
+        this.throttleMoveViewport(newSlidePosition)
         //delete all the pending call to the function 200ms before the end of the current transition
-        setTimeout(function (func) { func.cancel(); }, CONST_SLIDE_TRANSITION_DURATION - 200, this.throttleMoveViewport)
+        setTimeout(
+          function(func) {
+            func.cancel()
+          },
+          CONST_SLIDE_TRANSITION_DURATION - 200,
+          this.throttleMoveViewport
+        )
+
+        /** CSS Slider related code - temporary activated as we rely on Javascript algo to perform scrolling */
 
         // this.throttleTranslateSlide(dir);
         // //delete all the pending call to the function 200ms before the end of the current transition
@@ -344,7 +251,7 @@ const MagicSlider = WrappedComponent => {
     //   let newPosition = this.slidePositionIndex;
     //   if (dir === "down") { // add 1 except when we are at the lastSlide
     //     newPosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1;
-    //   } else { // remove 1 except when we are at position 0 
+    //   } else { // remove 1 except when we are at position 0
     //     newPosition += this.slidePositionIndex === 0 ? 0 : -1;
     //   }
 
@@ -372,7 +279,7 @@ const MagicSlider = WrappedComponent => {
 
     // /**
     //  * remove class except rs-slide and then add new class if indexSlide !=0
-    //  * @param {*} slideNode 
+    //  * @param {*} slideNode
     //  */
     // updateSlideClass(slideNode) {
     //   console.log("removeSlideClass slideNode:", slideNode, "movin to Index", this.slidePositionIndex)
@@ -385,51 +292,46 @@ const MagicSlider = WrappedComponent => {
     //   classToRemove.forEach(classN => slideNode.classList.remove(classN))
     // }
 
-
     /**
      * Desktop keyboard handler when pressing key
-     * @param {*} event 
+     * @param {*} event
      */
     keyDownHandler(event) {
       // Activate the scrolling animation loop
-      this.isLoopActive = true;
+      this.isLoopActive = true
       this.startAnimating(this.animationFrequency)
 
       //38 UpArrow 40 DownArrow
       if ((event.keyCode === 38 || event.keyCode === 40) && !event.repeat) {
-        this.keyCode = event.keyCode,
-          this.keyTimestamp = event.timeStamp
+        ;(this.keyCode = event.keyCode), (this.keyTimestamp = event.timeStamp)
       }
     }
 
     /**
      * Desktop keyboard handler when releasing key
-     * @param {*} event 
+     * @param {*} event
      */
     keyUpHandler(event) {
       if (this.props.isSlideControlActivated) {
-        const elapsedTime = event.keyCode === this.keyCode ? event.timeStamp - this.keyTimestamp : 0;
+        const elapsedTime = event.keyCode === this.keyCode ? event.timeStamp - this.keyTimestamp : 0
         if (elapsedTime) {
-          const deltaY = this.keyCode === 38 ? -1 : 1;
+          const deltaY = this.keyCode === 38 ? -1 : 1
 
-
-          this.speed += deltaY * elapsedTime / 2000;
+          this.speed += (deltaY * elapsedTime) / 2000
         }
       }
     }
 
-
     /**
      * Mouse wheel handler
-     * @param {*} event 
+     * @param {*} event
      */
     handleOnWheel(event) {
-
       // We allow scrolling only if no CSS Slide transition on going
       if (this.props.isSlideControlActivated) {
-        const deltaY = event.deltaY;
+        const deltaY = event.deltaY
 
-        // /** CSS slider animation purpose , deactivated by default */
+        // /** CSS based slider animation purpose , deactivated by default */
         // const dir = deltaY > 0 ? "down" : "up";
         // // invoke the throttled function  (every3s)
         // this.throttleTranslateSlide(dir);
@@ -438,13 +340,12 @@ const MagicSlider = WrappedComponent => {
         // console.log("dir", dir)
 
         /**Javascript sliding config */
-        this.isLoopActive = true;
+        this.isLoopActive = true
         this.startAnimating(this.animationFrequency)
 
         const { deviceInfo } = this.props
 
         // We allow change only if no slide transition is onGoing
-
         switch (deviceInfo) {
           case 'firefox':
             this.speed += deltaY * 0.006 // 0.006 Firefox
@@ -490,7 +391,7 @@ const MagicSlider = WrappedComponent => {
           this.speed *= this.slideChangeSpeedCoeff
           this.currentSlideYPosition += this.speed
 
-          const slideBoundary = Math.round(this.currentSlideYPosition);
+          const slideBoundary = Math.round(this.currentSlideYPosition)
           const dif = slideBoundary - this.currentSlideYPosition
 
           this.currentSlideYPosition += dif * this.slideChangeHardnessCoeff
@@ -506,14 +407,19 @@ const MagicSlider = WrappedComponent => {
             // We are really close to a boundary (Previous or Next slide) so we override our currentPosition with that integer
             // to avoid an infinite division
             this.currentSlideYPosition = slideBoundary
-            this.isLoopActive = false;
+            this.isLoopActive = false
           }
 
           window.scrollTo(0, this.currentSlideYPosition * this.viewportHeight)
 
           // We reajust the BoundaryIndex as it can goes to -1 as well as be superior to array.length will makes crash all
           // the logic behind currentSlide
-          const adjustedSlideIndex = slideBoundary < 0 ? 0 : slideBoundary > this.props.slides.length - 1 ? this.props.slides.length - 1 : slideBoundary;
+          const adjustedSlideIndex =
+            slideBoundary < 0
+              ? 0
+              : slideBoundary > this.props.slides.length - 1
+              ? this.props.slides.length - 1
+              : slideBoundary
           const newSlideIndex = this.props.slides[adjustedSlideIndex]
 
           // Will trigger a render every loop if we don't add this condition.
@@ -523,7 +429,7 @@ const MagicSlider = WrappedComponent => {
             await this.setState({
               currentSlide: this.props.slides[adjustedSlideIndex]
             })
-            this.props.setCurrentSlideIndex(adjustedSlideIndex); // update store
+            this.props.setCurrentSlideIndex(adjustedSlideIndex) // update store
           }
 
           // Statistics purpose
@@ -537,15 +443,69 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
+    /*******************************************************/
+    /****************     REACT HOOKS    ******************/
+    /*****************************************************/
+
+    /**
+     * We apply a lower fps in order to reduce freezing effect
+     * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
+     */
+    componentDidMount() {
+      const { deviceInfo } = this.props
+
+      // Initialize vh property
+      window.scrollTo(0, 10)
+      this.handleResize()
+      // console.log(deviceInfo)
+      if (['ios', 'android'].includes(deviceInfo)) {
+        window.addEventListener('touchstart', this.touchStartHandler, false)
+        // window.addEventListener('touchend', this.touchEndHandler, false)
+        window.addEventListener('touchmove', this.onTouchMoveHandler, false)
+      } else {
+        // Browser
+        window.addEventListener('wheel', this.handleOnWheel, false)
+        window.addEventListener('keyup', this.keyUpHandler, false)
+        window.addEventListener('keydown', this.keyDownHandler, false)
+      }
+
+      // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
+      // below function will be called in order to update our Slide's height accordingly
+      window.addEventListener('resize', this.handleResize)
+    }
+
+    /**
+     * Will be called anytime the slide did change
+     * invoked right before the most recently rendered output is committed to e.g. the DOM
+     * @param {*} prevProps
+     * @param {*} prevState
+     */
+    componentDidUpdate(prevProps) {
+      // console.log("MagicSlider HOC componentDidUpdate")
+
+      // This block is aimed for NavBar update
+      // Decide whether we start animation to switch of slide.
+      // We must invoke this function only if the change has been coming from the store (and so updated by Navbar)
+      // Must prevent change if the store.homepage.currentSlideIndex has been updated by magicSlider() itself
+      if (
+        prevProps.currentSlideIndex !== this.props.currentSlideIndex &&
+        this.props.currentSlideIndex != this.props.slides.indexOf(this.state.currentSlide)
+      ) {
+        // Move viewport to the next class
+        this.moveViewportToSlide(this.props.currentSlideIndex)
+      }
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('touchstart', this.touchStartHandler, false)
+      window.removeEventListener('wheel', this.handleOnWheel, false)
+      window.removeEventListener('resize', this.handleResize, false)
+      window.removeEventListener('keyup', this.keyUpHandler, false)
+      window.removeEventListener('keydown', this.keyDownHandler, false)
+    }
 
     render() {
-      // console.log("Magic Slider rerender", this.state, this.props)
-      return (
-        <WrappedComponent
-          {...this.props}
-          currentSlide={this.state.currentSlide}
-        />
-      )
+      return <WrappedComponent {...this.props} currentSlide={this.state.currentSlide} />
     }
   }
   return HOC

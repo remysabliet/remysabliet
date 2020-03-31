@@ -1,11 +1,6 @@
-$japanese-gride-template-area: 'g0 f0 e0 d0 c0 b0 a0'
-  'g1 f1 e1 d1 c1 b1 a1' 'g2 f2 e2 d2 c2 b2 a2'
-  'g3 f3 e3 d3 c3 b3 a3' 'g4 f4 e4 d4 c4 b4 a4'
-  'g5 f5 e5 d5 c5 b5 a5' 'g6 f6 e6 d6 c6 b6 a6'
-  'g7 f7 e7 d7 c7 b7 a7' 'g8 f8 e8 d8 c8 b8 a8'
-  'g9 f9 e9 d9 c9 b9 a9'
-  'g10 f10 e10 d10 c10 b10 a10'
-  'g11 f11 e11 d11 c11 b11 a11';
+$japanese-gride-template-area: "g0 f0 e0 d0 c0 b0 a0" "g1 f1 e1 d1 c1 b1 a1" "g2 f2 e2 d2 c2 b2 a2"
+  "g3 f3 e3 d3 c3 b3 a3" "g4 f4 e4 d4 c4 b4 a4" "g5 f5 e5 d5 c5 b5 a5" "g6 f6 e6 d6 c6 b6 a6" "g7 f7 e7 d7 c7 b7 a7"
+  "g8 f8 e8 d8 c8 b8 a8" "g9 f9 e9 d9 c9 b9 a9" "g10 f10 e10 d10 c10 b10 a10" "g11 f11 e11 d11 c11 b11 a11";
 
 // $english-gride-template-area:
 // 'a0 f0 e0 d0 c0 b0 a0'
@@ -22,10 +17,7 @@ $japanese-gride-template-area: 'g0 f0 e0 d0 c0 b0 a0'
 // 'g11 f11 e11 d11 c11 b11 a11';
 
 .rs-calligraphy-container-kanji {
-  @include grid-container(
-    10px,
-    $japanese-gride-template-area
-  );
+  @include grid-container(10px, $japanese-gride-template-area);
 }
 
 .rs-calligraphy-container-alphabet {
@@ -34,11 +26,21 @@ $japanese-gride-template-area: 'g0 f0 e0 d0 c0 b0 a0'
   height: 100%;
   width: 100%;
 
+  .safari & svg.calligraphy {
+    //If .class appears in ancestor
+    //safari hack as SVG doesnt take the full height of their parents;
+    min-height: 60px;
+    max-height: 60px;
+  }
+
   .rs-calligraphy-container-en-row {
     @include flexbox();
     @include flex-direction(row);
     @include justify-content(flex-start);
     @include flex-grow(1);
+
+    // .rs-calligraphy-item {
+    // }
   }
 }
 
@@ -76,8 +78,7 @@ svg.calligraphy {
 
   .siblings {
     // will-change: opacity;
-    animation: svg-stroke-move-anim 0.3s ease-in
-      forwards;
+    animation: svg-stroke-move-anim 0.3s ease-in forwards;
 
     // Webkit workaround, for SAFARI animations are run before
     // javascript update the DOM style. Meaning that no delay set
@@ -88,8 +89,7 @@ svg.calligraphy {
     animation-delay: 1000s;
 
     &.alphabet {
-      animation: svg-stroke-move-anim 0.7s ease-in
-        forwards;
+      animation: svg-stroke-move-anim 0.7s ease-in forwards;
 
       // Webkit workaround above
       animation-delay: 1000s;

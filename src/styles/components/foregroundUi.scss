@@ -162,25 +162,27 @@
     .rs-li {
       margin-top: 5px;
       &.active {
-        .link-container {
+        .rs-link-container {
           width: 60px;
           transition: 0.5s ease-in-out;
         }
       }
-      .link-container {
+      .rs-link-container {
         display: inline-block;
         position: relative;
-        height: 5px !important;
+        height: 5px ;
         width: 25px;
         border-radius: 50%;
         border: 1px;
-        background-color: #c0c0c0;
+        background-color: black;
+        // background-color: #c0c0c0;
         z-index: 0;
         transition: 0.3s ease-in-out;
 
-        &.safari{
-          -webkit-filter: none!important;
-          filter: none!important;
+        &.safari {
+           //if .safari exist as ancestor
+         -webkit-filter: none !important;
+          filter: none !important;
         }
 
         &:hover {
@@ -191,7 +193,7 @@
             background-color: #2cd892;
           }
         }
-        .appended-particle-right {
+        .rs-appended-particle-right {
           position: absolute;
           width: 8px;
           height: 10px;
@@ -207,7 +209,7 @@
           right: 0px;
         }
 
-        .span__bg {
+        .rs-span-bg {
           position: absolute;
           border-radius: 30%;
           // border: 1px;
@@ -224,38 +226,3 @@
     }
   }
 }
-
-// .rs-nav {
-//   display: inline-block;
-//   // position: -webkit-sticky; /*Bug with Webkit which is not able to calculate correctly the bottom of the whole page using (bottom:0)
-//   // it stop at 100vh. */
-//   // position: -moz-sticky;
-//   // position: -ms-sticky;
-//   // position: -o-sticky;
-//   position: sticky;
-//   width: 5vw;
-//   top: 50%;
-//   left: 0%;
-//   z-index: 4;
-//   color: white;
-//   background-color: $flashy-green;
-//   transition: all 10s ease-in-out;
-//   animation: NavBarAnim infinite 3s linear;
-
-//   a {
-//     line-height: 2; /*Create space between lines*/
-//     font-size: small;
-//     display: block;
-//     margin: 0;
-//     text-align: center;
-
-//     &:hover {
-//       font-size: large;
-//       color: white;
-//     }
-
-//     &:visited {
-//       color: white;
-//     }
-//   }
-// }

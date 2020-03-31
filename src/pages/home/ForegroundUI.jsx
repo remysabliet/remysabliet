@@ -9,7 +9,7 @@ const ForegroundUI = React.memo(props => {
   return (
     <>
       <ForegroundLayout  {...props}>
-        <div id="debug" />
+        {/* <div id="debug" /> */}
       </ForegroundLayout>
     </>
   )

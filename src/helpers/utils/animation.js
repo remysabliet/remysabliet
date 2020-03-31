@@ -251,7 +251,7 @@ export const addExplosionEffectOnClick = originNode => {
     bt.appendChild(particles[i])
 
     particles[i].classList.add(
-      'appended-particle-right'
+      'rs-appended-particle-right'
     )
 
     // var dir = i % 2 ? '-' : '+';
