@@ -28,7 +28,7 @@ const Contact = () => (
             <a href="https://www.linkedin.com/in/r%C3%A9my-sabliet-2575b567/" target="_blank">
               <img src={linkedinLogo} />
             </a>
-            <a href="" target="_blank">
+            <a href="https://www.wantedly.com/users/134192425" target="_blank">
               <img src={wantedlyWhite} />
             </a>
           </div>
