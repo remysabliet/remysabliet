@@ -242,9 +242,9 @@ export const addExplosionEffectOnClick = originNode => {
     }
   })
 
-  // Elastic Effects
-  // tl.to(originNode, 2, { scaleX: 1.05 });
-  // tl.to(originNode, 3, { scale: 1, ease: Elastic.easeOut.config(1.2, 0.4) }, 5);
+  // // Elastic Effects
+  // tl.to(originNode, 0, { scaleX: 2 });
+  // tl.to(originNode, 1, { scaleX: 1, ease: Elastic.easeOut.config(1.5, 0.4) });
 
   for (var i = 0; i < particleCount; i++) {
     particles.push(document.createElement('span'))

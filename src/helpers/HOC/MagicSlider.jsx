@@ -146,8 +146,9 @@ const MagicSlider = WrappedComponent => {
       const { deviceInfo } = this.props
       const vhString = getComputedStyle(document.documentElement).getPropertyValue('--vh')
       const windowsHeight = Number.parseFloat(vhString) * 100
-      // console.log("handleResize  windowsHeihgt: ", windowsHeight)
-      this.viewportHeight = deviceInfo === 'ios' ? innerHeight() : windowsHeight
+      console.log("handleResize  windowsHeihgt: ", innerHeight(), windowsHeight)
+      // this.viewportHeight = deviceInfo === 'ios' ? innerHeight() : windowsHeight
+      this.viewportHeight = windowsHeight
 
       // Update viewport translation Y whenever the screen is resize (Smartphone Top bar disappearing)
       // this.moveViewportFrom = { a: this.props.slides.indexOf(this.state.currentSlide) * this.viewportHeight }

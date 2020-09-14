@@ -21,8 +21,8 @@
     @media only screen and (min-width: 460px) and (max-height: 496px) {
       @content;
     }
-  } @else if $point == phone {
-    @media only screen and (max-width: 479px) {
+  } @else if $point == phone { //IOS Safari doesnt consider the same screen width then IOS Chrome :o), lets set a global width to 600px
+    @media only screen and (max-width: 600px) {
       @content;
     }
   } @else {

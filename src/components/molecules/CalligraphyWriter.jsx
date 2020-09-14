@@ -40,7 +40,7 @@ const CalligraphyWriter = React.memo((props) => {
       const calliGraphyBoardWidth = getComputedStyle(containerElement).width;
       // divide the width of a row / nb of element previously defined (higher element are)
       // higher the nb of element are, smaller will be the size of an element (320px /40)
-      setAlphabetItemWidth(parseInt(calliGraphyBoardWidth.replace('px', '')) / maxElementsiInARow); 
+      setAlphabetItemWidth(parseInt(calliGraphyBoardWidth.replace('px', '')) / maxElementsiInARow);
     }
 
     // Height of an alphabet row
