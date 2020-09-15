@@ -39,8 +39,7 @@
           outline: none;
           border: 0.5px solid black;
           will-change: box-shadow;
-          box-shadow: 0 0 2px 2px
-            rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
 
           &:hover {
             box-shadow: 0 0 0 2px $cyan;
@@ -76,9 +75,7 @@
       svg.rs-arrow-dir-bottom {
         display: none;
         height: 15vh;
-        transform: translateX(
-          1.25vw
-        ); // align SVG on image
+        transform: translateX(1.25vw); // align SVG on image
 
         &.is-active {
           display: block;
@@ -88,17 +85,14 @@
           .arrow-base {
             // , &:hover path
             transition: all 1s $ease;
-            animation: arrow-color-anim 2.5s $ease
-              infinite;
+            animation: arrow-color-anim 2.5s $ease infinite;
           }
 
           .arrow {
-            animation: arrow-anim 2.5s $ease
-              infinite;
+            animation: arrow-anim 2.5s $ease infinite;
           }
           .arrow-fixed {
-            animation: arrow-fixed-anim 2.5s $ease
-              infinite;
+            animation: arrow-fixed-anim 2.5s $ease infinite;
           }
         }
 
@@ -174,20 +168,14 @@
       .rs-link-container {
         display: inline-block;
         position: relative;
-        height: 5px ;
+        height: 5px;
         width: 25px;
-        border-radius: 50%;
+        // border-radius: 50%;
         border: 1px;
         background-color: black;
         // background-color: #c0c0c0;
         z-index: 0;
         transition: 0.3s ease-in-out;
-
-        &.safari {
-           //if .safari exist as ancestor
-         -webkit-filter: none !important;
-          filter: none !important;
-        }
 
         &:hover {
           background-color: transparent;
@@ -206,7 +194,7 @@
           // appended particule along the Y axes
           // margin-top: -3.6px;
           margin-top: -2.4px;
-          border-radius: 50%;
+          border-radius: 50px;
           background: #c0c0c0;
           transition: background 0.1s ease-out;
           z-index: -2;
@@ -215,7 +203,7 @@
 
         .rs-span-bg {
           position: absolute;
-          border-radius: 30%;
+          border-radius: 30px;
           // border: 1px;
           // Make the Span take all the size of its container
           top: 0;
@@ -225,6 +213,20 @@
           z-index: -1;
           background: #c0c0c0;
           transition: background 0.1s ease-out;
+        }
+      }
+    }
+  }
+}
+
+// Safari and IOS exception as filter doesnt work
+.safari {
+  .rs-foreground-ui {
+    .rs-nav {
+      .rs-li {
+        .rs-link-container {
+          -webkit-filter: none !important;
+          filter: none !important;
         }
       }
     }

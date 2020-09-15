@@ -9,14 +9,16 @@ const Contact = () => (
   <div className="rs-content rs-js-animated-element">
     <video
       className="rs-movie-back"
-      autoplay="autoplay" //autoplay only is not supported, but autoplay + muted is supported by chrome
+      autoPlay="autoplay" //autoplay only is not supported, but autoplay + muted is supported by chrome
       muted
       loop
+      playsInline // mandatory to make it works in IOS (whatever the browser)
+      autoBuffer
     >
-      <source src={video} type="video/mp4" />
+      <source src={video} type="video/mp4"   />
       Your browser does not support the video tag.
     </video>
-
+    
     <div className="rs-content-overlay">
       <div className="rs-blank" />
       {/* <div className="rs-profil-image"/> */}
@@ -28,7 +30,7 @@ const Contact = () => (
             <a href="https://www.linkedin.com/in/r%C3%A9my-sabliet-2575b567/" target="_blank">
               <img src={linkedinLogo} />
             </a>
-            <a href="" target="_blank">
+            <a href="https://www.wantedly.com/users/134192425" target="_blank">
               <img src={wantedlyWhite} />
             </a>
           </div>

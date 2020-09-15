@@ -12,6 +12,7 @@ const NavBar = React.memo(
     setSlideControllerDeactivated,
     slides
   }) => {
+    console.log("deviceInfo", deviceInfo)
     useEffect(() => triggerExplosionAnim(currentSlideIndex), [currentSlideIndex])
 
     // Verify if the item clicked is not already active, if not, deactivate other item and active the current one
@@ -48,11 +49,15 @@ const NavBar = React.memo(
 
     /**
      * Trigger a CSS animation explosion effect on a link bars
+     * The explosion is appended to the span with class rs-span-bg here
      * @param {*} index link index to which trigger explosion effect
      */
     const triggerExplosionAnim = index => {
       const spanElems = document.querySelectorAll('.rs-link-container')
-      addExplosionEffectOnClick(spanElems[index])
+
+      // 0.5 refers to the 0.5s of the css transition for link to become active and take full width
+      // this will be used by below function to implement a delay before activating elastic effect
+      addExplosionEffectOnClick(spanElems[index], 0.5)
     }
 
     return (
@@ -80,10 +85,10 @@ const NavBar = React.memo(
                   id={`link${index + 1}`}
                   className={classNames('rs-li', index === currentSlideIndex ? 'active' : '')}
                 >
+                   {/**  Have to manage the specific when its IOS + safari, we have to make sure the safari className is appended */ }
                   <a
                     className={classNames(
-                      'rs-link-container',
-                      deviceInfo === 'safari' ? 'safari' : ''
+                      'rs-link-container'
                     )}
                     style={{ filter: `url(#filter-goo-2)` }}
                     onClick={() => onLinkClick(index)}
