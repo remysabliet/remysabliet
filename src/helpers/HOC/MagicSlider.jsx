@@ -115,9 +115,9 @@ const MagicSlider = WrappedComponent => {
         window.addEventListener('touchmove', this.onTouchMoveHandler, {capture: true})
       } else {
         // Browser
-        window.addEventListener('wheel', this.handleOnWheel, false)
-        window.addEventListener('keyup', this.keyUpHandler, false)
-        window.addEventListener('keydown', this.keyDownHandler, false)
+        window.addEventListener('wheel', this.handleOnWheel, {capture: false})
+        window.addEventListener('keyup', this.keyUpHandler, {capture: false})
+        window.addEventListener('keydown', this.keyDownHandler, {capture: false})
       }
 
       // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
@@ -148,12 +148,12 @@ const MagicSlider = WrappedComponent => {
     }
 
     componentWillUnmount() {
-      window.removeEventListener('touchstart', this.touchStartHandler, false)
-      window.removeEventListener('touchmove', this.onTouchMoveHandler, false)
-      window.removeEventListener('wheel', this.handleOnWheel, false)
-      window.removeEventListener('resize', this.handleResize, false)
-      window.removeEventListener('keyup', this.keyUpHandler, false)
-      window.removeEventListener('keydown', this.keyDownHandler, false)
+      window.removeEventListener('touchstart', this.touchStartHandler, {passive: false})
+      window.removeEventListener('touchmove', this.onTouchMoveHandler, {capture: true})
+      window.removeEventListener('wheel', this.handleOnWheel,  {capture: false})
+      window.removeEventListener('resize', this.handleResize)
+      window.removeEventListener('keyup', this.keyUpHandler,  {capture: false})
+      window.removeEventListener('keydown', this.keyDownHandler,  {capture: false})
     }
 
     /***************************************************/
