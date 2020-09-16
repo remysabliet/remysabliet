@@ -13,4 +13,4 @@ several animation techniques including JS, CSS3, SVG and a little bit of GSAP.
 
 # dev. description
 - Handmade sliding effect using vanilla JS and applied under an HOC
-- Responsive design supporting phone, tablet, desktop
+- Responsive design supporting phone, tablet, desktop 

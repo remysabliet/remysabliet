@@ -6,13 +6,13 @@ html {
   @media screen and (min-width: 900px) {
     font-size: 18px;
   }
-    
+
   @media screen and (min-width: 1200px) {
     font-size: 20px;
   }
 
-  overscroll-behavior: none; 
-  scrollbar-width: none; // workaround Firefox,from version 74 (not released on windows as of january 15th, this version will come up on march 10th 2020) 
+  overscroll-behavior: none;
+  scrollbar-width: none; // workaround Firefox,from version 74 (not released on windows as of january 15th, this version will come up on march 10th 2020)
   ::-webkit-scrollbar {
     display: none; /*Safari and Chrome*/
   }
@@ -27,15 +27,17 @@ html {
   position: relative; /*Important: BUG Safari fixed: relative position on the body allow the 
   foreground div to get the whole place of its parent container (originally bottom:0 didn't worked and foreground take the viewport view only  */
   width: 100%;
+
+  background-color: black;
+
   // overflow: hidden;  doesnt work at all
-  background-color:black;
 }
 
 head {
   display: none;
 }
 
-#root{
-  overflow: hidden;  // overflow hidden works only on something different than body/html
+#root {
+  overflow: hidden; // overflow hidden works only on something different than body/html
   position: relative;
 }

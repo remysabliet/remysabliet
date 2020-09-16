@@ -85,7 +85,7 @@ const NavBar = React.memo(
                   id={`link${index + 1}`}
                   className={classNames('rs-li', index === currentSlideIndex ? 'active' : '')}
                 >
-                   {/**  Have to manage the specific when its IOS + safari, we have to make sure the safari className is appended */ }
+                  {/**  Have to manage the specific when its IOS + safari, we have to make sure the safari className is appended */}
                   <a
                     className={classNames(
                       'rs-link-container'

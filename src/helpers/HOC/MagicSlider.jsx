@@ -4,7 +4,7 @@ import React from 'react'
 import { animateValues, EasingFunctions } from 'helpers/utils/animation'
 import { CONST_SLIDE_TRANSITION_DURATION } from 'helpers/constants/animation'
 
-import innerHeight from 'ios-inner-height'
+// import innerHeight from 'ios-inner-height'
 
 import _ from 'lodash'
 
@@ -24,6 +24,10 @@ const MagicSlider = WrappedComponent => {
     constructor(props) {
       super(props)
       // console.log('props MagicSlider', props)
+
+      this.targetRef = React.createRef();
+      this.targetElement = null;
+
       this.handleOnWheel = this.handleOnWheel.bind(this)
       this.startAnimating = this.startAnimating.bind(this)
       this.magicSlider = this.magicSlider.bind(this)
@@ -86,6 +90,72 @@ const MagicSlider = WrappedComponent => {
       }
     }
 
+
+    /*******************************************************/
+    /****************     REACT HOOKS    ******************/
+    /*****************************************************/
+
+    /**
+     * We apply a lower fps in order to reduce freezing effect
+     * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
+     */
+    componentDidMount() {
+      const { deviceInfo } = this.props
+
+      // Initialize vh property
+      window.scrollTo(0, 10)
+      this.handleResize()
+      // console.log(deviceInfo)
+      if (['ios', 'android'].includes(deviceInfo)) {
+        // WINNER WINNER FOR IOS SCROLLING BUG THIS IS THE ONLY ONE CONFIGURATION WHICH WORKS (dont touch to the third option)
+        // with the third parameters options {passive: false} means that it will always call preventDefault
+        window.addEventListener('touchstart', this.touchStartHandler, {passive: false})
+        // A Boolean indicating that events of this type will be dispatched to the registered listener
+        // before being dispatched to any EventTarget beneath it in the DOM tree.
+        window.addEventListener('touchmove', this.onTouchMoveHandler, {capture: true})
+      } else {
+        // Browser
+        window.addEventListener('wheel', this.handleOnWheel, false)
+        window.addEventListener('keyup', this.keyUpHandler, false)
+        window.addEventListener('keydown', this.keyDownHandler, false)
+      }
+
+      // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
+      // below function will be called in order to update our Slide's height accordingly
+      window.addEventListener('resize', this.handleResize)
+    }
+
+    /**
+     * Will be called anytime the slide did change
+     * invoked right before the most recently rendered output is committed to e.g. the DOM
+     * @param {*} prevProps
+     * @param {*} prevState
+     */
+    componentDidUpdate(prevProps) {
+      // console.log("MagicSlider HOC componentDidUpdate")
+
+      // This block is aimed for NavBar update
+      // Decide whether we start animation to switch of slide.
+      // We must invoke this function only if the change has been coming from the store (and so updated by Navbar)
+      // Must prevent change if the store.homepage.currentSlideIndex has been updated by magicSlider() itself
+      if (
+        prevProps.currentSlideIndex !== this.props.currentSlideIndex &&
+        this.props.currentSlideIndex != this.props.slides.indexOf(this.state.currentSlide)
+      ) {
+        // Move viewport to the next class
+        this.moveViewportToSlide(this.props.currentSlideIndex)
+      }
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('touchstart', this.touchStartHandler, false)
+      window.removeEventListener('touchmove', this.onTouchMoveHandler, false)
+      window.removeEventListener('wheel', this.handleOnWheel, false)
+      window.removeEventListener('resize', this.handleResize, false)
+      window.removeEventListener('keyup', this.keyUpHandler, false)
+      window.removeEventListener('keydown', this.keyDownHandler, false)
+    }
+
     /***************************************************/
     /****************     Methods    ******************/
     /*************************************************/
@@ -146,7 +216,7 @@ const MagicSlider = WrappedComponent => {
       const { deviceInfo } = this.props
       const vhString = getComputedStyle(document.documentElement).getPropertyValue('--vh')
       const windowsHeight = Number.parseFloat(vhString) * 100
-      console.log("handleResize  windowsHeihgt: ", innerHeight(), windowsHeight)
+      console.log("handleResize  windowsHeihgt: ", windowsHeight)
       // this.viewportHeight = deviceInfo === 'ios' ? innerHeight() : windowsHeight
       this.viewportHeight = windowsHeight
 
@@ -162,6 +232,8 @@ const MagicSlider = WrappedComponent => {
      * @param {*} event
      */
     touchStartHandler(event) {
+      event.preventDefault(); // prevent default IOS screen to scroll even though we asked it to not
+
       // Activate the scrolling animation loop
       this.isLoopActive = true
       var touches = event.changedTouches
@@ -180,6 +252,7 @@ const MagicSlider = WrappedComponent => {
      * @param {*} event
      */
     onTouchMoveHandler(event) {
+
       var touches = event.changedTouches
       for (var j = 0; j < touches.length; j++) {
         /* access stored touch info on touchend */
@@ -210,88 +283,14 @@ const MagicSlider = WrappedComponent => {
         this.throttleMoveViewport(newSlidePosition)
         //delete all the pending call to the function 200ms before the end of the current transition
         setTimeout(
-          function(func) {
+          function (func) {
             func.cancel()
           },
           CONST_SLIDE_TRANSITION_DURATION - 200,
           this.throttleMoveViewport
         )
-
-        /** CSS Slider related code - temporary activated as we rely on Javascript algo to perform scrolling */
-
-        // this.throttleTranslateSlide(dir);
-        // //delete all the pending call to the function 200ms before the end of the current transition
-        // setTimeout(function (func) { func.cancel(); }, CONST_SLIDE_TRANSITION_DURATION - 200, this.throttleTranslateSlide)
-        // console.log("onTouchMoveHandler throttle TranslateDir called")
-
-        // await this.setState({ currentSlide: this.props.slides[newSlidePosition] });
-        // this.currentSlideYPosition = newSlidePosition;
-        // this.slidePositionIndex = newSlidePosition;
-
-        // Move viewport to the next class
-
-        //  this.moveViewportToSlide(newSlidePosition);
       }
     }
-
-    // /**
-    //  * Return an array of nodes
-    //  */
-    // getSlidesNodes() {
-    //   return document.getElementsByClassName(
-    //     `rs-slide`
-    //   )
-    // }
-
-    // /**
-    //  * Move Slide up or down based on direction
-    //  * @param {*} dir up / down
-    //  */
-    // async translateSlide(dir) {
-    //   console.log("translateSlide CALLED dir:", dir)
-    //   let newPosition = this.slidePositionIndex;
-    //   if (dir === "down") { // add 1 except when we are at the lastSlide
-    //     newPosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1;
-    //   } else { // remove 1 except when we are at position 0
-    //     newPosition += this.slidePositionIndex === 0 ? 0 : -1;
-    //   }
-
-    //   console.log("translateSlide", "newIndexPositionAfterCalculation", newPosition, "this.slidePositionIndex", this.slidePositionIndex)
-
-    //   //Only if a slide change happened we go further
-    //   if (newPosition !== this.slidePositionIndex) {
-
-    //     // Retrieve all the slides elements
-    //     const slides = this.getSlidesNodes();
-    //     console.log("slides", slides)
-
-    //     this.slidePositionIndex = newPosition;
-    //     this.currentSlideYPosition = newPosition;
-    //     await this.setState({
-    //       currentSlide: this.props.slides[this.slidePositionIndex]
-    //     })
-    //     this.props.setCurrentSlideIndex(this.slidePositionIndex);
-
-    //     Array.prototype.forEach.call(slides, (slide => {
-    //       this.updateSlideClass(slide);
-    //     }))
-    //   }
-    // }
-
-    // /**
-    //  * remove class except rs-slide and then add new class if indexSlide !=0
-    //  * @param {*} slideNode
-    //  */
-    // updateSlideClass(slideNode) {
-    //   console.log("removeSlideClass slideNode:", slideNode, "movin to Index", this.slidePositionIndex)
-    //   const classToRemove = Array.prototype.filter.call(slideNode.classList, (x => { return x !== "rs-slide" }))
-    //   // Add new class only if not (slide 0) because no transformation to apply
-    //   if (this.slidePositionIndex !== 0)
-    //     slideNode.classList.add(`rs-move-${this.slidePositionIndex}-slide-down`)
-
-    //   // Remove Slide Translation related class
-    //   classToRemove.forEach(classN => slideNode.classList.remove(classN))
-    // }
 
     /**
      * Desktop keyboard handler when pressing key
@@ -304,7 +303,7 @@ const MagicSlider = WrappedComponent => {
 
       //38 UpArrow 40 DownArrow
       if ((event.keyCode === 38 || event.keyCode === 40) && !event.repeat) {
-        ;(this.keyCode = event.keyCode), (this.keyTimestamp = event.timeStamp)
+        ; (this.keyCode = event.keyCode), (this.keyTimestamp = event.timeStamp)
       }
     }
 
@@ -419,8 +418,8 @@ const MagicSlider = WrappedComponent => {
             slideBoundary < 0
               ? 0
               : slideBoundary > this.props.slides.length - 1
-              ? this.props.slides.length - 1
-              : slideBoundary
+                ? this.props.slides.length - 1
+                : slideBoundary
           const newSlideIndex = this.props.slides[adjustedSlideIndex]
 
           // Will trigger a render every loop if we don't add this condition.
@@ -442,67 +441,6 @@ const MagicSlider = WrappedComponent => {
         }
         this.isLoopActive && window.requestAnimationFrame(this.magicSlider)
       }
-    }
-
-    /*******************************************************/
-    /****************     REACT HOOKS    ******************/
-    /*****************************************************/
-
-    /**
-     * We apply a lower fps in order to reduce freezing effect
-     * From time to time viewport is quicker, some time not, by reducing fps we reduce those latency effect
-     */
-    componentDidMount() {
-      const { deviceInfo } = this.props
-
-      // Initialize vh property
-      window.scrollTo(0, 10)
-      this.handleResize()
-      // console.log(deviceInfo)
-      if (['ios', 'android'].includes(deviceInfo)) {
-        window.addEventListener('touchstart', this.touchStartHandler, false)
-        // window.addEventListener('touchend', this.touchEndHandler, false)
-        window.addEventListener('touchmove', this.onTouchMoveHandler, false)
-      } else {
-        // Browser
-        window.addEventListener('wheel', this.handleOnWheel, false)
-        window.addEventListener('keyup', this.keyUpHandler, false)
-        window.addEventListener('keydown', this.keyDownHandler, false)
-      }
-
-      // Everytime our viewport is resized (for example when the searchBar appears on Mobile)
-      // below function will be called in order to update our Slide's height accordingly
-      window.addEventListener('resize', this.handleResize)
-    }
-
-    /**
-     * Will be called anytime the slide did change
-     * invoked right before the most recently rendered output is committed to e.g. the DOM
-     * @param {*} prevProps
-     * @param {*} prevState
-     */
-    componentDidUpdate(prevProps) {
-      // console.log("MagicSlider HOC componentDidUpdate")
-
-      // This block is aimed for NavBar update
-      // Decide whether we start animation to switch of slide.
-      // We must invoke this function only if the change has been coming from the store (and so updated by Navbar)
-      // Must prevent change if the store.homepage.currentSlideIndex has been updated by magicSlider() itself
-      if (
-        prevProps.currentSlideIndex !== this.props.currentSlideIndex &&
-        this.props.currentSlideIndex != this.props.slides.indexOf(this.state.currentSlide)
-      ) {
-        // Move viewport to the next class
-        this.moveViewportToSlide(this.props.currentSlideIndex)
-      }
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('touchstart', this.touchStartHandler, false)
-      window.removeEventListener('wheel', this.handleOnWheel, false)
-      window.removeEventListener('resize', this.handleResize, false)
-      window.removeEventListener('keyup', this.keyUpHandler, false)
-      window.removeEventListener('keydown', this.keyDownHandler, false)
     }
 
     render() {

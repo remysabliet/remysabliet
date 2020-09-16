@@ -17,6 +17,7 @@ const locale = getLocale()
 const store = configureStore({ global: { deviceInfo, locale } })
 
 const RoutedAppWithStore = () => {
+ 
   return (
     <div className={classNames(is['safari']() || is['ios']() ? 'safari' : '')}>
       <Router>
@@ -28,6 +29,3 @@ render(
   <RoutedAppWithStore />,
   document.getElementById('root')
 )
-
-console.log("width", window.innerWidth)
-
