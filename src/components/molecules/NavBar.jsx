@@ -12,6 +12,7 @@ const NavBar = React.memo(
     setSlideControllerDeactivated,
     slides
   }) => {
+    console.log("deviceInfo", deviceInfo)
     useEffect(() => triggerExplosionAnim(currentSlideIndex), [currentSlideIndex])
 
     // Verify if the item clicked is not already active, if not, deactivate other item and active the current one

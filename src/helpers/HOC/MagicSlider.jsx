@@ -109,6 +109,8 @@ const MagicSlider = WrappedComponent => {
       if (['ios', 'android'].includes(deviceInfo)) {
         // with the third parameters options {passive: false} means that it will always call preventDefault
         window.addEventListener('touchstart', this.touchStartHandler, {passive: false})
+        // A Boolean indicating that events of this type will be dispatched to the registered listener
+        // before being dispatched to any EventTarget beneath it in the DOM tree.
         window.addEventListener('touchmove', this.onTouchMoveHandler, {capture: true})
       } else {
         // Browser
@@ -286,82 +288,8 @@ const MagicSlider = WrappedComponent => {
           CONST_SLIDE_TRANSITION_DURATION - 200,
           this.throttleMoveViewport
         )
-
-        /** CSS Slider related code - temporary activated as we rely on Javascript algo to perform scrolling */
-
-        // this.throttleTranslateSlide(dir);
-        // //delete all the pending call to the function 200ms before the end of the current transition
-        // setTimeout(function (func) { func.cancel(); }, CONST_SLIDE_TRANSITION_DURATION - 200, this.throttleTranslateSlide)
-        // console.log("onTouchMoveHandler throttle TranslateDir called")
-
-        // await this.setState({ currentSlide: this.props.slides[newSlidePosition] });
-        // this.currentSlideYPosition = newSlidePosition;
-        // this.slidePositionIndex = newSlidePosition;
-
-        // Move viewport to the next class
-
-        //  this.moveViewportToSlide(newSlidePosition);
       }
     }
-
-    // /**
-    //  * Return an array of nodes
-    //  */
-    // getSlidesNodes() {
-    //   return document.getElementsByClassName(
-    //     `rs-slide`
-    //   )
-    // }
-
-    // /**
-    //  * Move Slide up or down based on direction
-    //  * @param {*} dir up / down
-    //  */
-    // async translateSlide(dir) {
-    //   console.log("translateSlide CALLED dir:", dir)
-    //   let newPosition = this.slidePositionIndex;
-    //   if (dir === "down") { // add 1 except when we are at the lastSlide
-    //     newPosition += this.slidePositionIndex === this.props.slides.length - 1 ? 0 : 1;
-    //   } else { // remove 1 except when we are at position 0
-    //     newPosition += this.slidePositionIndex === 0 ? 0 : -1;
-    //   }
-
-    //   console.log("translateSlide", "newIndexPositionAfterCalculation", newPosition, "this.slidePositionIndex", this.slidePositionIndex)
-
-    //   //Only if a slide change happened we go further
-    //   if (newPosition !== this.slidePositionIndex) {
-
-    //     // Retrieve all the slides elements
-    //     const slides = this.getSlidesNodes();
-    //     console.log("slides", slides)
-
-    //     this.slidePositionIndex = newPosition;
-    //     this.currentSlideYPosition = newPosition;
-    //     await this.setState({
-    //       currentSlide: this.props.slides[this.slidePositionIndex]
-    //     })
-    //     this.props.setCurrentSlideIndex(this.slidePositionIndex);
-
-    //     Array.prototype.forEach.call(slides, (slide => {
-    //       this.updateSlideClass(slide);
-    //     }))
-    //   }
-    // }
-
-    // /**
-    //  * remove class except rs-slide and then add new class if indexSlide !=0
-    //  * @param {*} slideNode
-    //  */
-    // updateSlideClass(slideNode) {
-    //   console.log("removeSlideClass slideNode:", slideNode, "movin to Index", this.slidePositionIndex)
-    //   const classToRemove = Array.prototype.filter.call(slideNode.classList, (x => { return x !== "rs-slide" }))
-    //   // Add new class only if not (slide 0) because no transformation to apply
-    //   if (this.slidePositionIndex !== 0)
-    //     slideNode.classList.add(`rs-move-${this.slidePositionIndex}-slide-down`)
-
-    //   // Remove Slide Translation related class
-    //   classToRemove.forEach(classN => slideNode.classList.remove(classN))
-    // }
 
     /**
      * Desktop keyboard handler when pressing key

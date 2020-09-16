@@ -29,5 +29,3 @@ render(
   <RoutedAppWithStore />,
   document.getElementById('root')
 )
-
-
