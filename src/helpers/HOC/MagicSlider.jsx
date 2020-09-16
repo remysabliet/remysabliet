@@ -107,7 +107,6 @@ const MagicSlider = WrappedComponent => {
       this.handleResize()
       // console.log(deviceInfo)
       if (['ios', 'android'].includes(deviceInfo)) {
-        // WINNER WINNER FOR IOS SCROLLING BUG THIS IS THE ONLY ONE CONFIGURATION WHICH WORKS (dont touch to the third option)
         // with the third parameters options {passive: false} means that it will always call preventDefault
         window.addEventListener('touchstart', this.touchStartHandler, {passive: false})
         // A Boolean indicating that events of this type will be dispatched to the registered listener
