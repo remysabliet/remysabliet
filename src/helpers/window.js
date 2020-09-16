@@ -4,7 +4,6 @@
 // This is to avoid un-necessary layout re-calcs.
 import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
 import { animateIfInView } from 'helpers/utils/animation'
-import { disableBodyScroll } from 'body-scroll-lock'
 
 // Class name of node element to be animated
 const animatedClass = 'rs-js-animated-element'
@@ -13,11 +12,6 @@ window.addEventListener(
   'resize',
   recomputeViewportSize
 )
-
-const targetElement = document.querySelector(
-  '#root'
-)
-disableBodyScroll(targetElement)
 
 /** Initialization of eventListener for the whole page */
 export const initAnimation = () => {
