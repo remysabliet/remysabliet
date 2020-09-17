@@ -273,7 +273,8 @@ class Slider extends React.PureComponent {
             className: `rs-${slide} js-pausing`,
             id: slide,
             ref: this.refs[i],
-            isCurrentSlide: currentSlide === slide ? true : false
+            isCurrentSlide: currentSlide === slide ? true : false,
+            deviceInfo
             ,
             ...others
           }
