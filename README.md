@@ -1,6 +1,6 @@
 # remysabliet v.1.0
 ---
-This project was bootstrapped with React, Redux, React Router, Webpack
+This project was bootstrapped with React, Redux, React Router, Webpack (JQuery free)
 
 # Introduction
 This homepage is a simple presentation of Rémy SABLIET, a web designer in Freelance and has been developed using 
