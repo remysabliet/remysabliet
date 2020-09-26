@@ -35,8 +35,8 @@ const Contact = props => {
         wantedlyLinkNode.addEventListener("touchend", (event) => callBackLInk(event, wantedlyURL), { passive: false });
       }
       return () => {
-        linkedinLinkNode.removeEventListener("touchend", func, { passive: false });
-        wantedlyLinkNode.removeEventListener("touchend", func, { passive: false });
+        linkedinLinkNode.removeEventListener("touchend", (event) => callBackLInk(event, linkedingURL), { passive: false });
+        wantedlyLinkNode.removeEventListener("touchend", (event) => callBackLInk(event, wantedlyURL), { passive: false });
       }
     }
   }, [deviceInfo])

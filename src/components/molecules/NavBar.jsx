@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-// import { HashLink as Link } from 'react-router-hash-link'
 import { addExplosionEffectOnClick } from 'helpers/utils/animation'
 import classNames from 'classnames'
 
@@ -46,6 +45,27 @@ const NavBar = React.memo(
         // triggerExplosionAnim(index)
       }
     }
+
+    /** 
+    * As a workaround for touchstart event not being dispatched anymore in order to deactivate IOS Scrolling
+    * we must create a specific touchend event for any button/actions element on the page having an interaction with user 
+    * the reason we use touchend and not touchstart is that IOS prevent use of new windows from touchstart event, but not from touchend
+    */
+    useEffect(() => {
+      if (['android', 'ios'].includes(deviceInfo) && slides.length > 0) {
+        slides.forEach((slide, index) => {
+          const elem = document.querySelector(`#link${index + 1}`)
+          if (elem)
+            elem.addEventListener("touchend", event => onLinkClick(index), { passive: false });
+        })
+      }
+
+      return slides.forEach((slide, index) => {
+        const elem = document.querySelector(`#link${index + 1}`)
+        if (elem)
+          elem.removeEventListener("touchend",  event => onLinkClick(index), { passive: false });
+      })
+    }, [slides])
 
     /**
      * Trigger a CSS animation explosion effect on a link bars
