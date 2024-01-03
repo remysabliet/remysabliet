@@ -5,7 +5,45 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"],
+      "*": [
+        "./src/*"
+      ],
+      "actions/*": [
+        "src/actions/*"
+      ],
+      "assets/*": [
+        "src/assets/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "containers/*": [
+        "src/containers/*"
+      ],
+      "helpers/*": [
+        "src/helpers/*"
+      ],
+      "layout/*": [
+        "src/layout/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
+      ],
+      "reducers/*": [
+        "src/reducers/*"
+      ],
+      "routes/*": [
+        "src/routes/*"
+      ],
+      "store/*": [
+        "src/store/*"
+      ],
+      "styles/*": [
+        "src/styles/*"
+      ],
+      "tests/*": [
+        "src/tests/*"
+      ],
     },
     "jsx": "react",
     "module": "commonjs",

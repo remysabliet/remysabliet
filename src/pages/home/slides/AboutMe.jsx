@@ -24,7 +24,7 @@ const AboutMe = props => {
   // AnimationDelay and class
   useEffect(() => {
     setIsAlreadyActivated(false)
-  }, locale)
+  }, [locale])
 
   useEffect(() => {
     // setTimeout(() => {

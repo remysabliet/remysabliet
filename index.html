@@ -82,24 +82,36 @@
 
 <script>
   function afterAssetLoaded() {
+    var script = document.createElement('script');
+    script.src = "/src/index.jsx";
+    script.type = "module";
+    document.body.appendChild(script);
     document.getElementsByClassName('rs-splash-screen-container')[0].style.display = "none";
-    document.getElementById('root').style.display = "block";
   }
 </script>
 
-<!-- <body onload="afterAssetLoaded()"> -->
 
 <body>
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <script src="http://192.168.2.103:8080/target/target-script-min.js#anonymous"></script>
-  <script>
+
+  <!-- <script>
+
+// Vite limitation - can't build application if <script type="module" src="/src/index.jsx"> is not in the index.html/ 
+// Must implement a workaround directly in the Js code using  
+// window.addEventListener('load', function() {
+//   // Start your application here
+// });
+
+// Legacy Code
+
     try {
       document.addEventListener("readystatechange", event => {
 
         if (event.target.readyState === "complete") {
           setTimeout(function () {
+            console.log('Passage')
             afterAssetLoaded()
           }, 1500);
         }
@@ -114,10 +126,11 @@
       <p>Wait a moment while we load the page. </p>
       <div class="rs-loading-dot">.</div>
     </div>
-  </div>
+  </div> -->
 
-  <div id="root" style="display:none;"></div>
+  <div id="root"></div>
 
+  <script type="module" src="/src/index.jsx"></script>
 </body>
 
 </html>

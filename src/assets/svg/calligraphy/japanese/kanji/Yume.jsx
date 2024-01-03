@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames";
 
 // style="enable-background:new 0 0 195.6 196.2;"
-export default ({ className, firstStrokeClassName }) => <svg class={classNames('calligraphy', className)}
+export default ({ className, firstStrokeClassName }) => <svg className={classNames('calligraphy', className)}
   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 209.89 196.17">
 
   <clipPath id="yume-4-mask">
@@ -123,36 +123,36 @@ export default ({ className, firstStrokeClassName }) => <svg class={classNames('
   </clipPath>
  
 
-    <g  clip-path="url(#yume-1-mask)">
+    <g  clipPath="url(#yume-1-mask)">
    
-      <polyline class={classNames('siblings', firstStrokeClassName)} points="62.1,14.5 71.3,21.7 76.3,31.3 84.8,46.2"/>
-      <polyline class="siblings" points="127.8,6.5 126.3,22.5 119.3,42.9"/>
-      <polyline class="siblings" points="30,37.7 92.2,27.3 127.2,24.5 172.9,29.8 172.9,29.8	"/>
+      <polyline className={classNames('siblings', firstStrokeClassName)} points="62.1,14.5 71.3,21.7 76.3,31.3 84.8,46.2"/>
+      <polyline className="siblings" points="127.8,6.5 126.3,22.5 119.3,42.9"/>
+      <polyline className="siblings" points="30,37.7 92.2,27.3 127.2,24.5 172.9,29.8 172.9,29.8	"/>
     </g>
 
-    <g  clip-path="url(#yume-2-mask)">
+    <g  clipPath="url(#yume-2-mask)">
 
-      <polyline class="siblings" points="40.7,63.5 66.6,57.9 84.8,55.6 98.3,53.3 108.6,50.5 121.7,50.3 154.7,50.5 149,81.3 
+      <polyline className="siblings" points="40.7,63.5 66.6,57.9 84.8,55.6 98.3,53.3 108.6,50.5 121.7,50.3 154.7,50.5 149,81.3 
         149.9,87.1 		"/>
-      <line class="siblings" x1="45" y1="53.3" x2="66.6" y2="90.1"/>
-      <line class="siblings" x1="80.9" y1="49.1" x2="95.9" y2="85.7"/>
-      <line class="siblings" x1="114.6" y1="40.1" x2="117.5" y2="85.3"/>
-      <polyline class="siblings" points="51.5,84.3 84.8,77.5 97.7,73.8 116,72.1 132.2,71.9 165.6,73.8"/>
+      <line className="siblings" x1="45" y1="53.3" x2="66.6" y2="90.1"/>
+      <line className="siblings" x1="80.9" y1="49.1" x2="95.9" y2="85.7"/>
+      <line className="siblings" x1="114.6" y1="40.1" x2="117.5" y2="85.3"/>
+      <polyline className="siblings" points="51.5,84.3 84.8,77.5 97.7,73.8 116,72.1 132.2,71.9 165.6,73.8"/>
     </g>
 
-    <g  clip-path="url(#yume-3-mask)">
+    <g  clipPath="url(#yume-3-mask)">
  
-      <polyline class="siblings" points="19.8,123.5 30.1,113.6 37.7,87.2 "/>
-      <polyline class="siblings" points="39.5,102.2 179.6,91.9 154.7,111.2	"/>
+      <polyline className="siblings" points="19.8,123.5 30.1,113.6 37.7,87.2 "/>
+      <polyline className="siblings" points="39.5,102.2 179.6,91.9 154.7,111.2	"/>
     </g>
 
-    <g  clip-path="url(#yume-4-mask)">
+    <g  clipPath="url(#yume-4-mask)">
 
-      <polyline class="siblings" points="99.4,96.6 82.7,111.2 66.6,122.6 45,133.3 "/>
-      <polyline class="siblings" points="89.1,115 146,111.1 128.6,127 104.6,147.3 77.9,166.1 36,183.3 117.3,159.1 		"/>
-      <line class="siblings" x1="71.3" y1="123.9" x2="121.7" y2="160.9"/>
+      <polyline className="siblings" points="99.4,96.6 82.7,111.2 66.6,122.6 45,133.3 "/>
+      <polyline className="siblings" points="89.1,115 146,111.1 128.6,127 104.6,147.3 77.9,166.1 36,183.3 117.3,159.1 		"/>
+      <line className="siblings" x1="71.3" y1="123.9" x2="121.7" y2="160.9"/>
     
     {/* We add one element which wont be draw but will allow a delay between 2 characters  */}
-    <polyline class="siblings additionalDelayEndOfCharacters" />
+    <polyline className="siblings additionalDelayEndOfCharacters" />
     </g> 
   </svg>

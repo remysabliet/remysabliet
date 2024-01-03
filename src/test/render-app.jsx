@@ -6,7 +6,7 @@ import renderWithContext from './render-with-context'
 import rootReducer from '../reducers'
 import { getDeviceInfo } from '../actions/deviceInfo'
 import { whichDevice } from '../utils/whichDevice'
-import App from '../App'
+import App from '../xxx'
 import messages from '../i18n/en'
 
 function initStore(store) {

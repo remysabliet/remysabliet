@@ -68,6 +68,7 @@ const FlagBox = React.memo(props => {
       {flags &&
         flags.map(flag => (
           <Button
+            key={`flag-${flag.locale}`}
             type="button"
             id={`${flag.locale}`}
             active={flag.active}
@@ -76,7 +77,7 @@ const FlagBox = React.memo(props => {
             <SVGDisplayer svg={settings[flag.locale]} />
           </Button>
         ))}
-    </div>
+    </div >
   )
 })
 

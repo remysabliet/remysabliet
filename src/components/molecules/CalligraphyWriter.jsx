@@ -53,7 +53,7 @@ const CalligraphyWriter = React.memo((props) => {
       {symbols && symbols.length ? (
         locale === 'ja' ?
           symbols.map(symbol =>
-            <div className={`grid-item-${symbol['class']}`}>
+            <div key={`symbol-${symbol['class']}`} className={`grid-item-${symbol['class']}`}>
               {symbol['element']}
             </div>
           ) :
@@ -61,7 +61,7 @@ const CalligraphyWriter = React.memo((props) => {
             .map(row => {
               return (
                 <div className="rs-calligraphy-container-en-row"> {symbols.filter(symb => symb.class === row)
-                  .map(elem => <div style={{ width: `${elem['weight'] * alphabetItemWidth}px` }} className="rs-calligraphy-item">
+                  .map(elem => <div key={elem.class} style={{ width: `${elem['weight'] * alphabetItemWidth}px` }} className="rs-calligraphy-item">
                     {elem['element']}
                   </div>)}
                 </div>)

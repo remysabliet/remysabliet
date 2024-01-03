@@ -50,7 +50,7 @@ const Contact = props => {
         muted
         loop
         playsInline // mandatory to make it works in IOS (whatever the browser)
-        autoBuffer
+        autobuffer="true"
       >
         <source src={video} type="video/mp4" />
       Your browser does not support the video tag.

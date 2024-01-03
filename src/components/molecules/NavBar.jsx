@@ -82,7 +82,7 @@ const NavBar = React.memo(
 
     return (
       <React.Fragment>
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="svg-filters">
           <defs>
             <filter id="filter-goo-2">
               <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
@@ -102,6 +102,7 @@ const NavBar = React.memo(
             {slides.map((slide, index) => {
               return (
                 <li
+                  key={`link${index + 1}`}
                   id={`link${index + 1}`}
                   className={classNames('rs-li', index === currentSlideIndex ? 'active' : '')}
                 >

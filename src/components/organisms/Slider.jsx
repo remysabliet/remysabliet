@@ -6,7 +6,7 @@ import MagicSlider from 'helpers/HOC/MagicSlider'
 import AnimationContainer from 'containers/AnimationContainer'
 
 import { recomputeViewportSize } from 'helpers/utils/miscellaneous'
-import { animateIfInView, delay,  } from "helpers/utils/animation"
+import { animateIfInView, delay, } from "helpers/utils/animation"
 
 /**
  * Component representing the slider and its different states
@@ -14,11 +14,11 @@ import { animateIfInView, delay,  } from "helpers/utils/animation"
  * 
  * Pause or resume slide animation (except for Safari/ios) depending on state.currentSlide update
  */
-class Slider extends React.PureComponent {
+class Slider extends React.Component {
   constructor(props) {
     super(props)
     const { slides } = props
-     
+
     this.intervalAnimDesktop = -1;
 
     this.state = {
@@ -184,14 +184,14 @@ class Slider extends React.PureComponent {
       return {
         currentSlide: currentSlide
       }
-    } else if (props.foregroundArrayHasBeenDeactivatedOnce)
-      return null; // return null if the state hasn't changed
+    }
+    return null; // return null if the state hasn't changed
   }
 
-    /**
-   *  Called only at initial loading, we must activate the home page animation as
-   * componentDidUpdate (in charge of pausing or starting slide animation) won't be called if we don't state doesn't change
-   */
+  /**
+ *  Called only at initial loading, we must activate the home page animation as
+ * componentDidUpdate (in charge of pausing or starting slide animation) won't be called if we don't state doesn't change
+ */
   componentDidMount() {
     //We initialize viewport SCSS variable --vh/--vw
     recomputeViewportSize()
@@ -221,7 +221,7 @@ class Slider extends React.PureComponent {
     }
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     window.clearInterval(this.intervalAnimDesktop)
   }
 
@@ -235,8 +235,8 @@ class Slider extends React.PureComponent {
     //In case of slide change
     if (prevState.currentSlide !== this.state.currentSlide) {
       this.resumeAnimation(this.state.currentSlide);
-          // Safari animation-play-state is not working for years now
-      if(!(prevProps.deviceInfo==="safari" || prevProps.deviceInfo==="ios")){
+      // Safari animation-play-state is not working for years now
+      if (!(prevProps.deviceInfo === "safari" || prevProps.deviceInfo === "ios")) {
         this.pauseAnimation(prevState.currentSlide);
       }
 
@@ -252,7 +252,7 @@ class Slider extends React.PureComponent {
       }
     }
   }
-  
+
   /**
    *
    *  Make a loop through children to add specific Slide properties
@@ -274,8 +274,9 @@ class Slider extends React.PureComponent {
             id: slide,
             ref: this.refs[i],
             isCurrentSlide: currentSlide === slide ? true : false,
-            deviceInfo
-            ,
+            deviceInfo,
+            key: slide,
+
             ...others
           }
           return React.cloneElement(child, additionalProps)

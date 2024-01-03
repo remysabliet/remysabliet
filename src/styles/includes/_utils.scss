@@ -4,6 +4,5 @@
 @function randomRange($min, $max) {
   $rand: random();
   $randomRange: $min + floor($rand * (($max - $min) + 1));
-  @warn $randomRange;
   @return $randomRange;
 }

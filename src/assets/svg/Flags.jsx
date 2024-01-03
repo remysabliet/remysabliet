@@ -29,7 +29,7 @@ export default () => (
     {/* GB Flag */}
     <defs>
     <clipPath id="gb">
-        <path fill-opacity=".7" d="M-85.3 0h682.6v512H-85.3z" />
+        <path fillOpacity=".7" d="M-85.3 0h682.6v512H-85.3z" />
     </clipPath>
     </defs>
   <symbol id="enFlag">

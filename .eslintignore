@@ -1,2 +1,20 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# firebase
+/.firebase
+
+# dependencies
 /node_modules
-/config
+
+# production
+/build
+
+# VsCode settings
+/.vscode
+
+# misc
+.DS_Store
+.env
+
+
+npm-debug.log*

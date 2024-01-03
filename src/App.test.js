@@ -9,7 +9,7 @@ import {
   Simulate
 } from 'react-testing-library'
 import { createMemoryHistory } from 'history'
-import Routes from './Routes'
+import Routes from './routes'
 import allMessages from './i18n'
 import { flatten } from './i18n/i18n-utils'
 

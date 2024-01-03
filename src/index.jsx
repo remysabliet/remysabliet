@@ -25,7 +25,6 @@ const RoutedAppWithStore = () => {
       </Router>
     </div>);
 }
-render(
-  <RoutedAppWithStore />,
-  document.getElementById('root')
-)
+render(<RoutedAppWithStore />, document.getElementById('root'));
+
+

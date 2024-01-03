@@ -12,10 +12,7 @@ we must add some additional time to animatedElement to make it more natural
   }
 
   &.rs-js-slide-up-css-config {
-    animation: slide-up-anim 3s forwards
-      calc(
-        calc(var(--slideTransitionDelay) * 1s) / 2
-      ); // We add a delay of half the time of a transition between slide
+    animation: slide-up-anim 3s forwards calc(calc(calc(var(--slideTransitionDelay) * 1s) / 2)); // We add a delay of half the time of a transition between slide
   }
 
   &.rs-js-slide-down {
@@ -23,10 +20,7 @@ we must add some additional time to animatedElement to make it more natural
   }
 
   &.rs-js-slide-down-css-config {
-    animation: slide-down-anim 3s forwards
-      calc(
-        calc(var(--slideTransitionDelay) * 1s) / 2
-      ); // We add a delay of half the time of a transition between slide
+    animation: slide-down-anim 3s forwards calc(calc(var(--slideTransitionDelay) * 1s) / 2); // We add a delay of half the time of a transition between slide
   }
 
   &.rs-js-slide-left {
@@ -34,10 +28,7 @@ we must add some additional time to animatedElement to make it more natural
   }
 
   &.rs-js-slide-left-css-config {
-    animation: slide-left-anim 3s forwards
-      calc(
-        calc(var(--slideTransitionDelay) * 1s) / 2
-      ); // We add a delay of half the time of a transition between slide
+    animation: slide-left-anim 3s forwards calc(calc(var(--slideTransitionDelay) * 1s) / 2); // We add a delay of half the time of a transition between slide
   }
 
   &.rs-js-slide-right {
@@ -45,10 +36,7 @@ we must add some additional time to animatedElement to make it more natural
   }
 
   &.rs-js-slide-right-css-config {
-    animation: slide-right-anim 3s forwards
-      calc(
-        calc(var(--slideTransitionDelay) * 1s) / 2
-      ); // We add a delay of half the time of a transition between slide
+    animation: slide-right-anim 3s forwards calc(calc(var(--slideTransitionDelay) * 1s) / 2); // We add a delay of half the time of a transition between slide
   }
 }
 
@@ -56,31 +44,22 @@ we must add some additional time to animatedElement to make it more natural
   @for $i from 1 through 100 {
     $y: randomRange(-30, 70);
     $x: randomRange(-5, 95);
-    $opa: randomRange(7, 10) /
-      10; // opacite between 0.3 and 1
+    $opa: calc(randomRange(7, 10) / 10); // opacite between 0.3 and 1
+
     // @warn $y;
     p {
       &:nth-child(#{$i}) {
         position: absolute;
         // will-change: opacity, transform;
-        left: calc(
-          var(--vw, 1vw) * #{$x}
-        ); // Will replace p element on the X according to viewport resize
-        top: calc(
-          var(--vh, 1vh) * #{$y}
-        ); // Will replace p element on the Y according to viewport resize
+        left: calc(var(--vw, 1vw) * #{$x}); // Will replace p element on the X according to viewport resize
+        top: calc(var(--vh, 1vh) * #{$y}); // Will replace p element on the Y according to viewport resize
         opacity: 0;
-        font-size: percentage(random(15) / 5);
+        font-size: percentage(calc(random(15) / 5));
         font-family: 'Matrix-MZ4P';
         color: $silver;
         writing-mode: vertical-rl;
         text-orientation: upright;
-        animation: vertical-trans-opa-anim
-          infinite
-          randomRange(4, 10) +
-          s
-          linear
-          #{$i/4}s; // delay time before appearance
+        animation: vertical-trans-opa-anim infinite randomRange(4, 10)+s linear #{calc($i/4)}s; // delay time before appearance
         cursor: default;
       }
     }
@@ -90,10 +69,12 @@ we must add some additional time to animatedElement to make it more natural
         opacity: 0;
         transform: translateY(0%);
       }
+
       50% {
         opacity: #{$opa};
         transform: translateY(10%);
       }
+
       100% {
         opacity: 0;
         transform: translateY(20%);
@@ -108,10 +89,9 @@ we must add some additional time to animatedElement to make it more natural
 @keyframes slide-up-anim {
   0% {
     opacity: 0;
-    transform: translateY(
-      calc(var(--vh, 1vh) * 10)
-    );
+    transform: translateY(calc(var(--vh, 1vh) * 10));
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -124,10 +104,9 @@ we must add some additional time to animatedElement to make it more natural
 @keyframes slide-down-anim {
   0% {
     opacity: 0;
-    transform: translateY(
-      calc(var(--vh, 1vh) * -10)
-    );
+    transform: translateY(calc(var(--vh, 1vh) * -10));
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -140,10 +119,9 @@ we must add some additional time to animatedElement to make it more natural
 @keyframes slide-left-anim {
   0% {
     opacity: 0;
-    transform: translateX(
-      calc(var(--vw, 1vw) * 10)
-    );
+    transform: translateX(calc(var(--vw, 1vw) * 10));
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -156,10 +134,9 @@ we must add some additional time to animatedElement to make it more natural
 @keyframes slide-right-anim {
   0% {
     opacity: 0;
-    transform: translateX(
-      calc(var(--vw, 1vw) * -10)
-    );
+    transform: translateX(calc(var(--vw, 1vw) * -10));
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -173,6 +150,7 @@ we must add some additional time to animatedElement to make it more natural
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -182,6 +160,7 @@ we must add some additional time to animatedElement to make it more natural
 * Perform a X-Translation loop (intended for object going out/inside viewport (NavigationBar)
 */
 @keyframes nav-bar-anim {
+
   /*Transformation are performed based on the current position of the element
   CSS translation by percentage takes the % of the element that is being translated to 
   figure the distance to move. It does not act like your typical css declaration like top,
@@ -189,15 +168,20 @@ we must add some additional time to animatedElement to make it more natural
   0% {
     transform: translateX(0%);
   }
+
   25% {
     transform: translateX(-100%);
-  } /* if width = 150px then =300% * 150px = 450px */
+  }
+
+  /* if width = 150px then =300% * 150px = 450px */
   50% {
     transform: translateX(-100%);
   }
+
   75% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(0%);
   }

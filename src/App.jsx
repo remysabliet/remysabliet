@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
