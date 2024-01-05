@@ -14,3 +14,8 @@
 |     3|  AWS               |
 |     3|  SQL               |
 
+<style>
+  ul {
+    list-style: none;
+  }
+</style>
