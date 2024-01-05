@@ -1,16 +1,15 @@
-# remysabliet v.1.1
----
-This project was bootstrapped with React, Redux, React Router, Vite (JQuery free)
 
-# Introduction
-This homepage is a simple presentation of Rémy SABLIET, a web designer in Freelance and has been developed using 
-several animation techniques including JS, CSS3, SVG and a little bit of GSAP.
+Hail, adventurer!
+👦🏻 Rémy SABLIET, a French🇫🇷 SE located in Tokyo since 2017
+🍀 I have a profound interest in ecology and proudly own 25 trees on [Ecotree](https://ecotree.green/)
+💻 Typescript, ReactJS, NextJS, AWS
+🔮 Enthusiast of RPG and fantasy-related topics.
 
-# Installation & run cmds
-- Clone the repo
-- Run `npm install`
-- Run `npm start`
 
-# dev. description
-- Handmade sliding effect using vanilla JS and applied under an HOC
-- Responsive design supporting phone, tablet, desktop 
+| Rank | THING-TO-RANK      |
+|-----:|--------------------|
+|     1|  React/Typescript  |
+|     2|  NodeJS            |
+|     3|  AWS               |
+|     3|  SQL               |
+
