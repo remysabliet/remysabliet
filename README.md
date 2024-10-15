@@ -10,7 +10,7 @@
 
 | Rank | Lang, Frmwk, Cloud |
 |-----:|--------------------|
-|     1|  React/Typescript  |
+|     1|  NextJs/React/TS   |
 |     2|  NodeJS            |
 |     3|  AWS               |
 |     4|  SQL               |
