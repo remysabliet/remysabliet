@@ -1,3 +1,7 @@
+@use '../includes/_colors' as *;
+@use '../includes/_effects' as *;
+@use '../includes/_flex' as *;
+
 .rs-foreground-ui {
   position: fixed;
   top: 0;

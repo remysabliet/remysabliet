@@ -1,3 +1,7 @@
+@use "sass:math";
+@use './_colors' as *;
+@use './_utils' as *;
+
 $ease: cubic-bezier(0.2, 1, 0.3, 1);
 
 /** CSS Slider setting translation setting purpose
@@ -44,22 +48,20 @@ we must add some additional time to animatedElement to make it more natural
   @for $i from 1 through 100 {
     $y: randomRange(-30, 70);
     $x: randomRange(-5, 95);
-    $opa: calc(randomRange(7, 10) / 10); // opacite between 0.3 and 1
+    $opa: calc(randomRange(7, 10) / 10);
 
-    // @warn $y;
     p {
       &:nth-child(#{$i}) {
         position: absolute;
-        // will-change: opacity, transform;
-        left: calc(var(--vw, 1vw) * #{$x}); // Will replace p element on the X according to viewport resize
-        top: calc(var(--vh, 1vh) * #{$y}); // Will replace p element on the Y according to viewport resize
+        left: calc(var(--vw, 1vw) * #{$x});
+        top: calc(var(--vh, 1vh) * #{$y});
         opacity: 0;
-        font-size: percentage(calc(random(15) / 5));
+        font-size: math.percentage(calc(math.random(15) / 5));
         font-family: 'Matrix-MZ4P';
         color: $silver;
         writing-mode: vertical-rl;
         text-orientation: upright;
-        animation: vertical-trans-opa-anim infinite randomRange(4, 10)+s linear #{calc($i/4)}s; // delay time before appearance
+        animation: vertical-trans-opa-anim infinite randomRange(4, 10)+s linear #{calc($i/4)}s;
         cursor: default;
       }
     }

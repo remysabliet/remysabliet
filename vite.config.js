@@ -10,6 +10,13 @@ export default defineConfig({
         port: 3000,
     },
     outDir: 'build',
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler' // Use the modern Sass API
+            }
+        }
+    },
     resolve: {
         alias: {
             'actions': path.resolve(__dirname, './src/actions'),

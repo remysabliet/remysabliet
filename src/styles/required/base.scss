@@ -1,4 +1,4 @@
-@import "../includes/_mixins";
+@use "../includes/_mixins" as *;
 
 /* Hide scrollBar but allow scrolling */
 html {

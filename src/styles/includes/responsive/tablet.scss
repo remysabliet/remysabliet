@@ -1,3 +1,5 @@
+@use '../_responsive' as *;
+
 @include responsive(tablet){
   :root {
     --calligraphy-container-height: 50;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 
 const CalligraphyWriter = React.memo((props) => {
   const { symbols, className, locale, deviceInfo } = props;
@@ -13,6 +13,11 @@ const CalligraphyWriter = React.memo((props) => {
   // Width for an alphabet Item
   const [alphabetItemWidth, setAlphabetItemWidth] = useState(0);
 
+  // Memoize the unique classes to create a stable dependency
+  const uniqueClasses = useMemo(() => {
+    return symbols ? [...new Set(symbols.map(x => x.class))] : [];
+  }, [symbols]);
+
   /** This hooks is used in Alphabet language only
    * We write from left to right, top to bottom which make
    * use use a FlexBox to build-up SVG one after the others in a same row
@@ -20,10 +25,10 @@ const CalligraphyWriter = React.memo((props) => {
   useEffect(() => {
     if (['en'].includes(locale)) {
       // We count the number of rows
-      setAlphabetRowCount([...new Set(symbols.map(x => x.class))].length);
+      setAlphabetRowCount(uniqueClasses.length);
     }
 
-  }, symbols)
+  }, [locale, uniqueClasses])
 
   /** This hooks is used in Alphabet language only
   * Update dynamically the size of an item in CSS based on the number of rows
@@ -58,10 +63,10 @@ const CalligraphyWriter = React.memo((props) => {
             </div>
           ) :
           [...new Set(symbols.map(x => x.class))] // Retrieve the number of line to display 
-            .map(row => {
+            .map((row, index) => {
               return (
-                <div className="rs-calligraphy-container-en-row"> {symbols.filter(symb => symb.class === row)
-                  .map(elem => <div key={elem.class} style={{ width: `${elem['weight'] * alphabetItemWidth}px` }} className="rs-calligraphy-item">
+                <div key={`row-${row}-${index}`} className="rs-calligraphy-container-en-row"> {symbols.filter(symb => symb.class === row)
+                  .map((elem, elemIndex) => <div key={`${row}-${elemIndex}-${JSON.stringify(elem)}`} style={{ width: `${elem['weight'] * alphabetItemWidth}px` }} className="rs-calligraphy-item">
                     {elem['element']}
                   </div>)}
                 </div>)

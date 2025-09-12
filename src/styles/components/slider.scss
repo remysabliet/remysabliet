@@ -1,3 +1,10 @@
+@use '../includes/_colors' as *;
+@use '../includes/_variables' as *;
+@use '../includes/_mixins' as *;
+@use '../includes/_responsive' as *;
+@use '../includes/_flex' as *;
+@use '../required/typography' as *;
+
 $slide-count: 3; // Number of slide inside the slider
 
 // Slide transition animation
@@ -135,7 +142,7 @@ $slide-count: 3; // Number of slide inside the slider
         @include flexbox();
         @include flex-direction(column);
         width: 70vw;
-        background: url("../assets/img/calligraphyPaper.jpg") no-repeat center;
+        background: url("../assets/img/calligraphyPaper.avif") no-repeat center;
         background-size: 100% 100%;
         border-width: 3px;
         border-style: outset;
