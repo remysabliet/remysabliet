@@ -9,7 +9,7 @@ export default defineConfig({
     server: {
         port: 3000,
     },
-    outDir: 'build',
+    outDir: 'dist',
     css: {
         preprocessorOptions: {
             scss: {

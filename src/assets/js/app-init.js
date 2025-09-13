@@ -49,11 +49,18 @@ function setLanguageContent(lang) {
 }
 
 function afterAssetLoaded() {
-  const script = document.createElement('script');
-  script.src = "/src/index.jsx";
-  script.type = "module";
-  document.body.appendChild(script);
-  document.querySelector('.rs-splash-screen-container').style.display = "none";
+  // Import and load the React app
+  import('/src/index.jsx').then(() => {
+    document.querySelector('.rs-splash-screen-container').style.display = "none";
+  }).catch((error) => {
+    console.error('Failed to load React app:', error);
+    // Fallback: try loading as script
+    const script = document.createElement('script');
+    script.src = "/src/index.jsx";
+    script.type = "module";
+    document.body.appendChild(script);
+    document.querySelector('.rs-splash-screen-container').style.display = "none";
+  });
 }
 
 // Wait for DOM to be ready
