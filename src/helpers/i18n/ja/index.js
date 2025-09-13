@@ -7,7 +7,18 @@ import ITTerminology from './ITTerminology'
  */
 
 const nestedMessages = {
-  ITTerminology
+  ITTerminology,
+  language: {
+    switchTo: '切り替え',
+    en: '英語',
+    ja: '日本語',
+    fr: 'フランス語'
+  },
+  navigation: {
+    slide1: 'スプラッシュページに移動',
+    slide2: '自己紹介に移動',
+    slide3: 'お問い合わせに移動'
+  }
 }
 
 function flatten(nestedMessages, prefix = '') {

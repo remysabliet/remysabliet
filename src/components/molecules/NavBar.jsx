@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { addExplosionEffectOnClick } from 'helpers/utils/animation'
 import classNames from 'classnames'
+import __ from 'helpers/i18n'
 
 const NavBar = React.memo(
   ({
@@ -9,7 +10,8 @@ const NavBar = React.memo(
     isSlideControlActivated,
     setCurrentSlideIndex,
     setSlideControllerDeactivated,
-    slides
+    slides,
+    locale
   }) => {
     useEffect(() => triggerExplosionAnim(currentSlideIndex), [currentSlideIndex])
 
@@ -112,7 +114,12 @@ const NavBar = React.memo(
                       'rs-link-container'
                     )}
                     style={{ filter: `url(#filter-goo-2)` }}
-                    onClick={() => onLinkClick(index)}
+                    href={`#slide-${index + 1}`}
+                    aria-label={__(`navigation.slide${index + 1}`, locale)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onLinkClick(index);
+                    }}
                   >
                     <span className="rs-span-bg"></span>
                   </a>

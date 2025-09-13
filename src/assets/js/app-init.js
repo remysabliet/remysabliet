@@ -71,13 +71,27 @@ function initializeApp() {
   const detectedLang = detectLanguage();
   setLanguageContent(detectedLang);
   
+  // Set a timeout fallback (3 seconds)
+  const timeoutId = setTimeout(() => {
+    console.log('Timeout reached, loading app anyway');
+    afterAssetLoaded();
+  }, 3000);
+  
   // Video loading
   const video = document.getElementById('preload-video');
   if (video) {
-    video.addEventListener('canplaythrough', afterAssetLoaded);
-    video.addEventListener('error', afterAssetLoaded);
+    video.addEventListener('canplaythrough', () => {
+      clearTimeout(timeoutId);
+      afterAssetLoaded();
+    });
+    video.addEventListener('error', () => {
+      clearTimeout(timeoutId);
+      afterAssetLoaded();
+    });
   } else {
     console.error('Video element not found!');
+    clearTimeout(timeoutId);
+    afterAssetLoaded();
   }
 }
 
