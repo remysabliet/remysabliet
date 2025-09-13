@@ -1,0 +1,31 @@
+{
+    "name": "Rémy SABLIET - Web designer | Full stack | Freelancer",
+    "short_name": "Rémy SABLIET",
+    "description": "Rémy SABLIET is a Freelancer Web designer, Full Stack engineer based in Tokyo. He will help you design and develop outstanding website to promote your brand.",
+    "icons": [
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/remy-sab.ico",
+            "sizes": "256x256",
+            "type": "image/x-icon"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "standalone",
+    "start_url": "/"
+}
