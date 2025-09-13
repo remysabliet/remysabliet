@@ -6,106 +6,57 @@
   <meta name="theme-color" content="#000000">
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <title>Rémy SABLIET - Web designer | Full stack | Freelancer</title>
-  <meta name="description"
-    content="Rémy SABLIET is a Senior Full-Stack engineer | Next.js, React, Node.js, & AWS | Building Scalable, Modern Applications for Seamless User Experiences.">
-  <meta name="keywords"
-    content="Rémy SABLIET, remy sabliet, remy, sabliet, remysab, front-end,front end, web designer, developer, freelance, back-end, full stack engineer ">
 
-  <!-- Favicon and App Icons -->
+  <!-- Dynamic title and description will be set by JavaScript -->
+  <title>Rémy SABLIET - Senior Full-Stack engineer | Freelancer</title>
+  <meta name="description" content="Rémy SABLIET is a Senior Full-Stack engineer...">
+
+  <!-- SEO Meta Tags -->
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Rémy SABLIET">
+  <link rel="canonical" href="https://remysab.com">
+
+  <!-- Social Media -->
+  <meta property="og:title" content="Rémy SABLIET - Senior Full-Stack engineer | Freelancer">
+  <meta property="og:description" content="Rémy SABLIET is a Senior Full-Stack engineer...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://remysab.com">
+  <meta property="og:image" content="/apple-touch-icon.png">
+
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+  <!-- Icons & PWA -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  
-  <style>
-    /* Hide scrollBar but allow scrolling */
-    body,
-    html {
-      position: relative;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      position: relative;
-      /*Important: BUG Safari fixed: relative position on the body allow the 
-  foreground div to get the whole place of its parent container (originally bottom:0 didn't worked and foreground take the viewport view only  */
-      width: 100%;
-      overflow: hidden;
-      background-color: black;
-      font-family: "Franklin Gothic Medium";
-    }
 
-    /* Integrate HTML CSS inline of the index.html for a quicker initial rendering speed  */
-    @keyframes run {
-      0% {
-        left: -40px;
-        color: #eee;
-      }
+  <!-- Performance -->
+  <link rel="preload" href="/src/index.jsx" as="script" crossorigin>
 
-      50% {
-        color: #666;
-      }
-
-      100% {
-        left: 40px;
-        color: #eee;
-      }
-    }
-
-    .rs-splash-screen-container {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .rs-splash-screen-container .rs-splash-screen {
-      position: absolute;
-      width: 100%;
-      height: 10vh;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .rs-splash-screen .rs-loading-dot {
-      font-size: 100px;
-      margin-top: -40px;
-      position: relative;
-      animation: ease-in-out infinite alternate;
-      animation-name: run;
-      animation-duration: 1.2s;
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/css/critical.css">
 </head>
 
-<script>
-  function afterAssetLoaded() {
-    var script = document.createElement('script');
-    script.src = "/src/index.jsx";
-    script.type = "module";
-    document.body.appendChild(script);
-    document.getElementsByClassName('rs-splash-screen-container')[0].style.display = "none";
-  }
-</script>
-
-
 <body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <div class="rs-splash-screen-container" aria-label="Loading application" role="status">
+    <div class="rs-splash-screen">
+      <div class="rs-loading-dot" aria-hidden="true">•</div>
+      <span class="rs-loading-text" aria-live="polite">Loading...</span>
+    </div>
+  </div>
 
   <div id="root"></div>
 
-  <script type="module" src="/src/index.jsx"></script>
+  <video id="preload-video" style="display: none;">
+    <source src="/src/assets/video/codingBackgroundMovie.mp4" type="video/mp4">
+  </video>
+
+  <!-- External JavaScript -->
+  <script src="/js/app-init.js"></script>
 </body>
 
 </html>
