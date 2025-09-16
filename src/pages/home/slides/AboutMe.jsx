@@ -31,7 +31,7 @@ const AboutMe = props => {
     let svgElem = document.querySelectorAll(
       '.calligraphy'
     )
-    
+
     //.rs-js-slide-up
     let strokeElem = document.querySelectorAll(
       '.rs-js-animated-element .calligraphy .siblings'
@@ -43,16 +43,14 @@ const AboutMe = props => {
       setIsAlreadyActivated(true)
       let counter = 1 // initial delay
       strokeElem.forEach(element => {
-        // console.log(element.style.animationDelay)
+
         // We check whether the class punctuation-delay is associated to the element of the SVG or not
         // This give birth to extra temporization yes to respect reading experience related to punctuation
         const additionalTime = element.className.baseVal.includes(
           'punctuation-delay'
         )
-          ? 1
-          : locale === 'ja'
-          ? 0.10
-          : 0.1 // elapsed time between character letter
+          ? 1 // punctuation
+          : 0.1 // character
         counter = counter + additionalTime
 
         element.style.animationDelay = `${counter}s`
