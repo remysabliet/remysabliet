@@ -1,3 +1,5 @@
+@use '../_responsive' as *;
+
 @include responsive(phone) {
   :root {
     --calligraphy-container-height: 40;

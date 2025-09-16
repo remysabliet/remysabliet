@@ -1,4 +1,4 @@
-@import './_colors';
+@use './_colors' as *;
 
 @mixin ellipsis() {
   overflow: hidden;

@@ -7,7 +7,18 @@ import ITTerminology from './ITTerminology'
  */
 
 const nestedMessages = {
-  ITTerminology
+  ITTerminology,
+  language: {
+    switchTo: 'Switch to',
+    en: 'English',
+    ja: 'Japanese',
+    fr: 'French'
+  },
+  navigation: {
+    slide1: 'Go to splash page',
+    slide2: 'Go to introduction',
+    slide3: 'Go to contact'
+  }
 }
 
 function flatten(nestedMessages, prefix = '') {

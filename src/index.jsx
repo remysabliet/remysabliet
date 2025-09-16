@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import classNames from 'classnames'
 import is from 'is_js'
@@ -17,7 +17,7 @@ const locale = getLocale()
 const store = configureStore({ global: { deviceInfo, locale } })
 
 const RoutedAppWithStore = () => {
- 
+
   return (
     <div className={classNames(is['safari']() || is['ios']() ? 'safari' : '')}>
       <Router>
@@ -25,6 +25,8 @@ const RoutedAppWithStore = () => {
       </Router>
     </div>);
 }
-render(<RoutedAppWithStore />, document.getElementById('root'));
 
+const container = document.getElementById('root')
+const root = createRoot(container)
+root.render(<RoutedAppWithStore />)
 

@@ -31,7 +31,7 @@ const Home = props => {
   useEffect(() => {
 
     // Desktop version - we must do the Initial firing of animated element (There is no eventListener fired when page are successfully mounted)
-    if(!['ios', 'android'].includes(deviceInfo)){
+    if (!['ios', 'android'].includes(deviceInfo)) {
       console.log("home device info", deviceInfo)
       animateIfInView();
     }
@@ -43,13 +43,13 @@ const Home = props => {
     let r = 0,
       g = 0,
       b = 0
-      let counter =0;
+    let counter = 0;
 
-      // for every node owning .rs-portrait-color class (current situation around 4 head, shoulder, tie, ..)
+    // for every node owning .rs-portrait-color class (current situation around 4 head, shoulder, tie, ..)
     elems.forEach(elem => {
       const intervalColor = setInterval(
         () => {
-          counter+=1;
+          counter += 1;
           //   getComputedStyle(elem).getPropertyValue(
           //     'fill'
           //   ),
@@ -68,11 +68,11 @@ const Home = props => {
             [r, g, b].every(
               currentValue => currentValue >= 255
             )
-          ){
+          ) {
             clearInterval(intervalColor)
           }
         },
-         50 // the whole animation last about 15s (255/0.2*50*4)
+        50 // the whole animation last about 15s (255/0.2*50*4)
       )
     })
   }, [1]) // using a constant make the useEffect run only one time
@@ -81,9 +81,9 @@ const Home = props => {
   return (
     <Fragment>
       {debugMode && <div>{deviceInfo}
-      {'innerHeight: ' + window.innerHeight}
-      {'  outerHeight: ' + window.outerHeight}
-    </div>}
+        {'innerHeight: ' + window.innerHeight}
+        {'  outerHeight: ' + window.outerHeight}
+      </div>}
       <Matrix
         limit={matrixLimit}
         list={__('ITTerminology', locale)}
@@ -94,12 +94,14 @@ const Home = props => {
       >
         Rémy SABLIET
       </h1>
+
       <h1
         className="rs-js-animated-element rs-title-right"
         data-anim-in-view="rs-js-slide-left"
       >
-        Web Designer
+        Full-Stack<br />Dev.
       </h1>
+
 
       <Portrait />
     </Fragment>

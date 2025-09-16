@@ -1,21 +1,21 @@
-// required
-@import "./required/root";
-@import "./required/base";
-@import "./required/typography";
+// Forward required modules
+@forward "./required/root";
+@forward "./required/base";
+@forward "./required/typography";
 
-// includes
-@import "./includes/_colors";
-@import "./includes/_flex";
-@import "./includes/_mixins";
-@import "./includes/_responsive";
-@import "./includes/_variables";
-@import "./includes/_utils";
-@import "./includes/_effects";
-@import "./includes/responsive/phone";
-@import "./includes/responsive/tablet";
+// Forward includes modules
+@forward "./includes/_colors";
+@forward "./includes/_flex";
+@forward "./includes/_mixins";
+@forward "./includes/_responsive";
+@forward "./includes/_variables";
+@forward "./includes/_utils";
+@forward "./includes/_effects";
+@forward "./includes/responsive/phone";
+@forward "./includes/responsive/tablet";
 
-// components
-@import "./components/foregroundUi";
-@import "./components/slider";
-@import "./components/calligraphy";
-@import "./components/nomatch";
+// Forward components
+@forward "./components/foregroundUi";
+@forward "./components/slider";
+@forward "./components/calligraphy";
+@forward "./components/nomatch";

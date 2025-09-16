@@ -1,3 +1,10 @@
+@use '../includes/_colors' as *;
+@use '../includes/_variables' as *;
+@use '../includes/_mixins' as *;
+@use '../includes/_responsive' as *;
+@use '../includes/_flex' as *;
+@use '../required/typography' as *;
+
 $slide-count: 3; // Number of slide inside the slider
 
 // Slide transition animation
@@ -49,9 +56,11 @@ $slide-count: 3; // Number of slide inside the slider
         top: 75%;
         color: $silver;
         will-change: text-shadow;
+
         @include responsive(desktop) {
           @include neon-effect-green;
         }
+
         @include responsive(tablet) {
           @include neon-effect-green;
         }
@@ -61,19 +70,37 @@ $slide-count: 3; // Number of slide inside the slider
         position: absolute;
         right: 5%;
         top: 25%;
+        max-width: 220px; 
+        width: 220px; 
+        text-align: right;
+        white-space: nowrap; 
+
         @include responsive(desktop) {
           @include neon-effect-white;
+          max-width: 400px;
+          width: 300px;
         }
         @include responsive(tablet) {
           @include neon-effect-white;
+          max-width: 300px;
+          width: 300px;
         }
+        @include responsive(phone) {
+          width: 220px;
+          right: 2%;
+          top: 20%;
+          font-size: 2.5rem;
+        }
+      
 
         color: $flashy-green-deep;
         will-change: text-shadow;
       }
 
+
       svg {
         max-height: 100%;
+
         &.rs-full-view-port {
           height: 100vh;
           width: 100vw;
@@ -115,7 +142,7 @@ $slide-count: 3; // Number of slide inside the slider
         @include flexbox();
         @include flex-direction(column);
         width: 70vw;
-        background: url("../assets/img/calligraphyPaper.jpg") no-repeat center;
+        background: url("../assets/img/calligraphyPaper.avif") no-repeat center;
         background-size: 100% 100%;
         border-width: 3px;
         border-style: outset;
@@ -133,11 +160,10 @@ $slide-count: 3; // Number of slide inside the slider
           background: grey;
           opacity: 0.4;
         }
+
         .rs-middle {
           @include flex-grow(0.6);
-          height: calc(
-            var(--vh) * var(--calligraphy-container-height)
-          ); // We can't simply concatenate unit string to value, we must perform a calculation
+          height: calc(var(--vh) * var(--calligraphy-container-height)); // We can't simply concatenate unit string to value, we must perform a calculation
           padding: 1rem;
         }
       }
@@ -218,6 +244,7 @@ $slide-count: 3; // Number of slide inside the slider
             flex-grow: 0.3;
 
             z-index: 300;
+
             .rs-social-panel {
               color: white;
               text-align: center;
@@ -229,11 +256,13 @@ $slide-count: 3; // Number of slide inside the slider
               .rs-logo {
                 display: inline-block;
                 margin: $gutter * 2 0;
-                  a {
-                    height: 100% !important;
-                    img {
-                      max-height: 3rem;
-                    }
+
+                a {
+                  height: 100% !important;
+
+                  img {
+                    max-height: 3rem;
+                  }
 
                 }
               }
@@ -250,11 +279,10 @@ $slide-count: 3; // Number of slide inside the slider
             right: 0;
             top: 0;
             bottom: 0;
-            background-image: linear-gradient(
-              to right,
-              rgba(255, 0, 0, 0),
-              $background-color-green-black-fallback
-            ); /* Standard syntax (must be last) */
+            background-image: linear-gradient(to right,
+                rgba(255, 0, 0, 0),
+                $background-color-green-black-fallback );
+            /* Standard syntax (must be last) */
             // background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
           }
         }
@@ -262,17 +290,20 @@ $slide-count: 3; // Number of slide inside the slider
         @include responsive(phone) {
           .rs-content-overlay {
             @include flex-direction(column);
+
             .rs-blank {
               flex-grow: 0.7;
             }
 
             .rs-social {
               flex-grow: 0.3 !important;
+
               .rs-social-panel {
                 h1 {
                   font-size: 3rem;
                   white-space: nowrap;
                 }
+
                 min-width: calc(var(--vw) * 100);
               }
             }
@@ -288,11 +319,10 @@ $slide-count: 3; // Number of slide inside the slider
               right: 0;
               left: 0;
               bottom: 0;
-              background-image: linear-gradient(
-                to bottom,
-                rgba(255, 0, 0, 0),
-                $background-color-green-black-fallback
-              ); /* Standard syntax (must be last) */
+              background-image: linear-gradient(to bottom,
+                  rgba(255, 0, 0, 0),
+                  $background-color-green-black-fallback );
+              /* Standard syntax (must be last) */
             }
           }
         }

@@ -9,6 +9,7 @@
   "Java": "Java",
   "JavaScript": "JavaScript",
   "ReactJS": "ReactJS",
+  "Typescript": "Typescript",
   "CSS XHTML": "CSS XHTML",
   "JSS": "JSS",
   "CCSOM": "CCSOM",
@@ -20,6 +21,11 @@
   "Hibernate": "Hibernate",
   "UML": "UML",
   "animation": "アニメーション",
-  "objection": "Objection",
-  "OOM": "OOM"
+  "Next.js": "Next.js",
+  "GraphQL": "GraphQL",
+  "AWS": "AWS",
+  "Kubernetes": "Kubernetes",
+  "CDN": "CDN",
+  "View.js": "View.js",
+  "Angular": "Angular.js"
 } 

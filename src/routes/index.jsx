@@ -1,14 +1,14 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom' 
 
 import NoMatch from 'pages/NoMatch'
 import HomePage from 'pages/home'
 
-const Routes = props => (
-  <Switch>
-    <Route exact path="/" render={prop => <HomePage {...props} />} />
-    <Route path="*" component={NoMatch} />
-  </Switch>
+const AppRoutes = props => (
+  <Routes>
+    <Route path="/" element={<HomePage {...props} />} />
+    <Route path="*" element={<NoMatch />} />
+  </Routes>
 )
 
-export default Routes
+export default AppRoutes

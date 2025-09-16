@@ -1,7 +1,10 @@
 
 import React, { useState, useEffect } from 'react'
+
 import Button from 'components/atoms/Button'
 import SVGDisplayer from 'components/atoms/SVGDisplayer'
+import __ from 'helpers/i18n'
+
 import { locales as InitConf } from 'helpers/constants/global'
 
 const FlagBox = React.memo(props => {
@@ -73,6 +76,7 @@ const FlagBox = React.memo(props => {
             id={`${flag.locale}`}
             active={flag.active}
             onClick={setLocale}
+            aria-label={`${__('language.switchTo', locale)} ${__(`language.${flag.locale}`, locale)}`}
           >
             <SVGDisplayer svg={settings[flag.locale]} />
           </Button>

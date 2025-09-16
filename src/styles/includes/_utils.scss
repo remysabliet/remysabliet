@@ -1,8 +1,10 @@
+@use "sass:math";
+
 /**
-  *  Return an random number between a min and max limit
+  *  Return a random number between a min and max limit
   */
 @function randomRange($min, $max) {
-  $rand: random();
-  $randomRange: $min + floor($rand * (($max - $min) + 1));
+  $rand: math.random();
+  $randomRange: $min + math.floor($rand * (($max - $min) + 1));
   @return $randomRange;
 }

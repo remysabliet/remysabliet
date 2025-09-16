@@ -53,8 +53,8 @@ const Contact = props => {
         autobuffer="true"
       >
         <source src={video} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+        Your browser does not support the video tag.
+      </video>
 
       <div className="rs-content-overlay">
         <div className="rs-blank" />
@@ -65,10 +65,10 @@ const Contact = props => {
             <h1>Get in touch</h1>
             <div className="rs-logo">
               <a id="linkedin-link" href={linkedingURL} target="_blank">
-                <img src={linkedinLogo} />
+                <img src={linkedinLogo} alt="Linkedin link" />
               </a>
-              <a id="wantedly-link" href={wantedlyURL} target="_blank">
-                <img src={wantedlyWhite} />
+              <a id="wantedly-link" href={wantedlyURL} alt="Wantedly link" target="_blank">
+                <img src={wantedlyWhite} alt="Wantedly link" />
               </a>
             </div>
             <p>東京新宿区 - 169-0074</p>

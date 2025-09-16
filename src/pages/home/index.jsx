@@ -17,9 +17,6 @@ const HomePage = props => {
 
   const slides = ['home', 'about-me', 'contact']
 
-  // useEffect(() => {
-  //   // console.log("HomePage", props.deviceInfo)
-  // }, [props.locale])
   return (
     <>
       <SVGLoader />

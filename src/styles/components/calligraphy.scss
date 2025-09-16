@@ -1,3 +1,7 @@
+@use '../includes/_mixins' as *;
+@use '../includes/_flex' as *;
+@use '../includes/_variables' as *;
+
 $japanese-gride-template-area: "g0 f0 e0 d0 c0 b0 a0" "g1 f1 e1 d1 c1 b1 a1" "g2 f2 e2 d2 c2 b2 a2"
   "g3 f3 e3 d3 c3 b3 a3" "g4 f4 e4 d4 c4 b4 a4" "g5 f5 e5 d5 c5 b5 a5" "g6 f6 e6 d6 c6 b6 a6" "g7 f7 e7 d7 c7 b7 a7"
   "g8 f8 e8 d8 c8 b8 a8" "g9 f9 e9 d9 c9 b9 a9" "g10 f10 e10 d10 c10 b10 a10" "g11 f11 e11 d11 c11 b11 a11";
@@ -31,6 +35,14 @@ $japanese-gride-template-area: "g0 f0 e0 d0 c0 b0 a0" "g1 f1 e1 d1 c1 b1 a1" "g2
   }
 }
 
+// iOS Safari specific fixes for overflow issues
+.ios {
+  .rs-calligraphy-container-alphabet {
+    // Only add overflow protection on iOS - let rows size naturally
+    overflow: hidden;
+  }
+}
+
 .rs-calligraphy-container-alphabet {
   @include flexbox();
   @include flex-direction(column);
@@ -42,6 +54,9 @@ $japanese-gride-template-area: "g0 f0 e0 d0 c0 b0 a0" "g1 f1 e1 d1 c1 b1 a1" "g2
     @include flex-direction(row);
     @include justify-content(flex-start);
     @include flex-grow(1);
+    // Use calculated row height to prevent excessive spacing
+    height: var(--calligraphy-row-height, auto);
+    min-height: var(--calligraphy-row-height, 60px);
 
     // .rs-calligraphy-item {
     // }
