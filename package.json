@@ -7,7 +7,8 @@
     "start": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "pnpm build && firebase deploy"
   },
   "dependencies": {
     "classnames": "^2.2.6",

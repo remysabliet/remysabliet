@@ -4,7 +4,7 @@ import React, {
   useState
 } from 'react'
 
-import CalligraphyWritter from 'components/molecules/CalligraphyWriter'
+import CalligraphyWritter from 'components/organisms/CalligraphyWriter'
 
 import { symbols } from 'helpers/constants/homepage'
 
@@ -27,15 +27,6 @@ const AboutMe = props => {
   }, [locale])
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   const elem = document.querySelector(`.rs-about-me`)
-    //   elem.classList.add('js-pausing')
-    // },3000)
-
-    // // setTimeout(() => {
-    // //   const elem = document.querySelector(`.rs-about-me`)
-    // //   elem.classList.remove('js-pausing')
-    // // },4000)
 
     let svgElem = document.querySelectorAll(
       '.calligraphy'
@@ -60,8 +51,8 @@ const AboutMe = props => {
         )
           ? 1
           : locale === 'ja'
-          ? 0.12
-          : 0.3 // elapsed time between character letter
+          ? 0.10
+          : 0.1 // elapsed time between character letter
         counter = counter + additionalTime
 
         element.style.animationDelay = `${counter}s`
