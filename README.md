@@ -8,12 +8,12 @@
  
 <br>
 
-| Rank | Lang, Frmwk, Cloud |
-|-----:|--------------------|
-|     1|  NextJs/React/TS   |
-|     2|  NodeJS            |
-|     3|  AWS               |
-|     3|  SQL               |
+| Rank | Lang, Frmwk, Cloud      |
+|-----:|-------------------------|
+|     1|  Next.js/React/TS        |
+|     2|  NodeJS/Python/FastAPI  |
+|     3|  AWS                    |
+|     3|  SQL                    |
 
 
 <style>
